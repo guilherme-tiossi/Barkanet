@@ -1,0 +1,1 @@
+<?php deleta_solicitacao($con, $_GET['id']);?>

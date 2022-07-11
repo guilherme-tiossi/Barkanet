@@ -1,0 +1,89 @@
+.icon-lapis{
+  font-size: 14px;
+  cursor: pointer;
+  color: #000;
+}
+
+.card-perfil{
+  background-color: rgb(238, 239, 243);
+  border: 3px solid #b9babe;
+  border-radius: 0;
+}
+
+.card-fundo{
+  background-color: rgb(238, 239, 243);
+  border-left: 2px solid #b9babe;
+  border-right: 2px solid #b9babe;
+  border-bottom: 2px solid #b9babe;
+  border-radius: 0;
+}
+
+.card-posts{
+  background-color: rgb(238, 239, 243);
+  border: 2px solid #b9babe;;
+  border-radius: 0;
+}
+
+.bg-card-perfil{
+  background-color: rgb(238, 239, 243);
+}
+
+.to-hide{
+	display: none;
+}
+
+.alert{
+    color: #f00;
+}
+
+.pop-up{
+	color: #fff;
+ 	position: fixed;
+ 	width: 100%;
+ 	bottom: 2rem;
+ 	z-index: 1000;
+ 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+ 	background: #000;
+ 	border-radius: 5px;
+ 	padding: 1rem;
+ 	margin: 0 auto;
+ 	display: grid;
+ 	grid-template-columns: 1fr auto;
+ 	gap: 0.5rem;
+ 	opacity: 0;
+ 	transform: translateY(1rem);
+ 	animation: slideUp 0.5s forwards;
+}
+
+@keyframes slideUp {
+  to {
+    transform: initial;
+    opacity: initial;
+  }
+}
+
+.pop-up-hidden{
+	color: #fff;
+ 	position: fixed;
+ 	width: 100%;
+ 	bottom: 2rem;
+ 	z-index: 1000;
+ 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+ 	background: #000;
+ 	border-radius: 5px;
+ 	padding: 1rem;
+ 	margin: 0 auto;
+ 	display: grid;
+ 	grid-template-columns: 1fr auto;
+ 	gap: 0.5rem;
+ 	opacity: initial;
+ 	transform: initial;
+ 	animation: slideDown 1s forwards;
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(10rem);
+  	opacity: 0;
+  }
+}

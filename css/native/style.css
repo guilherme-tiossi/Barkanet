@@ -1,0 +1,27 @@
+.to-hide{
+  display: none;
+}
+
+.alert{
+    color: #f00;
+}
+
+#intro { 
+    background: url(../imgs/img_login.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+#cdheader {
+    background: linear-gradient(180deg, #FFFFFF 0%, #D5D8E3 100%);
+    padding-top:5px;
+    padding-bottom:1px;
+    font-family: 'KoHo', sans-serif;
+}
+#cdheader h5 {
+    margin-bottom:0px;
+}
+#cdbody {
+    background: linear-gradient(180deg, #FFFFFF 0%, #D5D8E3 55%);
+}

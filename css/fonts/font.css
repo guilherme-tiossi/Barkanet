@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'KoHo';
+	src: url(KoHo/KoHo-Regular.ttf);
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'KoHo';
+	src: url(KoHo/KoHo-Medium.ttf);
+	font-weight: bold;
+}

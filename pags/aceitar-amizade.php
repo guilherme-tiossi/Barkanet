@@ -1,0 +1,1 @@
+<?php aceita_solicitacao($con, $_GET['id']);?>

@@ -1,0 +1,1 @@
+<?php solicitacoes_grupo($con);?>

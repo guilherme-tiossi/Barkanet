@@ -4,7 +4,6 @@
   include('menu_esquerda.php');
   include('menu_direita.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -16,7 +15,7 @@
     <!--Pesquisa com código-->
     <h2>Insira o código de amizade:</h2>
     <form action="" method="post">
-        <input type="text" name="buscar" placeholder="#c0d1g0" maxlength="7" required>
+        <input type="text" name="buscar" placeholder="#c0d1g0" required>
         <button type="submit">Procurar</button><br>
     </form>
 
@@ -39,17 +38,22 @@
         echo "Usuário não encontrado" . "</br>";
       }
 
-      $stmt = $pdo->prepare("SELECT id_grupo, nome_grupo, descricao_grupo FROM tbgrupos WHERE nome_grupo LIKE '%$codigo%'");
+      $stmt = $pdo->prepare("SELECT id_grupo, nome_grupo, adm_grupo, descricao_grupo FROM tbgrupos WHERE nome_grupo LIKE '%$codigo%'");
       $stmt ->execute();
       $count2 = $stmt->rowCount();
-        echo "</br>" . "Grupos:" . "</br>";
+      echo "</br>Grupos:</br>";
+
         if($count2 >= 1){
           foreach($stmt as $row) {
             $idgrupo = $row['id_grupo']; 
             $nomegrupo = $row['nome_grupo'];
-          echo "<a href='$nomegrupo.php?nome_grupo=$nomegrupo&id_grupo=$idgrupo'>{$row['nome_grupo']}</a>";
-          echo " " . $row["descricao_grupo"];
-          echo "</br>";
+            $adm_grupo = $row['adm_grupo'];
+
+            //solicitar pra entrar no grupo ainda em desenvolvimento, por enquanto só aparece o nome do grupo e a descrição
+            //echo "<a href='pggrupo.php?pagina=solicitar-grupo&id_grupo=$idgrupo&id=$adm_grupo'>{$nomegrupo}</a>";
+            echo $nomegrupo;
+            echo " " . $row["descricao_grupo"];
+            echo "</br>";
           }
         }else{
           echo "Grupo não encontrado";

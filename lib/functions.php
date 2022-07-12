@@ -76,7 +76,7 @@
 			if($dados['id_adm'] == $id_adm && $dados['status'] == 1){
 				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Remover do Grupo</a>";
 				echo "<br>";
-				echo"<a href='posts.php?id_grupo={$id_grupo}'>Voltar</a>";
+				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
 			}
 
 			if($dados['id_adm'] == $id_usuario && $dados['status'] == 1){
@@ -88,7 +88,7 @@
 			if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['status'] == 0){
 				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Cancelar Convite</a>";
 				echo "<br>";
-				echo"<a href='posts.php?id_grupo={$id_grupo}'>Voltar</a>";
+				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
 			}
 
 			if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_adm && $dados['status'] == 0){
@@ -101,7 +101,7 @@
 		}else if($total <= 0  && $id_usuario != $id_adm){
 			echo "<a href='?pagina=solicitar-grupo&id_grupo={$id_grupo}&id={$id_usuario}'>Enviar Convite</a>";
 			echo "<br>";
-			echo"<a href='posts.php?id_grupo={$id_grupo}'>Voltar</a>";
+			echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
 		}
 	}
 

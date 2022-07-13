@@ -66,7 +66,7 @@ foreach ($stmt as $row) : ?>
     <?php
       echo $row["nome"];
       echo "<br>";
-        echo $row["titulo"];
+      echo $row["titulo"];
       echo "<br>";
       echo $row["post"];
       echo "<br>";
@@ -99,10 +99,53 @@ foreach ($stmt as $row) : ?>
       <input type="hidden" name="post_id" value="<?php echo $row["idpost"]; ?>">
       <input type="submit" name="comentar" value="Enviar">
     </form>
-    <?php endforeach;
+    <?php endforeach;?>
 
+  <?php carrega_pagina_atalho($con);?>
+  
+  <!--LISTA DE AMIGOS PARA ADD-->
+  <?php 
+  $stmt2 = $pdo->prepare("select * from tbgrupos where id_grupo = {$_GET['id_grupo']}");
+  $stmt2 ->execute();
+  foreach ($stmt2 as $row) :
+    $adm_grupo = $row['adm_grupo'];
+  endforeach;
 
+  if($adm_grupo == $_SESSION['userId']){
+    echo "<h3>Convidar Amigos</h3>";
+    $stmt2 = $pdo->prepare("select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
+    $stmt2 ->execute();
 
+    foreach ($stmt2 as $row) :
+      $id_para = $row['id_para'];
+      $id_de = $row['id_de'];
+                
+      if($id_para == $_SESSION['userId']){
+        $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_de'");
+        $stmt3 ->execute();
+        foreach ($stmt3 as $row):
+          echo "<a href='?pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
+          echo "<br>";
+        endforeach;
+      }
 
-// select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')
-?>
+      if($id_de == $_SESSION['userId']){
+        $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_para'");
+        $stmt3 ->execute();
+        foreach ($stmt3 as $row):
+          echo "<a href='?pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
+          echo "<br>";
+        endforeach;
+      }
+    endforeach;
+  }else{
+    $stmt2 = $pdo->prepare("SELECT * FROM membros_grupos WHERE (id_adm = $adm_grupo AND id_usuario = {$_SESSION['userId']}) OR (id_usuario = $adm_grupo AND id_adm = {$_SESSION['userId']})");
+    $stmt2 ->execute();
+    foreach ($stmt2 as $row) :
+      $id = $row['id'];
+      $id_grupo = $row['id_grupo'];
+    endforeach;
+    echo "<a href='?pagina=remover-grupo&id_grupo={$id_grupo}&id={$id}'>Sair do Grupo</a>";
+  }
+  ?>
+</div>

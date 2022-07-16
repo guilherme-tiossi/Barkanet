@@ -32,7 +32,7 @@ endforeach;
     <?php
     $stmt = $pdo->prepare("SELECT *
     FROM tbgrupos
-    WHERE EXISTS (SELECT id_grupo FROM membros_grupos WHERE id_grupo = tbgrupos.id_grupo and id_usuario = '$id')");
+    WHERE EXISTS (SELECT id_grupo FROM membros_grupos WHERE id_grupo = tbgrupos.id_grupo and id_usuario = '$id' and status = 1)");
     $stmt ->execute();
 
     foreach ($stmt as $row) :

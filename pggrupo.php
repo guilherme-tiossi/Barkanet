@@ -145,7 +145,7 @@ foreach ($stmt as $row) : ?>
       $id = $row['id'];
       $id_grupo = $row['id_grupo'];
     endforeach;
-    echo "<a href='?pagina=remover-grupo&id_grupo={$id_grupo}&id={$id}'>Sair do Grupo</a>";
+    echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}'>Sair do Grupo</a>";
   }
   ?>
 </div>

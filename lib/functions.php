@@ -37,32 +37,6 @@
 		}
 	}
 
-	function verifica_membro($con, $id_adm, $id_usuario){
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
-		$sql->bind_param("ss", $id_adm, $id_usuario);
-		$sql->execute();
-
-		return $sql->get_result()->num_rows;
-	}
-
-	function send_solicitation_grupo($con, $id_grupo, $id_usuario){
-		$zero = 0;
-		if(verifica_membro($con, $_SESSION['userId'], $id_usuario) <= 0){
-			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, status) VALUES (?, ?, ?, ?)");
-			$sql->bind_param("ssss", $_SESSION['userId'], $id_usuario, $id_grupo, $zero);
-			$sql->execute();
-
-			if($sql->affected_rows > 0){
-				redireciona("posts.php?id_grupo={$id_grupo}");
-			}else{
-				return false;
-			}
-		}else{
-			redireciona("posts.php?id_grupo={$id_grupo}&id={$id_usuario}");
-		}
-		
-	}
-
 	function verfica_solicitacoes_grupo($con, $id_adm, $id_usuario, $id_grupo){		
 		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ?) OR (id_usuario = ? AND id_adm = ?)");
 		$sql->bind_param("ssss", $id_adm, $id_usuario, $id_adm, $id_usuario);
@@ -70,39 +44,121 @@
 		$get = $sql->get_result();
 		$total = $get->num_rows;
 
+		$stmt = $con->prepare("SELECT * FROM tbgrupos INNER JOIN membros_grupos ON tbgrupos.id_grupo = membros_grupos.id_grupo");
+      	$stmt ->execute();
+      	$d = $stmt->get_result();
+		$n = $d->num_rows;
+
+		if($n > 0){
+			$dado = $d->fetch_assoc();
+	        $nomegrupo = $dado['nome_grupo'];
+    	}
+
 		if($total > 0){
 			$dados = $get->fetch_assoc();
 
-			if($dados['id_adm'] == $id_adm && $dados['status'] == 1){
+			if($dados['id_adm'] == $id_adm && $dados['id_usuario'] != $id_adm && $dados['status'] == 1){
 				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Remover do Grupo</a>";
 				echo "<br>";
 				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
 			}
 
 			if($dados['id_adm'] == $id_usuario && $dados['status'] == 1){
-				echo "<a href='?pagina=remover-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Sair do Grupo</a>";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Sair do Grupo</a>";
 				echo "<br>";
 				echo"<a href='procurar.php'>Voltar</a>";
 			}
 
-			if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['status'] == 0){
-				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Cancelar Convite</a>";
+			if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['para'] == $id_usuario && $dados['status'] == 0){
+				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Cancelar Solicitação</a>";
 				echo "<br>";
 				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
 			}
 
-			if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_adm && $dados['status'] == 0){
-				echo "<a href='?pagina=aceitar-grupo&id_grupo={$id_grupo}&id={$dados['id_adm']}'>Entrar</a>";
+			if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['para'] == $id_adm && $dados['status'] == 0){
+				echo "Pediu para entrar no grupo ".$nomegrupo.": ";
+				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Aceitar</a>";
 				echo "<br>";
-				echo "<a href='?pagina=remover-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Recusar</a>";
+				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
+			}
+
+			if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_adm && $dados['para'] == $id_adm && $dados['status'] == 0){
+				echo "Convidou voce para entrar no grupo ".$nomegrupo.": ";
+				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Entrar</a>   ";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Recusar</a>";
 				echo "<br>";
 				echo"<a href='procurar.php'>Voltar</a>";
 			}
-		}else if($total <= 0  && $id_usuario != $id_adm){
-			echo "<a href='?pagina=solicitar-grupo&id_grupo={$id_grupo}&id={$id_usuario}'>Enviar Convite</a>";
-			echo "<br>";
-			echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
+		}else{
+			$sql = $con->prepare("SELECT adm_grupo FROM tbgrupos WHERE id_grupo = ?");
+			$sql->bind_param("s", $id_grupo);
+			$sql->execute();
+			$get = $sql->get_result();
+			$total = $get->num_rows;
+			$dados = $get->fetch_assoc();
+
+			if($total > 0  && $dados['adm_grupo'] == $id_adm){
+				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_usuario}'>Convidar</a>";
+				echo "<br>";
+				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
+			}
+
+			if($total > 0 && $dados['adm_grupo'] == $id_usuario){
+				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_usuario}'>Pedir para Entrar</a>";
+				echo "<br>";
+				echo"<a href='procurar.php'>Voltar</a>";
+			}
 		}
+	}
+
+	function verifica_membro_convite($con, $id_adm, $id_usuario){
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
+		$sql->bind_param("ss", $id_adm, $id_usuario);
+		$sql->execute();
+
+		return $sql->get_result()->num_rows;
+	}
+
+	function send_convite_grupo($con, $id_grupo, $id_usuario){
+		$zero = 0;
+		if(verifica_membro_convite($con, $_SESSION['userId'], $id_usuario) <= 0){
+			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
+			$sql->bind_param("sssss", $_SESSION['userId'], $id_usuario, $id_grupo, $id_usuario, $zero);
+			$sql->execute();
+
+			if($sql->affected_rows > 0){
+				redireciona("procurar.php");
+			}else{
+				return false;
+			}
+		}else{
+			redireciona("pggrupo.php?id_grupo={$id_grupo}");
+		}
+		
+	}
+
+	function verifica_membro_solicitacao($con, $id_adm, $id_usuario){
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
+		$sql->bind_param("ss", $id_adm, $id_usuario);
+		$sql->execute();
+
+		return $sql->get_result()->num_rows;
+	}
+
+	function send_solicitacion_grupo($con, $id_grupo, $id_adm){
+		$zero = 0;
+		if(verifica_membro_solicitacao($con, $id_adm, $_SESSION['userId']) <= 0){
+			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
+			$sql->bind_param("sssss", $id_adm, $_SESSION['userId'], $id_grupo, $id_adm, $zero);
+			$sql->execute();
+
+			if($sql->affected_rows > 0){
+				redireciona("procurar.php");
+			}else{
+				return false;
+			}
+		}
+		
 	}
 
 	function deleta_solicitacao_grupo($con, $id_grupo, $id){
@@ -123,32 +179,30 @@
 		$sql->execute();
 
 		if($sql->affected_rows > 0){
-			redireciona("posts.php?id_grupo={$id_grupo}");
+			redireciona("pggrupo.php?id_grupo={$id_grupo}");
 		}else{
 			return false;
 		}
 	}
 
-	function aceita_solicitacao_grupo($con, $id_grupo, $id_adm){
+	function aceita_solicitacao_grupo($con, $id_grupo, $id_adm, $id_usuario){
 		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
-		$sql->bind_param("ss", $id_adm, $_SESSION['userId']);
+		$sql->bind_param("ss", $id_adm, $id_usuario);
 		$sql->execute();
 		$get = $sql->get_result();
 		$total = $get->num_rows;
 
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-
-			if($dados['id_usuario'] == $_SESSION['userId']){
-				if(atualiza_solicitacao_grupo($con, $id_adm, $_SESSION['userId']) > 0){
-					redireciona("posts.php?id_grupo={$id_grupo}");	
+				echo "passou 1";
+				if(atualiza_solicitacao_grupo($con, $id_adm, $id_usuario) > 0){
+					redireciona("pggrupo.php?id_grupo={$id_grupo}");	
 				}else{
 					echo "erro ao atualizar;";
 				}
 				
-			}else{
-				return false;
-			}
+		}else{
+			return false;
 		}
 	}
 
@@ -160,9 +214,35 @@
 		return $sql->affected_rows;
 	}
 
+
+	function verifica_membro_solicitacao_publico($con, $id_adm, $id_usuario){
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 1");
+		$sql->bind_param("ss", $id_adm, $id_usuario);
+		$sql->execute();
+
+		return $sql->get_result()->num_rows;
+	}
+
+	function entrar_grupo_publico($con, $id_grupo, $id_adm){
+		$um = 1;
+		if(verifica_membro_solicitacao_publico($con, $id_adm, $_SESSION['userId']) <= 0){
+			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
+			$sql->bind_param("sssss", $id_adm, $_SESSION['userId'], $id_grupo, $_SESSION['userId'], $um);
+			$sql->execute();
+
+			if($sql->affected_rows > 0){
+				redireciona("pggrupo.php?id_grupo={$id_grupo}");
+			}else{
+				return false;
+			}
+		}else{
+			redireciona("pggrupo.php?id_grupo={$id_grupo}");
+		}
+	}
+
 	function solicitacoes_grupo($con){
 		if(isset($_SESSION['userId'])){
-			$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_usuario = ? AND status = 0");
+			$sql = $con->prepare("SELECT * FROM membros_grupos WHERE para = ? AND status = 0");
 			$sql->bind_param("s", $_SESSION['userId']);
 			$sql->execute();
 			$get = $sql->get_result();
@@ -170,7 +250,13 @@
 
 			if($total > 0){
 				while($dados = $get->fetch_array()){
-					get_perfil_grupo($con, $dados['id_grupo'], $dados['id_adm']);
+					if($dados['para'] == $dados['id_adm']){
+						get_perfil_grupo($con, $dados['id_grupo'], $dados['id_usuario']);
+					}
+
+					if($dados['para'] == $dados['id_usuario']){
+						get_perfil_grupo($con, $dados['id_grupo'], $dados['id_adm']);
+					}
 				}
 			}
 		}else{
@@ -179,7 +265,7 @@
 	}
 
 	function return_total_solicitation_grupo($con){
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_usuario = ? AND status = 0");
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE para = ? AND status = 0");
 		$sql->bind_param("s", $_SESSION['userId']);
 		$sql->execute();
 		$get = $sql->get_result();
@@ -416,72 +502,72 @@
 	}
 
 
-	function ler_dados_usuario($email, $pdo)
-	{   global $pdo;
+	function ler_dados_usuario($email, $pdo){
+		global $pdo;
 		$stmt = $pdo->prepare("select * from usuarios where email = '$email'");
-	 $stmt ->execute();
-		foreach($stmt as $row) {
-			global $nome;
-			global $cod;
-			global $nasc;
-			global $bio;
-			global $id;
-			global $pfp;
-			$nome = $row['nome'];
-			$nasc = $row['data_nasc'];
-			$nasc = date_create_from_format("Y-m-d", $nasc)->format("d/m/Y");
-			$cod = $row['codigo'];
-			$bio = $row['bio'];
-			$id = $row['id'];
-			$pfp = $row['profilepic'];
-			}
-		echo 
-		'<div class="card-fundo mx-auto pt-1" style="width: 50%;">
-		<div class="mx-auto pt-3 pb-3" style="width: 90%;">
-            <div class="card card-perfil">
-                <div class="card-body">
-                    <div class="d-flex flex-row bd-highlight mb-0">
-                        <div class="p-2 bd-highlight">
-                            <img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
-                            <p class="mb-0" style="font-size: 18px";>
-                                <b>Nome:</b>
-                                <br>'.$nome.'
-                                <a href="update-name.php?id='.$row["id"].'" class="icon-lapis">
-						            <i class="fa-solid fa-pencil"></i>
-						        </a>
-                            </p>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            <h5 class="m-0">
-                                <b>Informações da conta:</b>
-                            </h5>
-                            <p class="mb-0" style="font-size: 18px";>
-                                <b>E-mail:</b>
-                                <br>'.$email.'
-                            </p>
-                            <p class="mb-0" style="font-size: 18px";>
-                                <b>Biografia:</b>
-                                <br>'.$bio.'
-                                <a href="update-bio.php?id='.$row["id"].'" class="icon-lapis">
-						            <i class="fa-solid fa-pencil"></i>
-						        </a>
-                            </p>
-                            <p class="mb-0" style="font-size: 18px";>
-                                <b>Data de nascimento:</b>
-                                <br>'.$nasc.'
-                                <a href="update-date.php?id='.$row["id"].'" class="icon-lapis">
-						            <i class="fa-solid fa-pencil"></i>
-						        </a>
-                            </p>
-                            <p class="mb-0" style="font-size: 18px";>
-                                <b>Código:</b>
-                                '.$cod.'
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>';
-		};
-	?>
+		 $stmt ->execute();
+			foreach($stmt as $row) {
+				global $nome;
+				global $cod;
+				global $nasc;
+				global $bio;
+				global $id;
+				global $pfp;
+				$nome = $row['nome'];
+				$nasc = $row['data_nasc'];
+				$nasc = date_create_from_format("Y-m-d", $nasc)->format("d/m/Y");
+				$cod = $row['codigo'];
+				$bio = $row['bio'];
+				$id = $row['id'];
+				$pfp = $row['profilepic'];
+				}
+			echo 
+			'<div class="card-fundo mx-auto pt-1" style="width: 50%;">
+			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
+	            <div class="card card-perfil">
+	                <div class="card-body">
+	                    <div class="d-flex flex-row bd-highlight mb-0">
+	                        <div class="p-2 bd-highlight">
+	                            <img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Nome:</b>
+	                                <br>'.$nome.'
+	                                <a href="update-name.php?id='.$row["id"].'" class="icon-lapis">
+							            <i class="fa-solid fa-pencil"></i>
+							        </a>
+	                            </p>
+	                        </div>
+	                        <div class="p-2 bd-highlight">
+	                            <h5 class="m-0">
+	                                <b>Informações da conta:</b>
+	                            </h5>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>E-mail:</b>
+	                                <br>'.$email.'
+	                            </p>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Biografia:</b>
+	                                <br>'.$bio.'
+	                                <a href="update-bio.php?id='.$row["id"].'" class="icon-lapis">
+							            <i class="fa-solid fa-pencil"></i>
+							        </a>
+	                            </p>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Data de nascimento:</b>
+	                                <br>'.$nasc.'
+	                                <a href="update-date.php?id='.$row["id"].'" class="icon-lapis">
+							            <i class="fa-solid fa-pencil"></i>
+							        </a>
+	                            </p>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Código:</b>
+	                                '.$cod.'
+	                            </p>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        </div>';
+			};
+?>

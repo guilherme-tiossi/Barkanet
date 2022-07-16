@@ -1,0 +1,1 @@
+<?php send_solicitacion_grupo($con, $_GET['id_grupo'], $_GET['id']);?>

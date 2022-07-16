@@ -1,0 +1,1 @@
+<?php aceita_solicitacao_grupo($con, $_GET['id_grupo'], $_GET['id_adm'], $_GET['id_usuario']);?>

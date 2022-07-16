@@ -38,22 +38,28 @@
         echo "Usuário não encontrado" . "</br>";
       }
 
-      $stmt = $pdo->prepare("SELECT id_grupo, nome_grupo, adm_grupo, descricao_grupo FROM tbgrupos WHERE nome_grupo LIKE '%$codigo%'");
+      $stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE nome_grupo LIKE '%$codigo%'");
       $stmt ->execute();
       $count2 = $stmt->rowCount();
       echo "</br>Grupos:</br>";
 
         if($count2 >= 1){
           foreach($stmt as $row) {
-            $idgrupo = $row['id_grupo']; 
-            $nomegrupo = $row['nome_grupo'];
+            $idgrupo = $row['id_grupo'];
             $adm_grupo = $row['adm_grupo'];
+            $nomegrupo = $row['nome_grupo'];
 
-            //solicitar pra entrar no grupo ainda em desenvolvimento, por enquanto só aparece o nome do grupo e a descrição
-            //echo "<a href='pggrupo.php?pagina=solicitar-grupo&id_grupo=$idgrupo&id=$adm_grupo'>{$nomegrupo}</a>";
-            echo $nomegrupo;
-            echo " " . $row["descricao_grupo"];
-            echo "</br>";
+            if($row['tipo_grupo'] == "Privado" ){
+              echo "<a href='?pagina=grupo&id_grupo=$idgrupo&id=$adm_grupo'>{$nomegrupo}</a>";
+              echo " " . $row["descricao_grupo"];
+              echo "</br>";
+            }
+
+            if($row['tipo_grupo'] == "Publico" ){
+              echo "<a href='pggrupo.php?pagina=entrar-grupo-publico&id_grupo=$idgrupo&id=$adm_grupo'>$nomegrupo</a>";
+              echo " " . $row["descricao_grupo"];
+              echo "</br>";
+            }
           }
         }else{
           echo "Grupo não encontrado";

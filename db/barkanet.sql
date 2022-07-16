@@ -73,6 +73,7 @@ CREATE TABLE `membros_grupos` (
  `id_adm` int(11) NOT NULL,
  `id_usuario` int(11) NOT NULL,
  `id_grupo` int(11) NOT NULL,
+ `para` int(11) NOT NULL,
  `status` int(1) NOT NULL DEFAULT 0,
  PRIMARY KEY (`id`),
  KEY `membros_grupos_ibfk_1` (`id_usuario`),

@@ -24,7 +24,7 @@
     <?php
     if(isset($_POST['buscar'])){
       $codigo = $_POST['buscar'];
-      $stmt = $pdo->prepare("select * from usuarios where codigo = '$codigo'");
+      $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE codigo = '$codigo'");
       $stmt ->execute();
       $count1 = $stmt->rowCount();
         echo "Usuários:" . "</br>";
@@ -75,7 +75,7 @@
     <div>
         <h3> Amigos </h3>
         <?php 
-        $stmt2 = $pdo->prepare("select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
+        $stmt2 = $pdo->prepare("SELECT * FROM amigos WHERE (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
         $stmt2 ->execute();
 
         foreach ($stmt2 as $row) :
@@ -83,7 +83,7 @@
           $id_de = $row['id_de'];
           
           if($id_para == $_SESSION['userId']){
-            $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_de'");
+            $stmt3 = $pdo->prepare("SELECT nome FROM usuarios WHERE id = '$id_de'");
             $stmt3 ->execute();
             foreach ($stmt3 as $row):
               echo $row["nome"];
@@ -92,7 +92,7 @@
           }
 
           if($id_de == $_SESSION['userId']){
-            $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_para'");
+            $stmt3 = $pdo->prepare("SELECT nome FROM usuarios WHERE id = '$id_para'");
             $stmt3 ->execute();
             foreach ($stmt3 as $row):
               echo $row["nome"];

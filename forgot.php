@@ -68,7 +68,7 @@ include "conexao.php";
 	function save_password($password){
 		global $pdo;
 		$email = addslashes($_SESSION['forgot']['email']);
-		$stmt = $pdo->prepare("update usuarios set senha = '$password' where email = '$email' limit 1");
+		$stmt = $pdo->prepare("UPDATE usuarios SET senha = '$password' WHERE email = '$email' LIMIT 1");
 		$stmt ->execute();
 	}
 	function valid_email($email){

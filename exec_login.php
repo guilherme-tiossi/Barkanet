@@ -4,7 +4,7 @@ include('conexao.php');
 
 $email = $_POST['email'];
 $senha = $_POST['senha'];
-$stmt = $pdo->prepare("select email from usuarios where email = '$email' and senha = '$senha'");
+$stmt = $pdo->prepare("SELECT email FROM usuarios WHERE email = '$email' AND senha = '$senha'");
 $stmt->execute();
 $row = $stmt->rowCount();
 $fetch = $stmt->fetch();

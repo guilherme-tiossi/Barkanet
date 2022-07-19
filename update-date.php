@@ -7,7 +7,7 @@ session_start();
 if(isset($_POST['data_nasc'])) {
 $data = $_POST['data_nasc'];
 $data = date_create_from_format("d/m/Y", $data)->format("Y-m-d");
-$stmt = $pdo->prepare("UPDATE usuarios set data_nasc='" . "', data_nasc='" . $data . "' WHERE id='" . $_GET['id'] . "'");
+$stmt = $pdo->prepare("UPDATE usuarios SET data_nasc='" . $data . "' WHERE id='" . $_GET['id'] . "'");
 $stmt ->execute();
 header("Location: perfil.php");
 }

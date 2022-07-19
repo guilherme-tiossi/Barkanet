@@ -25,7 +25,7 @@
     <div class="card-fundo mx-auto" style="width: 50%;">
         <h2 class="p-3">Meus posts</h2>
         <?php
-        $stmt = $pdo->prepare("select * from tbposts where (usuario = '$id')  order by idpost desc");
+        $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id')  ORDER BY idpost DESC");
         $stmt ->execute();
         
         foreach ($stmt as $row) :?>
@@ -56,7 +56,7 @@
 
             <!--comentarios-->
             <?php
-            $swor = $pdo->prepare("select * from comentarios where id_post = '{$row['idpost']}'");
+            $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
             $swor->execute();
             foreach ($swor as $swo) : ?>
             <br>

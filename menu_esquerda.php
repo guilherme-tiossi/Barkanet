@@ -1,13 +1,13 @@
 <?php
 require_once ("conexao.php");
-$stmt = $pdo->prepare("select * from usuarios where email = '$email'");
+$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 $stmt ->execute();
 
  foreach($stmt as $row) {
    $pfp = $row['profilepic'];
    }
 ?>
-
+"''''"
 <head>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="js/script.js"></script>

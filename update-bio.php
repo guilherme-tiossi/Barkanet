@@ -1,7 +1,7 @@
 <?php
 include_once 'conexao.php';
 if(count($_POST)>0) {
-$stmt = $pdo->prepare("UPDATE usuarios set bio='" . $_POST['bio'] . "' WHERE id='" . $_GET['id'] . "'");
+$stmt = $pdo->prepare("UPDATE usuarios SET bio='" . $_POST['bio'] . "' WHERE id='" . $_GET['id'] . "'");
 $stmt ->execute();
 header("Location: perfil.php");
 }

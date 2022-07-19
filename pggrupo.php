@@ -3,7 +3,7 @@ include("lib/includes.php");
 include("conexao.php");
 
 // MENU ESQUERDA
-$stmt = $pdo->prepare("select * from usuarios where email = '$email'");
+$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 $stmt ->execute();
 $id_grupo = $_GET['id_grupo'];
  foreach($stmt as $row) {
@@ -58,11 +58,12 @@ $id_grupo = $_GET['id_grupo'];
 // FIM DO MENU ESQUERDA
 include('menu_direita.php');
 $id_grupo = $_GET['id_grupo'];
-$stmt = $pdo->prepare("select * from tbposts where idgrupo = '$id_grupo' order by idpost desc");
+$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE idgrupo = '$id_grupo' ORDER BY idpost DESC");
 $stmt->execute();
 
 foreach ($stmt as $row) : ?>
   <div>
+      <img src="img/<?php echo $row["profilepic"]; ?>" width = 50 title="<?php echo $row['image']; ?>">
     <?php
       echo $row["nome"];
       echo "<br>";
@@ -76,7 +77,7 @@ foreach ($stmt as $row) : ?>
     <img src="img/<?php echo $row["image"]; ?>" width = 200 title="<?php echo $row['image']; ?>">
   </div>
     <?php }
-    $swor = $pdo->prepare("select * from comentarios where id_post = '{$row['idpost']}' order by id_com desc");
+    $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}' ORDER BY id_com DESC");
     $swor->execute();
     foreach ($swor as $swo) : ?>
     <div>
@@ -105,7 +106,7 @@ foreach ($stmt as $row) : ?>
   
   <!--LISTA DE AMIGOS PARA ADD-->
   <?php 
-  $stmt2 = $pdo->prepare("select * from tbgrupos where id_grupo = {$_GET['id_grupo']}");
+  $stmt2 = $pdo->prepare("SELECT * from tbgrupos where id_grupo = {$_GET['id_grupo']}");
   $stmt2 ->execute();
   foreach ($stmt2 as $row) :
     $adm_grupo = $row['adm_grupo'];
@@ -113,7 +114,7 @@ foreach ($stmt as $row) : ?>
 
   if($adm_grupo == $_SESSION['userId']){
     echo "<h3>Convidar Amigos</h3>";
-    $stmt2 = $pdo->prepare("select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
+    $stmt2 = $pdo->prepare("SELECT * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
     $stmt2 ->execute();
 
     foreach ($stmt2 as $row) :
@@ -121,7 +122,7 @@ foreach ($stmt as $row) : ?>
       $id_de = $row['id_de'];
                 
       if($id_para == $_SESSION['userId']){
-        $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_de'");
+        $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_de'");
         $stmt3 ->execute();
         foreach ($stmt3 as $row):
           echo "<a href='?pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
@@ -130,7 +131,7 @@ foreach ($stmt as $row) : ?>
       }
 
       if($id_de == $_SESSION['userId']){
-        $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_para'");
+        $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_para'");
         $stmt3 ->execute();
         foreach ($stmt3 as $row):
           echo "<a href='?pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";

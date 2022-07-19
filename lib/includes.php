@@ -3,7 +3,7 @@
 	include('conexao.php');
 
 	$email = $_SESSION['email'];
-	$stmt = $pdo->prepare("select email, id from usuarios where email = '$email'");
+	$stmt = $pdo->prepare("SELECT email, id FROM usuarios WHERE email = '$email'");
 	$stmt ->execute();
 
 	foreach($stmt as $row) {

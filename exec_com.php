@@ -6,7 +6,7 @@ if($_POST["txcom"] != ""){
   $comentar = $_POST["txcom"];
   $post_id = $_POST["post_id"];
   $email_com = $_SESSION['email'];
-  $stmt = $pdo->prepare("insert into comentarios(id_post, com_nome, com_user, comentario) values ('$post_id', '$nome', '$id', '$comentar')");
+  $stmt = $pdo->prepare("INSERT INTO comentarios(id_post, com_nome, com_user, comentario) VALUES ('$post_id', '$nome', '$id', '$comentar')");
   $stmt -> execute();
   echo
   "

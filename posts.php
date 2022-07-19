@@ -5,7 +5,7 @@ include('menu_esquerda.php');
 include('menu_direita.php');
 
 $users=array("$id");
-$stmt = $pdo->prepare("select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
+$stmt = $pdo->prepare("SELECT * FROM amigos WHERE (id_de = {$_SESSION['userId']} and status = '1') OR (id_para = {$_SESSION['userId']} AND status = '1')");
 $stmt ->execute();
 foreach ($stmt as $row):
   if ($row["id_de"] = $id ){
@@ -16,11 +16,12 @@ foreach ($stmt as $row):
   }
 endforeach;
 $users = implode(",", $users);
-$stmt = $pdo->prepare("select * from tbposts where usuario in ($users) AND idgrupo = '0' order by idpost desc");
+$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE usuario in ($users) AND idgrupo = '0' ORDER BY idpost DESC");
 $stmt->execute();
 
 foreach ($stmt as $row) : ?>
   <div>
+      <img src="img/<?php echo $row["profilepic"]; ?>" width = 50 title="<?php echo $row['image']; ?>">
     <?php
       echo $row["nome"];
       echo "<br>";
@@ -34,7 +35,7 @@ foreach ($stmt as $row) : ?>
     <img src="img/<?php echo $row["image"]; ?>" width = 200 title="<?php echo $row['image']; ?>">
   </div>
     <?php }
-    $swor = $pdo->prepare("select * from comentarios where id_post = '{$row['idpost']}' order by id_com desc");
+    $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}' ORDER BY id_com DESC");
     $swor->execute();
     foreach ($swor as $swo) : ?>
     <div>

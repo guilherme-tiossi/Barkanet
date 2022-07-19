@@ -3,7 +3,7 @@ require 'conexao.php';
 session_start();
 
 $email = $_SESSION['email'];
-$stmt1 = $pdo->prepare("select * from usuarios where email = '$email'");
+$stmt1 = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 $stmt1 ->execute();
 
 foreach($stmt1 as $row) {
@@ -40,7 +40,9 @@ if(isset($_POST["submit"])){
       $newImageName .= '.' . $imageExtension;
 
       move_uploaded_file($tmpName, 'img/' . $newImageName);
-      $stmt = $pdo->prepare("update usuarios set profilepic = '$newImageName' where id = '$id'");
+      $stmt = $pdo->prepare("UPDATE usuarios SET profilepic = '$newImageName' WHERE id = '$id'");
+      $stmt->execute();
+      $stmt = $pdo->prepare("UPDATE usuarios SET profilepic = '$newImageName' WHERE id = '$id'");
       $stmt->execute();
       echo
       "

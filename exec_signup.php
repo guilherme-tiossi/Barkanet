@@ -3,7 +3,7 @@ session_start();
 include("conexao.php");
 
 $email = $_POST['email'];
-$stmt = $pdo->prepare("select email from usuarios where email = '$email'");
+$stmt = $pdo->prepare("SELECT email FROM usuarios WHERE email = '$email'");
 $stmt ->execute();
 $row = $stmt->rowCount();
 $fetch = $stmt->fetch();
@@ -16,7 +16,7 @@ if($row == 0) {
 	$dataNew = date_create_from_format("d/m/Y", $data)->format("Y-m-d");
 	$codigo = "#".substr(md5(md5($email)), 0, 6);
 	$bio = "";
-	$stmt1 = $pdo->prepare("insert into usuarios (nome, email, senha, data_nasc, codigo, bio) values ('$nome', '$email', '$senha', '$dataNew', '$codigo', '$bio')");
+	$stmt1 = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, data_nasc, codigo, bio) VALUES ('$nome', '$email', '$senha', '$dataNew', '$codigo', '$bio')");
 	$stmt1 ->execute();
 	header("Location: login.php");
 

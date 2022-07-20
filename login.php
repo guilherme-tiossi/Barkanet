@@ -54,7 +54,7 @@ session_start();
 				<input type="password" name="senha" id="senha">
 				<span id="alert-senha" style="display: none;" role="alert">Preencha o campo senha corretamente</span>
 				<br>
-				<input type="checkbox" name="mostrar" onclick="mostrarSenha()">
+				<input type="checkbox" name="mostrar" onclick="senhaLogin()">
 				<label for="mostrar">Mostrar senha</label>
 				<br>
 				<a href="forgot.php" class="btn-link">Esqueci minha senha</a>

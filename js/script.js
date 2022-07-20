@@ -1,3 +1,20 @@
+function confirmaRecuperarSenha(){
+        var validar = true;
+        let senha = document.getElementById("senha");
+        let c_senha = document.getElementById("c_senha");     
+        if (senha.length < 8) {
+        document.getElementById('alert-senha').className = "alert";
+        validar = false;
+
+        if (validar == false) {
+        return validar;
+        } else {
+        return validar;
+        window.location.href = 'forgot.php';
+    }
+    }
+}
+
 function senhaCadastro() {
     var senha = document.getElementById("senha");
     var c_senha = document.getElementById("c_senha");
@@ -10,6 +27,8 @@ function senhaCadastro() {
         c_senha.type = "password";
     }
 }
+
+
 
 function senhaLogin() {
     var senha = document.getElementById("senha");

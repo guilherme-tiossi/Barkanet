@@ -81,3 +81,15 @@ CREATE TABLE `membros_grupos` (
  CONSTRAINT `membros_grupos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
  CONSTRAINT `membros_grupos_ibfk_2` FOREIGN KEY (`id_grupo`) REFERENCES `tbgrupos` (`id_grupo`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `data_nasc`, `codigo`, `bio`, `profilepic`) VALUES
+(31, 'Guilherme Tiossi', 'guilherme@tiossi.com', 'tiossi13y', '2005-03-28', '#4b6f1b', '', 'avatar.jpg'),
+(32, 'Gabriela', 'gabitigre2015@gmail.com', 'senhagabi', '2005-01-12', '#8fc77c', '', 'avatar.jpg'),
+(33, 'Kauã Pereira', 'kauapereira@gmail.com', 'kauasenha', '2005-02-15', '#f07af0', '', 'avatar.jpg'),
+(34, 'Ana Luiza', 'hanahaninha@gmail.com', 'haninhasenha', '2005-01-30', '#3eee62', '', 'avatar.jpg'),
+(35, 'Gustavo Gouveia', 'gustavogouveiaemail@email.com', 'gustavosenha', '2005-03-24', '#9632f0', '', 'avatar.jpg'),
+(36, 'Leonardo Alves', 'leoincelironico@gmail.com', 'leozinhocenha', '2004-03-17', '#cce5f4', '', 'avatar.jpg'),
+(37, 'Sol Ferreira', 'polvogemas@gmail.com', 'gemaspolvo', '2003-12-28', '#9bae43', '', 'avatar.jpg'),
+(38, 'Celeste Strelow', 'cltstrelow@protonmail.com', 'senhaceleste', '2006-01-12', '#3f6430', '', 'avatar.jpg'),
+(39, 'Giuliana Solange', 'giurealemo@protonmail.com', 'realemoonlyconsists', '2004-04-18', '#c159f9', '', 'avatar.jpg');
+

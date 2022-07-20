@@ -1,5 +1,27 @@
 <?php 
-session_start();
+session_start(); ?>
+
+<!DOCTYPE html>
+<html lang="utf-8">
+   <head>
+      <meta charset="utf-8">
+      <title>Sign up</title>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
+      <!--<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>-->
+      <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+      <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+      <script type="text/javascript" src="js/script.js"></script>
+      
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      <script type="text/javascript">
+         $(document).ready(function() {
+             $("#data").mask("00/00/0000")
+         });
+      </script>
+   </head>
+<?php
 $error = array();
 require "mail.php";
 include "conexao.php";
@@ -36,8 +58,8 @@ include "conexao.php";
 				}
 				break;
 			case 'enter_password':
-				$password = $_POST['password'];
-				$password2 = $_POST['password2'];
+				$password = $_POST['senha'];
+				$password2 = $_POST['c_senha'];
 				if($password !== $password2){
 					$error[] = "As senhas não conferem. Tente outra vez";
 				}elseif(!isset($_SESSION['forgot']['email']) || !isset($_SESSION['forgot']['code'])){
@@ -91,7 +113,6 @@ include "conexao.php";
 		$expire = time();
 		$email = addslashes($_SESSION['forgot']['email']);
 		$stmt = $pdo->prepare("select * from codes where code = '$code' && email = '$email' order by id desc limit 1");
-		echo $code . $email;
 		$stmt -> execute();
 		if($stmt){
 			if($stmt->rowCount() > 0)
@@ -164,25 +185,28 @@ include "conexao.php";
 					break;
 				case 'enter_password':
 					?>
-						<form method="post" action="forgot.php?mode=enter_password"> 
-							<h1>Redefinir senha</h1>
-							<h3>Insira a sua nova senha</h3>
-							<span>
-							<?php 
-								foreach ($error as $err) {
-									echo $err . "<br>";
-								}
-							?>
-							</span>
-							<input class="textbox" type="password" name="password" placeholder="Senha"><br>
-							<input class="textbox" type="password" name="password2" placeholder="Confirme a senha"><br>
-							<br>
-							<input type="submit" value="Prosseguir">
-							<a href="forgot.php">
-								<input type="button" value="Voltar">
-							</a>
-							<br><br>
-							<div><a href="login.php">Login</a></div>
+                        <form name="frmUser" method="post" action="" onsubmit="return editarSenha()">
+                        <a href="update.php">Voltar</a>
+                        <br>
+                        <label for="senha">Senha:</label>
+                        <br>
+                        <input type="password" name="senha" id="senha">
+                        <span id="alert-senha" class="to-hide" role="alert">A senha deve ter no mínimo 8 caracteres</span>
+                        <br>
+                        <label for="c_senha">Confirmar senha:</label>
+                        <br>
+                        <input type="password" name="c_senha" id="c_senha">
+                        <span id="alert-c_senha1" class="to-hide" role="alert">Repita a senha</span>
+                        <span id="alert-c_senha2" class="to-hide" role="alert">As senhas não são iguais</span>
+                        <br>
+                        <input type="checkbox" name="mostrar" onclick="senhaCadastro()">
+                        <label for="mostrar">Mostrar senha</label>
+                        <br>
+                        <input type="submit" value="Prosseguir" class="button">
+						<input type="button" value="Voltar">
+						</a>
+						<br><br>
+						<div><a href="login.php">Login</a></div>
 						</form>
 					<?php
 					break;

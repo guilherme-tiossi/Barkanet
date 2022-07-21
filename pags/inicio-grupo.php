@@ -1,1 +1,0 @@
-<a href="?pagina=solicitacoes-grupo">Solicitações de grupos<?php echo return_total_solicitation_grupo($con);?></a>

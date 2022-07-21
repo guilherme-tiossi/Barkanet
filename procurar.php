@@ -15,8 +15,8 @@
     <!--Pesquisa com código-->
     <h2>Insira o código de amizade:</h2>
     <form action="" method="post">
-        <input type="text" name="buscar" placeholder="#c0d1g0" required>
-        <button type="submit">Procurar</button><br>
+      <input type="text" name="buscar" placeholder="#c0d1g0" required>
+      <button type="submit">Procurar</button><br>
     </form>
 
     <!--Resultado da busca-->
@@ -27,13 +27,14 @@
       $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE codigo = '$codigo'");
       $stmt ->execute();
       $count1 = $stmt->rowCount();
-        echo "Usuários:" . "</br>";
+      echo "Usuários: </br>";
+
       if($count1 >= 1){
         foreach($stmt as $row) {
           $id = $row['id'];
           $nome = $row['nome'];
-          echo "<a href='?pagina=perfil&id={$id}'>{$nome}</a> </br>";
-      }
+        }
+        echo "<a href='?pagina=perfil&id={$id}'>{$nome}</a> </br>";
       }else{
         echo "Usuário não encontrado" . "</br>";
       }
@@ -69,13 +70,11 @@
     </div>
 
     <?php carrega_pagina_solicitacao($con);?>
-    <br>
-    <?php carrega_pagina_grupo($con);?>
     
     <div>
         <h3> Amigos </h3>
         <?php 
-        $stmt2 = $pdo->prepare("SELECT * FROM amigos WHERE (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
+        $stmt2 = $pdo->prepare("select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
         $stmt2 ->execute();
 
         foreach ($stmt2 as $row) :
@@ -83,7 +82,7 @@
           $id_de = $row['id_de'];
           
           if($id_para == $_SESSION['userId']){
-            $stmt3 = $pdo->prepare("SELECT nome FROM usuarios WHERE id = '$id_de'");
+            $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_de'");
             $stmt3 ->execute();
             foreach ($stmt3 as $row):
               echo $row["nome"];
@@ -92,7 +91,7 @@
           }
 
           if($id_de == $_SESSION['userId']){
-            $stmt3 = $pdo->prepare("SELECT nome FROM usuarios WHERE id = '$id_para'");
+            $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_para'");
             $stmt3 ->execute();
             foreach ($stmt3 as $row):
               echo $row["nome"];

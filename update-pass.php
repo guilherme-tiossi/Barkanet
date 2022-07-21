@@ -3,7 +3,7 @@ include_once 'conexao.php';
 if(count($_POST)>0) {
 $stmt = $pdo->prepare("UPDATE usuarios set senha='" . $_POST['password'] . "' WHERE id='" . $_GET['id'] . "'");
 $stmt ->execute();
-header("Location: update.php");
+header("Location: perfil.php");
 }
 $smt = $pdo->prepare("SELECT * FROM usuarios WHERE id='" . $_GET['id'] . "'");
 $smt ->execute();

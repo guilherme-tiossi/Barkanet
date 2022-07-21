@@ -47,7 +47,7 @@ if(isset($_POST["submit"])){
       echo
       "
       <script>
-        document.location.href = 'posts.php';
+        document.location.href = 'perfil.php';
       </script>
       ";
     }

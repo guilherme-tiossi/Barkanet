@@ -118,20 +118,9 @@
     echo "</div>";
     };
 
+// ========================== SOLICITAÇÕES DE GRUPOS ==========================
 	function carrega_pagina_atalho($con){
 		$pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 'atalho';
-		$dir = "pags/";
-		$ext = ".php";
-
-		if(file_exists($dir.$pagina.$ext)){
-			include($dir.$pagina.$ext);
-		}else{
-			echo "<div>Página não encontrada</div>";
-		}
-	}
-
-	function carrega_pagina_grupo($con){
-		$pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 'inicio-grupo';
 		$dir = "pags/";
 		$ext = ".php";
 
@@ -151,88 +140,101 @@
 		
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-			echo "<h4>{$dados['nome']}</h4>";
+			echo "<b>{$dados['nome']}</b>";
 			verfica_solicitacoes_grupo($con, $_SESSION['userId'], $perfil, $id_grupo);
 		}
 	}
 
 	function verfica_solicitacoes_grupo($con, $id_adm, $id_usuario, $id_grupo){		
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ?) OR (id_usuario = ? AND id_adm = ?)");
-		$sql->bind_param("ssss", $id_adm, $id_usuario, $id_adm, $id_usuario);
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ? AND id_grupo = ?) OR (id_adm = ? AND id_usuario = ? AND id_grupo = ?)");
+		$sql->bind_param("ssssss", $id_adm, $id_usuario, $_GET['id_grupo'], $id_usuario, $id_adm, $_GET['id_grupo']);
 		$sql->execute();
 		$get = $sql->get_result();
 		$total = $get->num_rows;
 
 		$stmt = $con->prepare("SELECT * FROM tbgrupos INNER JOIN membros_grupos ON tbgrupos.id_grupo = membros_grupos.id_grupo");
-      	$stmt ->execute();
-      	$d = $stmt->get_result();
+	    $stmt ->execute();
+	    $d = $stmt->get_result();
 		$n = $d->num_rows;
 
 		if($n > 0){
 			$dado = $d->fetch_assoc();
-	        $nomegrupo = $dado['nome_grupo'];
-    	}
+		    $nomegrupo = $dado['nome_grupo'];
+	    }
 
 		if($total > 0){
 			$dados = $get->fetch_assoc();
 
 			if($dados['id_adm'] == $id_adm && $dados['id_usuario'] != $id_adm && $dados['status'] == 1){
-				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Remover do Grupo</a>";
+				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Remover</a>";
 				echo "<br>";
 				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
 			}
 
 			if($dados['id_adm'] == $id_usuario && $dados['status'] == 1){
-				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Sair do Grupo</a>";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Sair do Grupo</a>";
 				echo "<br>";
 				echo"<a href='procurar.php'>Voltar</a>";
 			}
 
-			if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['para'] == $id_usuario && $dados['status'] == 0){
-				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Cancelar Solicitação</a>";
+			if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['para'] == $id_usuario && $dados['status'] == 0 && $dados['id_grupo'] == $_GET['id_grupo']){
+				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Cancelar Solicitação</a>";
 				echo "<br>";
 				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
 			}
 
-			if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['para'] == $id_adm && $dados['status'] == 0){
-				echo "Pediu para entrar no grupo ".$nomegrupo.": ";
-				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Aceitar</a>";
-				echo "<br>";
-				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
-			}
-
-			if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_adm && $dados['para'] == $id_adm && $dados['status'] == 0){
-				echo "Convidou voce para entrar no grupo ".$nomegrupo.": ";
-				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Entrar</a>   ";
-				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Recusar</a>";
-				echo "<br>";
-				echo"<a href='procurar.php'>Voltar</a>";
-			}
 		}else{
-			$sql = $con->prepare("SELECT adm_grupo FROM tbgrupos WHERE id_grupo = ?");
-			$sql->bind_param("s", $id_grupo);
+			$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ?) OR (id_adm = ? AND id_usuario = ?)");
+			$sql->bind_param("ssss", $id_adm, $id_usuario, $id_usuario, $id_adm);
 			$sql->execute();
 			$get = $sql->get_result();
 			$total = $get->num_rows;
-			$dados = $get->fetch_assoc();
 
-			if($total > 0  && $dados['adm_grupo'] == $id_adm){
-				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_usuario}'>Convidar</a>";
-				echo "<br>";
-				echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
+			if($total > 0){
+				$dados = $get->fetch_assoc();
+				if($dados['id_usuario'] == $id_usuario && $dados['id_adm'] == $id_adm && $dados['para'] == $id_adm && $dados['status'] == 0){
+					echo " pediu para entrar no grupo ".$nomegrupo.": ";
+					echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'> Aceitar</a>";
+					echo "<br>";
+					echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
+				}
+
+				if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_adm && $dados['para'] == $id_adm && $dados['status'] == 0){
+					echo " convidou voce para entrar no grupo ".$nomegrupo.": ";
+					echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'> Entrar</a>   ";
+					echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Recusar</a>";
+					echo "<br>";
+					echo"<a href='procurar.php'>Voltar</a>";
+				}
 			}
 
-			if($total > 0 && $dados['adm_grupo'] == $id_usuario){
-				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_usuario}'>Pedir para Entrar</a>";
-				echo "<br>";
-				echo"<a href='procurar.php'>Voltar</a>";
+			else{
+				$sql = $con->prepare("SELECT adm_grupo FROM tbgrupos WHERE id_grupo = ?");
+				$sql->bind_param("s", $id_grupo);
+				$sql->execute();
+				$get = $sql->get_result();
+				$total = $get->num_rows;
+				$dados = $get->fetch_assoc();
+
+				if($total > 0  && $dados['adm_grupo'] == $id_adm){
+					echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_usuario}'> Convidar</a>";
+					echo "<br>";
+					echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
+				}
+
+				if($total > 0 && $dados['adm_grupo'] == $id_usuario){
+					echo "<br>$nomegrupo: ";
+					echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_usuario}'> Pedir para entrar</a>";
+					echo "<br>";
+					echo"<a href='procurar.php'>Voltar</a>";
+				}
 			}
 		}
 	}
 
-	function verifica_membro_convite($con, $id_adm, $id_usuario){
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
-		$sql->bind_param("ss", $id_adm, $id_usuario);
+	function verifica_membro_convite($con, $id_adm, $id_usuario, $idgrupo){
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND id_grupo = ? AND status = 0");
+		$sql->bind_param("sss", $id_adm, $id_usuario, $idgrupo);
 		$sql->execute();
 
 		return $sql->get_result()->num_rows;
@@ -240,13 +242,13 @@
 
 	function send_convite_grupo($con, $id_grupo, $id_usuario){
 		$zero = 0;
-		if(verifica_membro_convite($con, $_SESSION['userId'], $id_usuario) <= 0){
+		if(verifica_membro_convite($con, $_SESSION['userId'], $id_usuario, $id_grupo) <= 0){
 			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
 			$sql->bind_param("sssss", $_SESSION['userId'], $id_usuario, $id_grupo, $id_usuario, $zero);
 			$sql->execute();
 
 			if($sql->affected_rows > 0){
-				redireciona("procurar.php");
+				redireciona("pggrupo.php?id_grupo={$id_grupo}");
 			}else{
 				return false;
 			}
@@ -394,6 +396,7 @@
 		}
 	}
 
+// ========================== SOLICITAÇÕES DE AMIZADE ========================== 
 	function carrega_pagina_solicitacao($con){
 		$pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 'inicio';
 		$dir = "pags/";
@@ -406,19 +409,6 @@
 		}
 	}
 
-	function get_users($con){
-		$sql = $con->prepare("SELECT * FROM usuarios ORDER BY id DESC");
-		$sql->execute();
-		$get = $sql->get_result();
-		$total = $get->num_rows;
-
-		if($total > 0){
-			while($dados = $get->fetch_array()){
-				echo "<a href='?pagina=perfil&id={$dados['email']}'>{$dados['nome']}</a><br>";
-			}
-		}
-	}
-
 	function get_perfil($con, $perfil){
 		$sql = $con->prepare("SELECT * FROM usuarios WHERE id = ?");
 		$sql->bind_param("s", $perfil);
@@ -428,7 +418,7 @@
 
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-			echo "<h4>{$dados['nome']}</h4>";
+			echo "<b>{$dados['nome']}</b> <br>";
 			verfica_solicitacoes($con, $_SESSION['userId'], $perfil);
 		}
 	}
@@ -597,7 +587,4 @@
 			return " ".$total;
 		}
 	}
-
-
-
 ?>

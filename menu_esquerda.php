@@ -7,7 +7,7 @@ $stmt ->execute();
    $pfp = $row['profilepic'];
    }
 ?>
-"''''"
+
 <head>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="js/script.js"></script>
@@ -46,7 +46,7 @@ $stmt ->execute();
       <label for="image">Imagem</label>
       <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
       <br>
-      <input type="hidden" name="idgrupo" value="0"> </input>
+      <input type="hidden" name="idgrupo" value="0">
       <input type="submit" name="submit" value="Submit">
     </form>
   </div>

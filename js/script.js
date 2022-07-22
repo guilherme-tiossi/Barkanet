@@ -427,68 +427,6 @@ function verificaPostagem() {
     }
 }
 
-/*posts.php*/
-
-/*function verificaComentario() {
-    var validar = true;
-    var comentario = document.getElementById("txcom").value;
-
-    if (comentario == "") {
-        document.getElementById('alert-com').className = "alert";
-        validar = false;
-    }
-
-    if (comentario != "") {
-        document.getElementById('alert-com').className = "to-hide";
-    }
-
-    if (validar == false) {
-        return validar;
-    } else {
-        return validar;
-    }
-}*/
-
-/*grupos.php*/
-
-/*function verificaGrupo() {
-    var validar = true;
-    var nomeGrupo = document.getElementById("txNomeGrupo").value;
-    var descricaoGrupo = document.getElementById("txDescricaoGrupo").value;
-    var tipoGrupo = document.getElementById('optTipoGrupo').value;
-
-    if (nomeGrupo == "") {
-        document.getElementById('alert-nomeGrupo').className = "alert";
-        validar = false;
-    }
-
-    if (nomeGrupo != "") {
-        document.getElementById('alert-nomeGrupo').className = "to-hide";
-    }
-    if (descricaoGrupo == "") {
-        document.getElementById('alert-descricaoGrupo').className = "alert";
-        validar = false;
-    }
-
-    if (descricaoGrupo != "") {
-        document.getElementById('alert-descricaoGrupo').className = "to-hide";
-    }
-
-    if (tipoGrupo = undefined) {
-        document.getElementById('alert-optTipoGrupo').className = "alert";
-    }
-
-    if (tipoGrupo != "") {
-        document.getElementById('alert-optTipoGrupo').className = "to-hide";
-    }
-
-    if (validar == false) {
-        return validar;
-    } else {
-        return validar;
-    }
-}*/
-
 function hiddenPop(){
     document.getElementById('pop-up').className = "pop-up-hidden";
 }

@@ -21,7 +21,7 @@ $stmt->execute();
 
 foreach ($stmt as $row) : ?>
   <div>
-      <img src="img/<?php echo $row["profilepic"]; ?>" width = 50 title="<?php echo $row['image']; ?>">
+      <img src="img/<?php echo $pfp; ?>" width = 50 title="<?php echo $pfp; ?>">
     <?php
       echo $row["nome"];
       echo "<br>";
@@ -52,16 +52,10 @@ foreach ($stmt as $row) : ?>
     <h5>Publicar seu Comentario</h5>
     <form action="exec_com.php"  method="post">
       <label for="txcom">Comentario:</label>
-      <input type="text" name="txcom" id="txcom">
+      <input type="text" name="txcom" id="txcom" maxlength="100">
       <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
       <br>
       <input type="hidden" name="post_id" value="<?php echo $row["idpost"]; ?>">
       <input type="submit" name="comentar" value="Enviar">
     </form>
-    <?php endforeach;
-
-
-
-
-// select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')
-?>
+    <?php endforeach;?>

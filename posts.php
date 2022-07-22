@@ -8,10 +8,10 @@ $users=array("$id");
 $stmt = $pdo->prepare("SELECT * FROM amigos WHERE (id_de = {$_SESSION['userId']} and status = '1') OR (id_para = {$_SESSION['userId']} AND status = '1')");
 $stmt ->execute();
 foreach ($stmt as $row):
-  if ($row["id_de"] = $id ){
+  if ($row["id_de"] == $id ){
   array_push($users, $row["id_para"]);
   }
-  elseif ($row["id_para"] = $id){
+  elseif ($row["id_para"] == $id){
     array_push ($users, $row["id_de"]);
   }
 endforeach;

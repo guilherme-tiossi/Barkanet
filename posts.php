@@ -21,7 +21,7 @@ $stmt->execute();
 
 foreach ($stmt as $row) : ?>
   <div>
-      <img src="img/<?php echo $pfp; ?>" width = 50 title="<?php echo $pfp; ?>">
+      <img src="img/<?php echo $row["profilepic"]; ?>" width = 50 title="<?php echo $pfp; ?>">
     <?php
       echo $row["nome"];
       echo "<br>";

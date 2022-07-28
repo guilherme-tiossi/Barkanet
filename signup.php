@@ -1,17 +1,17 @@
 <?php session_start();?>
 
 <!DOCTYPE html>
-<html lang="utf-8">
+<html lang="utf-8" class="h-100 w-100"> 
    <head>
       <meta charset="utf-8">
-      <title>Sign up</title>
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
-      <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
-      <!--<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>-->
+      <title>Cadastro</title>
+	  <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
+	  <link rel="stylesheet" type="text/css" href="css/native/style.css">
+	  <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
       <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
       <script type="text/javascript" src="js/jquery.mask.min.js"></script>
       <script type="text/javascript" src="js/script.js"></script>
+      <!--<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>-->
       
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
       <script type="text/javascript">
@@ -20,14 +20,24 @@
          });
       </script>
    </head>
-   <body>
-      <section>
-         <div class="centralizar">
-         <div class="box">
-            <h1>Sign up</h1>
+<body id="intro" class="h-100 w-100">
+	<div class="container h-100 w-100">
+	    <div class="row h-100 w-100 align-items-center justify-content-md-center">
+		<div class="col-md-auto">
+		    <div class="card text-bg-light mb-3" style="width: 29rem;height: 22rem;">
+			<div id="cdheader" class="card-header d-inline-flex justify-content-between">
+			    <div>
+			    <h5>BARKANET</h5>
+			    </div>
+			    <div>
+			    <h5>🌐</h5>
+			    </div>
+			</div>
+			<div id="cdbody" class="card-body text-center">
             <?php
                if(isset($_SESSION['nao_autenticado'])):
                ?>
+            </div>
             <div>
                <p class="alert">Esse email já esta sendo usado</p>
             </div>
@@ -76,11 +86,12 @@
                <label for="check_termos">Eu li e concordo com os <a href="" data-toggle="modal" data-target="#ModalLongoExemplo">Termos de uso e Privacidade</a></label>
                <span id="alert-termos" class="to-hide" role="alert"><br>Voce precisa aceitar os Termos</span>
                <br>
-               <input type="submit" name="signin" value="Sign in">
+               <input type="submit" class="btn btn-outline-secondary" style="--bs-btn-padding-y: 0.5rem; --bs-btn-padding-x: 2.4rem; --bs-btn-font-size: 1.4rem;" name="signin" value="Sign in">
                <a href="login.php">Já tenho uma conta</a>
-            </form>
-         </div>
-      </div>
+			</form>
+		</div>
+        </div>
+        </div>
          <div class="modal fade-modal-lg" id="ModalLongoExemplo" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                <div class="modal-content">

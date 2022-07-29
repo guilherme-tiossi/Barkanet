@@ -22,7 +22,7 @@ if(isset($_POST["submit"])){
 
   foreach ($stmt as $row) :
     $id_grupo = $row['id_grupo'];
-    $stmt = $pdo->prepare("INSERT INTO membros_grupos VALUES ('', '$id', '$id', '$id_grupo', '1')");
+    $stmt = $pdo->prepare("INSERT INTO membros_grupos VALUES ('', '$id', '$id', '$id_grupo', '$id', '1')");
     $stmt ->execute();
   endforeach;
 

@@ -29,7 +29,7 @@
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Nome:</b>
 	                                <br>'.$nome.'
-	                                <a href="update-name.php?id='.$row["id"].'" class="icon-lapis">
+	                                <a href="update.php'.'" class="icon-lapis">
 							            <i class="fa-solid fa-pencil"></i>
 							        </a>
 	                            </p>
@@ -45,14 +45,14 @@
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Biografia:</b>
 	                                <br>'.$bio.'
-	                                <a href="update-bio.php?id='.$row["id"].'" class="icon-lapis">
+	                                <a href="update.php'.'" class="icon-lapis">
 							            <i class="fa-solid fa-pencil"></i>
 							        </a>
 	                            </p>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Data de nascimento:</b>
 	                                <br>'.$nasc.'
-	                                <a href="update-date.php?id='.$row["id"].'" class="icon-lapis">
+	                                <a href="update.php'.'" class="icon-lapis">
 							            <i class="fa-solid fa-pencil"></i>
 							        </a>
 	                            </p>
@@ -72,7 +72,8 @@
         global $pdo;
         global $id;
         global $pfp;
-        $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id')  ORDER BY idpost DESC");
+//        $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id')  ORDER BY idpost DESC");
+		$stmt=$pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
         $stmt ->execute();
         foreach ($stmt as $row) :
         echo "<div class='mx-auto' style='width: 80%;'>

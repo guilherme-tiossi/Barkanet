@@ -23,7 +23,8 @@ foreach ($stmt as $row) : ?>
   <div>
       <img src="img/<?php echo $row["profilepic"]; ?>" width = 50 title="<?php echo $pfp; ?>">
     <?php
-      echo $row["nome"];
+    $idposter = $row['usuario'];
+      echo "<a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> ";
       echo "<br>";
         echo $row["titulo"];
       echo "<br>";

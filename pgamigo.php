@@ -71,47 +71,50 @@ $stmt ->execute();
 
    $stmt=$pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
         $stmt ->execute();
+        echo "<div class='card-fundo mx-auto' style='width: 50%;'>
+        <h2 class='p-3'>Posts de " . $row['nome'] . "</h2>";
         foreach ($stmt as $row) :
-        echo "<div class='mx-auto' style='width: 80%;'>
-                <!--post-->
-                <div class='mt-3 card-posts'>
-                <div class='card-body'>
-                    <div class='d-flex flex-row bd-highlight mb-0'>
-                        <div class='p-2 bd-highlight'>
-                            <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
+            echo "<div class='mx-auto' style='width: 80%;'>
+                    <!--post-->
+                    <div class='mt-3 card-posts'>
+                    <div class='card-body'>
+                        <div class='d-flex flex-row bd-highlight mb-0'>
+                            <div class='p-2 bd-highlight'>
+                                <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
+                            </div>
+                            <div class='p-2 bd-highlight'>
+                                <p class='mb-0' style='font-size: 18px';>
+                                    <b><u> $row[nome]</u></b>
+                                    <br>
+                                    <b> $row[titulo]</b>
+                                </p>
+                            </div>
                         </div>
-                        <div class='p-2 bd-highlight'>
-                            <p class='mb-0' style='font-size: 18px';>
-                                <b><u> $row[nome]</u></b>
-                                <br>
-                                <b> $row[titulo]</b>
-                            </p>
-                        </div>
+                        <p class='m-1'> $row[post]</p>
+                        <div class='mx-auto m-1//' style='width: 80%;'>";
+                            if ($row['image'] != null){
+                            echo "<img src='img/'$row[image]' class='img-fluid' title='<$row[image]';/>";}
+                            echo "</div></div></div>";
+    
+                //comentários
+                $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
+                $swor->execute();
+                foreach ($swor as $swo) :
+                echo "<br>
+                <div class='d-flex flex-row bd-highlight mb-0'>
+                    <div class='p-2 bd-highlight'>
+                        <img class='float-left' src='img/$pfp' width='50' height='50' title='foto'>
                     </div>
-                    <p class='m-1'> $row[post]</p>
-                    <div class='mx-auto m-1//' style='width: 80%;'>";
-                        if ($row['image'] != null){
-                        echo "'<img src='img/$row[image];' class='img-fluid' title='<$row[image];>";}
-                        echo "</div></div></div>";
-
-            //comentários
-            $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
-            $swor->execute();
-            foreach ($swor as $swo) :
-            echo "<br>
-            <div class='d-flex flex-row bd-highlight mb-0'>
-                <div class='p-2 bd-highlight'>
-                    <img class='float-left' src='img/$pfp' width='50' height='50' title='foto'>
-                </div>
-                <div class='p-2 bd-highlight'>
-                    <p class='mb-0' style='font-size: 17px';>
-                        <b>$swo[com_nome]</b>
-                        <br>
-                        $swo[comentario]
-                    </p> </div> </div>";
+                    <div class='p-2 bd-highlight'>
+                        <p class='mb-0' style='font-size: 17px';>
+                            <b>$swo[com_nome]</b>
+                            <br>
+                            $swo[comentario]
+                        </p> </div> </div>";
+                endforeach;
+            echo "</div>";
             endforeach;
-        echo "</div>";
-        endforeach;
-        echo "</div>";
-        echo "</div>";
+            echo "</div>";
+        
+
    ?>

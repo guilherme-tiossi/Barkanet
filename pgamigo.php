@@ -1,5 +1,6 @@
 <?php
 include("conexao.php");
+include("lib/includes.php");    
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +18,9 @@ include("conexao.php");
 
 <?php
 $id = $_GET['id'];  
+if ($id == $_SESSION['userId']){
+    header("Location: perfil.php");
+}
 $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = '$id'");
 $stmt ->execute();
    foreach($stmt as $row) {
@@ -83,8 +87,16 @@ $stmt ->execute();
                                 <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
                             </div>
                             <div class='p-2 bd-highlight'>
-                                <p class='mb-0' style='font-size: 18px';>
-                                    <b><u> $row[nome]</u></b>
+                                <p class='mb-0' style='font-size: 18px';>";
+                                if($row['idgrupo'] > 0){
+                                    $stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
+                                    $stmt->execute();
+                                    foreach($stmt as $roww):
+                                    echo "<b> $roww[nome_grupo] </b>
+                                    <br>";
+                                    endforeach; 	
+                                    }
+                                    echo "<b><u> $row[nome]</u></b>
                                     <br>
                                     <b> $row[titulo]</b>
                                 </p>

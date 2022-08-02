@@ -39,8 +39,9 @@ foreach ($stmt as $row) : ?>
     $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}' ORDER BY id_com DESC");
     $swor->execute();
     foreach ($swor as $swo) : ?>
-    <div>
-      <?php
+  <div>
+      <img src="img/<?php echo $row["profilepic"]; ?>" width = 50 title="<?php echo $pfp; ?>">
+    <?php
         echo $swo["com_nome"];
         echo "<br>";
         echo $swo["comentario"];

@@ -10,8 +10,9 @@ if($_POST["txcom"] != ""){
   $stmt -> execute();
   foreach($stmt as $row){
     $nome = $row['nome'];
+    $pfp = $row['profilepic'];
   }
-  $stmt = $pdo->prepare("INSERT INTO comentarios(id_post, com_nome, com_user, comentario) VALUES ('$post_id', '$nome', '$id', '$comentar')");
+  $stmt = $pdo->prepare("INSERT INTO comentarios(id_post, com_nome, com_user, comentario, profilepic) VALUES ('$post_id', '$nome', '$id', '$comentar', '$pfp')");
   $stmt -> execute();
   
   header('Location: posts.php');

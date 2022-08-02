@@ -56,6 +56,7 @@ CREATE TABLE `comentarios` (
  `com_nome` varchar(100) NOT NULL,
  `com_user` int(20) NOT NULL,
  `comentario` text NOT NULL,
+ `profilepic` varchar(60) CHARACTER SET latin1 NOT NULL,
  PRIMARY KEY (`id_com`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 

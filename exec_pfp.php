@@ -10,12 +10,12 @@ foreach($stmt1 as $row) {
     $id = $row['id'];
 }
 
-if(isset($_POST["submit"])){
+if(isset($_POST["pfp"])){
     $fileName = $_FILES["pfp"]["name"];
     $fileSize = $_FILES["pfp"]["size"];
     $tmpName = $_FILES["pfp"]["tmp_name"];
 
-    $validImageExtension = ['jpg', 'jpeg', 'png'];
+    $validImageExtension = ['png', 'jpeg', 'jpg'];
     $imageExtension = explode('.', $fileName);
     $imageExtension = strtolower(end($imageExtension));
     if ( !in_array($imageExtension, $validImageExtension) ){

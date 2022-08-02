@@ -44,7 +44,13 @@
 	                <div class="card-body">
 	                    <div class="d-flex flex-row bd-highlight mb-0">
 	                        <div class="p-2 bd-highlight">
-	                            <img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
+							<div class="image-upload">
+								<form method="POST" action = "exec_update.php">
+	                            <label for="file-input">
+								<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
+								</label>
+								<input type="file" name="pfp" id="file-input" class ="pfp-input" accept=".png, .jpeg, .jpg" value="'.$pfp.'"">
+							</div>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Nome:</b>
 	                                <br>

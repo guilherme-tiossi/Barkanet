@@ -99,3 +99,11 @@
 	width: 25vh;
 	height: 4vh;
 }
+
+.pfp-input{
+	display: none;
+}
+
+.label-pfpalterar{
+	opacity: 0.3;
+}

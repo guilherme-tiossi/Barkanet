@@ -432,10 +432,78 @@ function hiddenPop(){
 }
 
 
+function cronometro(segs) {
+    min = 0;
+    hr = 0;
+    segs_c = 0;
+    min_c = 0;
+    hr_c = 0;
 
+    while (segs >= 60) {
+        if (segs >= 60) {
+            segs = segs - 60;
+            min = min + 1;
+            if(min == 30 && segs == 0){
+                alert("Você já esta no Barkanet a 30 minutos");
+            }
+        }
+    }
 
+    while (min >= 60) {
+        if (min >= 60) {
+            min = min - 60;
+            hr = hr + 1;
+            if(hr == 1 && min == 0 && segs == 0){
+                alert("Você já esta no Barkanet a 30 minutos");
+            }
+        }
+    }
 
+    if (hr < 10) {
+        hr_c = "0" + hr
+    }
+    if (hr >= 10) {
+        hr_c = hr
+        fin = hr_c + ":" + min_c + ":" + segs_c
+    }
+    if (min < 10) {
+        min_c = "0" + min
+    }
+    if (min >= 10) {
+        min_c = min
+        fin = hr_c + ":" + min_c + ":" + segs_c
+    }
+    if (segs < 10) {
+        segs_c = "0" + segs
+        fin = hr_c + ":" + min_c + ":" + segs_c
+    }
+    if (segs >= 10) {
+        segs_c = segs
+        fin = hr_c + ":" + min_c + ":" + segs_c
+    }
 
+    total = (hr * 3600) + (min * 60) + segs
 
+    return fin;
+}
 
+var segundos = 0;
 
+if (localStorage.getItem('tempo') == null) {
+    segundos = 0;
+} else {
+    segundos = localStorage.getItem('tempo');
+}
+
+function conta() {
+    segundos++;
+
+    document.getElementById("cronometro").innerHTML = cronometro(segundos);
+    localStorage.setItem("tempo", total);
+}
+
+function inicia() {
+    interval = setInterval("conta();", 1000);
+}
+
+inicia()

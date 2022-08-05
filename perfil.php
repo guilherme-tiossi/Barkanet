@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
-    <script src="js/perfil.js"></script>
+    <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
 </head>
 
@@ -25,26 +25,7 @@
     <div class="card-fundo mx-auto" style="width: 50%;">
         <h2 class="p-3">Meus posts</h2>
         <?php ler_posts_usuario() ?>
-
-
-
-<br>
-<br>
-<br>
-<div class="card bg-light mb-3" style="max-width: 18rem;">
-  <div class="card-header">Opçoes q vão ficar no menu depois</div>
-  <div class="card-body">
-    <a href="logout.php">Sair</a>
-    <br>
-    <a href="update.php">Editar perfil</a>
-  </div>
-</div>
-<br>
-<br>
-<br>
-
-
-
+    </div>
 </body>
 </html>
 

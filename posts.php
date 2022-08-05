@@ -4,6 +4,10 @@ include("conexao.php");
 include('menu_esquerda.php');
 include('menu_direita.php');
 
+$pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+
+$quantidade_pg = 50;
+
 $users=array("$id");
 $stmt = $pdo->prepare("SELECT * FROM amigos WHERE (id_de = {$_SESSION['userId']} and status = '1') OR (id_para = {$_SESSION['userId']} AND status = '1')");
 $stmt ->execute();
@@ -17,6 +21,13 @@ foreach ($stmt as $row):
 endforeach;
 $users = implode(",", $users);
 $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE usuario in ($users) AND idgrupo = '0' ORDER BY idpost DESC");
+$stmt->execute();
+
+$rowNum = $stmt->rowCount();
+$num_pagina = ($rowNum/$quantidade_pg);
+$incio = ($quantidade_pg*$pagina)-$quantidade_pg;
+
+$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE usuario in ($users) AND idgrupo = '0' ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
 $stmt->execute();
 
 foreach ($stmt as $row) : ?>
@@ -61,3 +72,38 @@ foreach ($stmt as $row) : ?>
       <input type="submit" name="comentar" value="Enviar">
     </form>
     <?php endforeach;?>
+
+
+  <?php
+    $pagina_anterior = $pagina - 1;
+    $pagina_posterior = $pagina + 1;
+  ?>
+  
+  <nav class="text-center">
+    <ul class="pagination">
+      <li>
+        <?php
+        if($pagina_anterior != 0){ ?>
+          <a href="posts.php?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        <?php }else{ ?>
+          <span aria-hidden="true">&laquo;</span>
+        <?php }?>
+      </li>
+      <?php 
+      for($i = 1; $i < $num_pagina + 1; $i++){ ?>
+        <li><a href="posts.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+      <?php } ?>
+      <li>
+        <?php
+        if($pagina_posterior <= $num_pagina){ ?>
+          <a href="posts.php?pagina=<?php echo $pagina_posterior; ?>" aria-label="Previous">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        <?php }else{ ?>
+          <span aria-hidden="true">&raquo;</span>
+        <?php }  ?>
+      </li>
+    </ul>
+  </nav>

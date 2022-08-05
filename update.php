@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
-    <script src="js/perfil.js"></script>
+    <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
 </head>
 
@@ -42,21 +42,25 @@
 			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">
+	                	<form method="POST" action="exec_update.php" autocomplete="off" enctype="multipart/form-data">
 	                    <div class="d-flex flex-row bd-highlight mb-0">
 	                        <div class="p-2 bd-highlight">
 							<div class="image-upload">
-								<form method="POST" action = "exec_update.php">
-	                            <label for="file-input">
+								<button class="position-absolute" type="submit" name="editar">
+									<i class="fa-solid fa-pencil"></i>
+								</button>
+
+	                            <label for="pfp">
 								<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
 								</label>
-								<input type="file" name="pfp" id="file-input" class ="pfp-input" accept=".png, .jpeg, .jpg" value="'.$pfp.'"">
+								<input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg">
+								
 							</div>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Nome:</b>
 	                                <br>
-                                  <form method="POST" action="exec_update.php">
                                   <input class="textoupdate_nome" type="text" name="nome" id="nome" value="'.$nome.'">
-                                  <input type="submit" hidden />
+                                  <input type="submit" hidden>
 	                            </p>
 	                        </div>
 	                        <div class="p-2 bd-highlight">
@@ -73,17 +77,18 @@
                                   <input class="textoupdate_2" type="text" name="bio" id="bio" value="'.$bio.'">              
                                 </p>
 	                            <p class="mb-0" style="font-size: 18px";>
-	                                <b>Data de nascimento:</br>
+	                                <b>Data de nascimento:</b>
+	                                <br>
                                   <input class="textoupdate_2" type="text" name="data" id="data" value="'.$nasc.'">
                                   <input type="submit" hidden />
 	                            </p>
-                          </form>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Código:</b>
 	                                '.$cod.'
 	                            </p>
 	                        </div>
 	                    </div>
+	                	</form>
 	                </div>
 	            </div>
 	        </div>
@@ -92,26 +97,7 @@
     <div class="card-fundo mx-auto" style="width: 50%;">
         <h2 class="p-3">Meus posts</h2>
         <?php ler_posts_usuario() ?>
-
-
-
-<br>
-<br>
-<br>
-<div class="card bg-light mb-3" style="max-width: 18rem;">
-  <div class="card-header">Opçoes q vão ficar no menu depois</div>
-  <div class="card-body">
-    <a href="logout.php">Sair</a>
-    <br>
-    <a href="update.php">Editar perfil</a>
-  </div>
-</div>
-<br>
-<br>
-<br>
-
-
-
+    </div>
 </body>
 </html>
 

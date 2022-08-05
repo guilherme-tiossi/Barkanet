@@ -11,6 +11,12 @@ endforeach;
 
 <div>
   <div>
+    <i>TEMPO</i>
+    <br>
+    <span id="cronometro"></span>
+  </div>
+  
+  <div>
     <a href="posts.php">Timeline Amigos</a>
     <br>
     <a href="grupos.php">Criar Novo Grupo</a>

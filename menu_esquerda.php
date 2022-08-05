@@ -19,16 +19,18 @@ $stmt ->execute();
     <a href="perfil.php">Perfil</a>
     <br>
     <a href="procurar.php">Procurar </a>
-
     <?php
     $not = return_total_solicitation($con) + return_total_solicitation_grupo($con);
     if($not > 0){
       echo $not;
     }
     ?>
-    
+    <br>
+    <a href="update.php">Editar perfil</a>
     <br>
     <a href="#">Configurações</a>
+    <br>
+    <a href="logout.php" onclick="reset()">Sair</a>
   </div>
   <div>
     <div>

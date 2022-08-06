@@ -52,19 +52,20 @@ foreach ($stmt as $row) :
           <div class='card-body'>
               <div class='d-flex flex-row bd-highlight mb-0'>
                   <div class='p-2 bd-highlight'>
-                      <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
+                      <img class='float-left' src='img/" . $row['profilepic'] . "' width='64' height='64' title='foto'>
                   </div>
                   <div class='p-2 bd-highlight'>
                       <p class='mb-0' style='font-size: 18px';>";
                       if($row['idgrupo'] > 0){
                           $stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
                           $stmt->execute();
-                          foreach($stmt as $roww):
-                          echo "<b> $roww[nome_grupo] </b>
+                          foreach($stmt as $row):
+                          echo "<b> $row[nome_grupo] </b>
                           <br>";
                           endforeach; 	
                           }
-                          echo "<b><u> $row[nome]</u></b>
+                          $idposter = $row['usuario'];
+                          echo "<a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a>
                           <br>
                           <b> $row[titulo]</b>
                       </p>
@@ -83,7 +84,7 @@ foreach ($stmt as $row) :
       echo "<br>
       <div class='d-flex flex-row bd-highlight mb-0'>
           <div class='p-2 bd-highlight'>
-              <img class='float-left' src='img/$pfp' width='50' height='50' title='foto'>
+              <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
           </div>
           <div class='p-2 bd-highlight'>
               <p class='mb-0' style='font-size: 17px';>
@@ -104,6 +105,9 @@ foreach ($stmt as $row) :
   </form> </div> </div>';
   endforeach;
   echo "</div> ";
+
+
+//contador de páginas
 
     $pagina_anterior = $pagina - 1;
     $pagina_posterior = $pagina + 1;

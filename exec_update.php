@@ -55,6 +55,8 @@ foreach($stmt1 as $row) {
       $stmt->execute();
       $stmt = $pdo->prepare("UPDATE tbposts SET profilepic = '$newImageName' WHERE usuario = '$id'");
       $stmt->execute();
+      $stmt = $pdo->prepare("UPDATE comentarios SET profilepic = '$newImageName' WHERE com_user = '$id'");
+      $stmt->execute();
       header("Location: perfil.php");
     }
 

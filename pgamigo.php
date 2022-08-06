@@ -115,7 +115,7 @@ $stmt ->execute();
                 echo "<br>
                 <div class='d-flex flex-row bd-highlight mb-0'>
                     <div class='p-2 bd-highlight'>
-                        <img class='float-left' src='img/$pfp' width='50' height='50' title='foto'>
+                        <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
                     </div>
                     <div class='p-2 bd-highlight'>
                         <p class='mb-0' style='font-size: 17px';>

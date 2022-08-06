@@ -6,7 +6,7 @@ if($_POST["txcom"] != ""){
   $post_id = $_POST["post_id"];
   $email_com = $_SESSION['email'];
   $id = $_SESSION['userId'];
-  $stmt = $pdo->prepare("SELECT nome FROM usuarios WHERE id = $id");
+  $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = $id");
   $stmt -> execute();
   foreach($stmt as $row){
     $nome = $row['nome'];

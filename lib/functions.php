@@ -104,7 +104,7 @@
                     <div class='mx-auto m-1//' style='width: 80%;'>";
                         if ($row['image'] != null){
                         echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";}
-                        echo "</div></div></div>";
+                        echo "</div></div>";
 
             //comentários
             $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
@@ -119,12 +119,21 @@
                     <p class='mb-0' style='font-size: 17px';>
                         <b>$swo[com_nome]</b>
                         <br>
-                        $swo[comentario]
-                    </p> </div> </div>";
-				endforeach;
-				echo "</div>";
-				endforeach;
-			echo "</div>";
+						$swo[comentario]
+                        </p> </div> </div>";
+                endforeach;
+            echo '     <br>
+            <h5>Publicar seu Comentario</h5>
+            <form action="exec_com.php"  method="post">
+              <label for="txcom">Comentario:</label>
+              <input type="text" name="txcom" id="txcom" maxlength="100">
+              <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
+              <br>
+              <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo ' 
+              <input type="submit" name="comentar" value="Enviar">
+            </form> </div> </div>';
+            endforeach;
+            echo "</div>";	
 		};
 		
 // ========================== SOLICITAÇÕES DE GRUPOS ==========================

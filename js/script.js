@@ -509,5 +509,5 @@ function inicia() {
 inicia()
 
 function reset() {
-    localStorage.setItem("tempo", null);
+    localStorage.setItem("tempo", 0);
 }

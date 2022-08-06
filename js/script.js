@@ -507,3 +507,7 @@ function inicia() {
 }
 
 inicia()
+
+function reset() {
+    localStorage.setItem("tempo", null);
+}

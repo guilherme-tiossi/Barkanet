@@ -87,16 +87,18 @@
                         <div class='p-2 bd-highlight'>
                             <p class='mb-0' style='font-size: 18px';>";
                                 if($row['idgrupo'] > 0){
-                                $stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
+                                $stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo, tbgrupos.id_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
                                 $stmt->execute();
 								foreach($stmt as $roww):
-                                echo "<b> $roww[nome_grupo] </b>
+                              	$id_grupo = $roww['id_grupo'];
+							    echo "<a href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo']. "</a>
 								<br>";
 								endforeach; 	
 								}
-                                echo "<b><u> $row[nome]</u></b>
-                                <br>
-                                <b> $row[titulo]</b>
+								$idposter = $row['usuario'];
+								echo "<b> <a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> </b>
+								<br>
+								<b> $row[titulo]</b>
                             </p>
                         </div>
                     </div>
@@ -113,11 +115,13 @@
             echo "<br>
             <div class='d-flex flex-row bd-highlight mb-0'>
                 <div class='p-2 bd-highlight'>
-                    <img class='float-left' src='img/$pfp' width='50' height='50' title='foto'>
+                    <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
                 </div>
                 <div class='p-2 bd-highlight'>
-                    <p class='mb-0' style='font-size: 17px';>
-                        <b>$swo[com_nome]</b>
+                    <p class='mb-0' style='font-size: 17px';>";
+					$idcomenter = $swo['com_user'];
+					echo "
+					    <a href='pgamigo.php?id=$idcomenter'> $swo[com_nome] </a>				
                         <br>
 						$swo[comentario]
                         </p> </div> </div>";

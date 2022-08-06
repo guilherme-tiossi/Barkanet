@@ -6,13 +6,14 @@ include("conexao.php");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Perfil</title>
+    <title>Barkanet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
     <script src="js/perfil.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
 </head>
 
@@ -25,11 +26,6 @@ $id_grupo = $_GET['id_grupo'];
    $pfp = $row['profilepic'];
    }
 ?>
-
-<head>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script type="text/javascript" src="js/script.js"></script>
-</head>
 <div>
   <div>
     <img src='img/<?php echo $pfp; ?>' width = 50 title='<?php echo $pfp; ?>'>
@@ -94,7 +90,7 @@ foreach ($stmt as $row) :
                     <div class='p-2 bd-highlight'>
                         <p class='mb-0' style='font-size: 18px';>";
                             $idposter = $row['usuario'];
-                            echo "<a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a>
+                            echo "<b> <a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> </b>
                             <br>
                             <b> $row[titulo]</b>
                         </p>
@@ -116,9 +112,10 @@ foreach ($stmt as $row) :
                 <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
             </div>
             <div class='p-2 bd-highlight'>
-                <p class='mb-0' style='font-size: 17px';>
-                    <b>$swo[com_nome]</b>
-                    <br>
+                <p class='mb-0' style='font-size: 17px';>";
+                $idcomenter = $swo['com_user'];
+                echo "<a href='pgamigo.php?id=$idcomenter'> $swo[com_nome] </a>
+                <br>
                     $swo[comentario]
                 </p> </div> </div>";
         endforeach;

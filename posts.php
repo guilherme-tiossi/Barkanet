@@ -74,8 +74,8 @@ foreach ($stmt as $row) :
               <p class='m-1'> $row[post]</p>
               <div class='mx-auto m-1//' style='width: 80%;'>";
                   if ($row['image'] != null){
-                  echo "<img src='img/'$row[image]' class='img-fluid' title='<$row[image]';/>";}
-                  echo "</div></div>";
+                  echo "<img src='img/$row[image]' class='img-fluid' title='$row[image]' </div>";}
+                  echo " </div> </div>";
 
       //comentários
       $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
@@ -87,8 +87,10 @@ foreach ($stmt as $row) :
               <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
           </div>
           <div class='p-2 bd-highlight'>
-              <p class='mb-0' style='font-size: 17px';>
-                  <b>$swo[com_nome]</b>
+              <p class='mb-0' style='font-size: 17px';>";
+                  $idcomenter = $swo['com_user'];
+                  echo "
+                  <b> <a href='pgamigo.php?id=$idcomenter'> $swo[com_nome] </a> </b>
                   <br>
                   $swo[comentario]
               </p> </div> </div>";

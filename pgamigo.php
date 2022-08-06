@@ -105,7 +105,7 @@ $stmt ->execute();
                         <p class='m-1'> $row[post]</p>
                         <div class='mx-auto m-1//' style='width: 80%;'>";
                             if ($row['image'] != null){
-                            echo "<img src='img/'$row[image]' class='img-fluid' title='<$row[image]';/>";}
+                            echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]';/>";}
                             echo "</div></div>";
     
                 //comentários

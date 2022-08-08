@@ -20,12 +20,11 @@
 </head>
 
 <body>
-    <?php ler_dados_usuario($email, $pdo);?>
-
-    <div class="card-fundo mx-auto" style="width: 50%;">
-        <h2 class="p-3">Meus posts</h2>
-        <?php ler_posts_usuario() ?>
-    </div>
+<div class="card-fundo mx-auto pt-1" style="width: 50%;">
+    <?php ler_dados_usuario($email, $pdo);
+    ler_amigos_usuario();
+    ler_posts_usuario(); ?>
+</div>
 </body>
 </html>
 

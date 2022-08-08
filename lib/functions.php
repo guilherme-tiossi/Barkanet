@@ -19,8 +19,7 @@
 				$pfp = $row['profilepic'];
 				}
 			echo 
-			'<div class="card-fundo mx-auto pt-1" style="width: 50%;">
-			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
+			'<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">
 	                    <div class="d-flex flex-row bd-highlight mb-0">
@@ -64,9 +63,40 @@
 	                    </div>
 	                </div>
 	            </div>
-	        </div>
 	        </div>';
 			};
+
+	function ler_amigos_usuario(){
+		global $pdo;
+		$stmt2 = $pdo->prepare("select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
+        $stmt2 ->execute();
+		
+        foreach ($stmt2 as $row) :
+          $id_para = $row['id_para'];
+          $id_de = $row['id_de'];
+          if($id_para == $_SESSION['userId']){
+            $stmt3 = $pdo->prepare("select profilepic from usuarios where id = '$id_de'");
+            $stmt3 ->execute();
+            foreach ($stmt3 as $row):
+			echo "
+				<img class='float-left' src='img/" . $row["profilepic"] . "' width='64' height='64' title='foto'>
+				";
+              echo "<br>";
+            endforeach;
+          }
+
+          if($id_de == $_SESSION['userId']){
+            $stmt3 = $pdo->prepare("select profilepic from usuarios where id = '$id_para'");
+            $stmt3 ->execute();
+            foreach ($stmt3 as $row):
+				echo "
+				<img class='float-left' src='img/" . $row["profilepic"] .  "' width='64' height='64' title='foto'>
+				";
+              echo "<br>";
+            endforeach;
+          }
+        endforeach; 	
+	}
 
     function ler_posts_usuario(){
         global $pdo;
@@ -75,6 +105,7 @@
 //        $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id')  ORDER BY idpost DESC");
 		$stmt=$pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
         $stmt ->execute();
+		echo '<h2 class="p-3">Meus posts</h2>';
         foreach ($stmt as $row) :
         echo "<div class='mx-auto' style='width: 80%;'>
                 <!--post-->
@@ -137,7 +168,6 @@
               <input type="submit" name="comentar" value="Enviar">
             </form> </div> </div>';
             endforeach;
-            echo "</div>";	
 		};
 		
 // ========================== SOLICITAÇÕES DE GRUPOS ==========================

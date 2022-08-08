@@ -20,6 +20,7 @@
 </head>
 
 <body>
+<div class="card-fundo mx-auto pt-1" style="width: 50%;">
     <?php $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 		 $stmt ->execute();
 			foreach($stmt as $row) {
@@ -38,7 +39,7 @@
 				$pfp = $row['profilepic'];
 				}
 			echo 
-			'<div class="card-fundo mx-auto pt-1" style="width: 50%;">
+			'
 			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">
@@ -46,14 +47,10 @@
 	                    <div class="d-flex flex-row bd-highlight mb-0">
 	                        <div class="p-2 bd-highlight">
 							<div class="image-upload">
-								<button class="position-absolute" type="submit" name="editar">
-									<i class="fa-solid fa-pencil"></i>
-								</button>
-
-	                            <label for="pfp">
-								<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
+								<label for="pfp" class="position-absolute">
+									<i class="fa-solid fa-pencil"> <input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
 								</label>
-								<input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg">
+								<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
 								
 							</div>
 	                            <p class="mb-0" style="font-size: 18px";>
@@ -92,10 +89,7 @@
 	                </div>
 	            </div>
 	        </div>
-	        </div>';?>
-
-    <div class="card-fundo mx-auto" style="width: 50%;">
-        <h2 class="p-3">Meus posts</h2>
+	        ';?>
         <?php ler_posts_usuario() ?>
     </div>
 </body>

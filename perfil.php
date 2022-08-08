@@ -21,9 +21,11 @@
 
 <body>
 <div class="card-fundo mx-auto pt-1" style="width: 50%;">
-    <?php ler_dados_usuario($email, $pdo);
+<div class="mx-auto pt-3 pb-3" style="width: 90%;">
+<?php ler_dados_usuario($email, $pdo);
     ler_amigos_usuario();
     ler_posts_usuario(); ?>
+</div>
 </div>
 </body>
 </html>

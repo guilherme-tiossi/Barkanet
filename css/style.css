@@ -10,6 +10,19 @@
   border-radius: 0;
 }
 
+.card-amigos{
+	background-color: rgb(238, 239, 243);
+	border: 3px solid #b9babe;
+	border-top: none;
+	border-radius: 0;
+	display: inline-block;
+	padding: 5px;
+  }
+
+.card-amigos img{
+	padding-right: 0px;
+}
+
 .card-fundo{
   background-color: rgb(238, 239, 243);
   border-left: 2px solid #b9babe;

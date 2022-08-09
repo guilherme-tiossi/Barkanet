@@ -66,6 +66,7 @@ CREATE TABLE `tbgrupos` (
  `descricao_grupo` text NOT NULL,
  `tipo_grupo` varchar(7) NOT NULL,
  `adm_grupo` int(20) NOT NULL,
+ `foto_grupo` varchar(60) DEFAULT 'grupo.png',
  PRIMARY KEY (`id_grupo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 

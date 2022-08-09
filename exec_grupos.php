@@ -15,7 +15,7 @@ if(isset($_POST["submit"])){
   $nomegrupo = $_POST["txNomeGrupo"];
   $descgrupo = $_POST["txDescricaoGrupo"];
   $tipogrupo = $_POST["optTipoGrupo"];
-  $stmt = $pdo->prepare("INSERT INTO tbgrupos VALUES (null, '$nomegrupo', '$descgrupo', '$tipogrupo' , '$id')");
+  $stmt = $pdo->prepare("INSERT INTO tbgrupos VALUES (null, '$nomegrupo', '$descgrupo', '$tipogrupo' , '$id', 'grupo.png')");
   $stmt->execute();
   $stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE nome_grupo = '$nomegrupo' AND adm_grupo = '$id'");
   $stmt ->execute();

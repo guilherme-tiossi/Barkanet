@@ -2,8 +2,6 @@
 	include("lib/includes.php");
     include_once("lib/functions.php");
 	include("conexao.php");
-	//include('menu_esquerda.php');
-	//include('menu_direita.php');
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +18,15 @@
 </head>
 
 <body>
-<div class="card-fundo mx-auto pt-1" style="width: 50%;">
+
+<div class="d-flex">
+  <!--Menu Esquerada-->
+  <div class="col">
+    <?php include('menu_esquerda.php');?>
+  </div>
+
+  <!--Centro-->
+  <div class="col-6">
     <?php $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 		 $stmt ->execute();
 			foreach($stmt as $row) {
@@ -39,20 +45,19 @@
 				$pfp = $row['profilepic'];
 				}
 			echo 
-			'
+			'<div class="card-fundo pt-1">
 			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">
 	                	<form method="POST" action="exec_update.php" autocomplete="off" enctype="multipart/form-data">
 	                    <div class="d-flex flex-row bd-highlight mb-0">
 	                        <div class="p-2 bd-highlight">
-							<div class="image-upload">
-								<label for="pfp" class="position-absolute">
-									<i class="fa-solid fa-pencil"> <input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
-								</label>
-								<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
-								
-							</div>
+														<div class="image-upload">
+															<label for="pfp" class="position-absolute">
+																<i class="fa-solid fa-pencil"> <input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
+															</label>
+															<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
+														</div>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Nome:</b>
 	                                <br>
@@ -89,9 +94,20 @@
 	                </div>
 	            </div>
 	        </div>
-	        ';?>
-        <?php ler_posts_usuario() ?>
+	        </div>';?>
+
+    <div class="card-fundo">
+      <h2 class="p-3">Meus posts</h2>
+      <?php ler_posts_usuario(); ?>
     </div>
+  </div>
+
+  <!--Menu Direita-->
+  <div class="col">
+    <?php include('menu_direita.php');?>
+  </div>
+</div>
+    
 </body>
 </html>
 

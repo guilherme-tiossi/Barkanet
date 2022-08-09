@@ -19,7 +19,8 @@
 				$pfp = $row['profilepic'];
 				}
 			echo 
-			'
+			'<div class="card-fundo pt-1">
+			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">
 	                    <div class="d-flex flex-row bd-highlight mb-0">
@@ -27,7 +28,7 @@
 	                            <img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Nome:</b>
-	                                <br>'.$nome.'
+	                                <br>'.mb_strimwidth($nome, 0, 16, "...").'
 	                                <a href="update.php'.'" class="icon-lapis">
 							            <i class="fa-solid fa-pencil"></i>
 							        </a>
@@ -43,7 +44,7 @@
 	                            </p>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Biografia:</b>
-	                                <br>'.$bio.'
+	                                <br>'.mb_strimwidth($bio, 0, 30, "...").'
 	                                <a href="update.php'.'" class="icon-lapis">
 							            <i class="fa-solid fa-pencil"></i>
 							        </a>
@@ -63,7 +64,8 @@
 	                    </div>
 	                </div>
 	            </div>
-	        ';
+	        </div>
+	        </div>';
 			};
 
 	function ler_amigos_usuario(){
@@ -103,13 +105,22 @@
         global $id;
         global $pfp;
 //        $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id')  ORDER BY idpost DESC");
+        $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+    	$quantidade_pg = 50;
+	    
 		$stmt=$pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
         $stmt ->execute();
-		echo '<div class="card-body">
-		 <h2 class="p-3">Meus posts</h2>';
+        
+        $rowNum = $stmt->rowCount();
+	    $num_pagina = ($rowNum/$quantidade_pg);
+	    $incio = ($quantidade_pg*$pagina)-$quantidade_pg;
+
+	    $stmt=$pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
+        $stmt ->execute();
+
+        echo '<h2 class="p-3">Meus posts</h2>';
         foreach ($stmt as $row) :
-        echo "<div class='mx-auto' style='width: 80%;'>
-                <!--post-->
+        echo "<div class='mx-auto mb-2' style='width: 80%;'>
                 <div class='mt-3 card-posts'>
                 <div class='card-body'>
                     <div class='d-flex flex-row bd-highlight mb-0'>
@@ -139,7 +150,6 @@
                         if ($row['image'] != null){
                         echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";}
                         echo "</div></div>";
-
             //comentários
             $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
             $swor->execute();
@@ -169,8 +179,35 @@
               <input type="submit" name="comentar" value="Enviar">
             </form> </div> </div>';
             endforeach;
-			echo "</div>";
-		};
+		$pagina_anterior = $pagina - 1;
+      	$pagina_posterior = $pagina + 1;
+
+      	echo '<div class="card-fundo">
+      <nav>
+        <ul class="pagination pagination-lg justify-content-center pt-2">';
+            if($pagina_anterior != 0){
+                $btn1 = '<a class="page-link" href="perfil.php?pagina='.$pagina_anterior.'" aria-label="Previous">&laquo;</a>';
+            }else{
+              $btn1 = '<span class="page-link">&laquo;</span>';
+            }
+          
+          echo '<li class="page-item">'.$btn1.'</li>';
+
+            for($i = 1; $i < $num_pagina + 1; $i++){
+              $btn2 = '<a class="page-link" href="perfil.php?pagina='.$i.'">'.$i.'</a>';
+              echo '<li class="page-item">'.$btn2.'</li>';
+            }
+
+            if($pagina_posterior <= $num_pagina){
+              $btn3 = '<a class="page-link" href="perfil.php?pagina='.$pagina_posterior.'" aria-label="Previous">&raquo;</a>';
+            }else{
+              $btn3 = '<span class="page-link">&raquo;</span>';
+            }
+          echo '<li class="page-item">'.$btn3.'</li>
+        </ul>
+      </nav>
+      </div>';
+      	};
 		
 // ========================== SOLICITAÇÕES DE GRUPOS ==========================
 	function carrega_pagina_atalho($con){

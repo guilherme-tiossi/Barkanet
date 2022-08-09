@@ -393,12 +393,12 @@ function verificaPostagem() {
     var postagem = document.getElementById("txPost").value;
 
     if (titulo == "") {
-        document.getElementById('alert-titulo1').className = "alert";
+        document.getElementById('alert-titulo1').className = "alert m-0 p-0";
         validar = false;
     }
 
     if (titulo.length > 50) {
-        document.getElementById('alert-titulo2').className = "alert";
+        document.getElementById('alert-titulo2').className = "alert m-0 p-0";
         validar = false;
     }
 
@@ -411,7 +411,7 @@ function verificaPostagem() {
     }
 
     if (postagem == "") {
-        document.getElementById('alert-postagem').className = "alert";
+        document.getElementById('alert-postagem').className = "alert m-0 p-0";
         validar = false;
     }
 
@@ -510,4 +510,14 @@ inicia()
 
 function reset() {
     localStorage.setItem("tempo", 0);
+}
+
+function grupos(){
+    document.getElementById('meusgrupos').className = "to-hide";
+    document.getElementById('grupos').className = "";
+}
+
+function meusgrupos(){
+    document.getElementById('grupos').className = "to-hide";
+    document.getElementById('meusgrupos').className = "";
 }

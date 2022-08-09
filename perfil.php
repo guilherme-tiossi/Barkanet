@@ -1,9 +1,7 @@
 <?php
 	include("lib/includes.php");
-    include_once("lib/functions.php");
+  include_once("lib/functions.php");
 	include("conexao.php");
-	//include('menu_esquerda.php');
-	//include('menu_direita.php');
 ?>
 
 <!DOCTYPE html>
@@ -20,14 +18,27 @@
 </head>
 
 <body>
-<div class="card-fundo mx-auto pt-1" style="width: 50%;">
-<div class="mx-auto pt-3 pb-3" style="width: 90%;">
-<?php ler_dados_usuario($email, $pdo);
-    ler_amigos_usuario();
-    ler_posts_usuario(); ?>
+
+<div class="d-flex">
+  <!--Menu Esquerada-->
+  <div class="col">
+    <?php include('menu_esquerda.php');?>
+  </div>
+
+  <!--Centro-->
+  <div class="col-6">
+    <?php ler_dados_usuario($email, $pdo);
+    //ler_amigos_usuario();?>
+    <div class="card-fundo">
+      <?php ler_posts_usuario(); ?>
+    </div>
+  </div>
+
+  <!--Menu Direita-->
+  <div class="col">
+    <?php include('menu_direita.php');?>
+  </div>
 </div>
-</div>
+
 </body>
 </html>
-
-

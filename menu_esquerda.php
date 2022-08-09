@@ -4,6 +4,7 @@ $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 $stmt ->execute();
 
  foreach($stmt as $row) {
+   $nome = $row['nome'];
    $pfp = $row['profilepic'];
    }
 ?>
@@ -12,44 +13,83 @@ $stmt ->execute();
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script type="text/javascript" src="js/script.js"></script>
 </head>
-<div>
+
+<div class="card-fundo-esquerda">
   <div>
-    <img src='img/<?php echo $pfp; ?>' width = 50 title='<?php echo $pfp; ?>'>
-    <br>
-    <a href="perfil.php">Perfil</a>
-    <br>
-    <a href="procurar.php">Procurar </a>
-    <?php
-    $not = return_total_solicitation($con) + return_total_solicitation_grupo($con);
-    if($not > 0){
-      echo $not;
-    }
-    ?>
-    <br>
-    <a href="update.php">Editar perfil</a>
-    <br>
-    <a href="#">Configurações</a>
-    <br>
-    <a href="logout.php" onclick="reset()">Sair</a>
+    <!--Barra de pesquisa-->
+    <div class="input-group m-2 div-pesquisa">
+      <input type="text" class="form-control inputpesquisa" aria-label="Pesquisa" aria-describedby="btnpesquisa">
+      <a class="btn botaopesquisa" type="button" id="btnpesquisa" href="procurar.php"><i class="fa-solid fa-magnifying-glass fa-lg"></i></a>
+    </div>
+    <!--Botão editar-->
+    <div class="bordaperfil m-2">
+      <div class="d-flex flex-row mb-0">
+        <div class='m-1'>
+          <img src='img/<?php echo $pfp; ?>' width='60px' title='<?php echo $pfp; ?>'>
+        </div>
+        <div class='m-1'>
+            <h4><?php echo $nome; ?></h4>
+            <a href="update.php" class="editarperfil">Editar perfil</a>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div>
-    <div>
-    <h3>Publicar seu post</h3>
-    <form action="exec_posts.php"  method="post" onsubmit="return verificaPostagem()" autocomplete="off" enctype="multipart/form-data">
-      <label for="txTitulo">Título</label>
-      <input type="text" name="txTitulo" id="txTitulo">
-      <span id="alert-titulo1" class="to-hide" role="alert">Coloque um titulo</span>
-      <span id="alert-titulo2" class="to-hide" role="alert">O titulo deve ter no maximo 50 caracteres</span>
-      <br>
-      <label for="txPost">Post</label>
-      <input type="text" name="txPost" id="txPost">
-      <span id="alert-postagem" class="to-hide" role="alert">Digite algo...</span>
-      <br>
-      <label for="image">Imagem</label>
-      <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
-      <br>
-      <input type="hidden" name="idgrupo" value="0">
-      <input type="submit" name="submit" value="Submit">
-    </form>
-  </div>
+      <!--Formulário de posts-->
+      <div>
+         <form action="exec_posts.php"  method="post" onsubmit="return verificaPostagem()" autocomplete="off" enctype="multipart/form-data">
+            <div>
+               <div id="alert-titulo1" class="to-hide">
+                    <span>Coloque um titulo</span>
+               </div>
+               <div id="alert-titulo2" class="to-hide">
+                    <span>O titulo deve ter no maximo 50 caracteres</span>
+               </div>
+               <div id="alert-postagem" class="to-hide">
+                    <span>Digite alguma coisa...</span>
+               </div>
+               
+               <div class="form-group row">
+                  <!--Input titulo-->
+                  <div class="col">
+                     <input class="form-control-plaintext border border-secondary posttitulo" type="text" name="txTitulo" id="txTitulo" placeholder="Título">
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <!--Input texto-->
+                  <div class="col">
+                     <textarea class="form-control-plaintext border border-secondary mainpost" type="text" name="txPost" id="txPost" placeholder="Digite alguma coisa..."></textarea>
+                  </div>
+               </div>
+               <div class="form-group row">
+                  <!--Input imagem-->
+                  <div class="d-flex justify-content-end">
+                     <input class="form-control-file imgpost" type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
+                  </div>
+               </div>
+            </div>
+            <div class="d-flex justify-content-end">
+              <!--Botão de posts-->
+              <input type="hidden" name="idgrupo" value="0">
+              <button class="text-uppercase btnposts" type="submit" name="submit">Postar</button>
+            </div>
+         </form>
+      </div>
+   </div>
+
+
+   <div>
+      <!--Botões menu-->
+      <div>
+        <?php
+          $not = return_total_solicitation($con) + return_total_solicitation_grupo($con);
+         ?>
+         <a class="listapags" href="perfil.php"><i class="fa-solid fa-user"></i>Perfil</a>
+         <a class="listapags" href="posts.php"><i class="fa-solid fa-image"></i>Posts</a>
+         <a class="listapags" href="procurar.php"><i class="fa-solid fa-magnifying-glass"></i>Procurar <?php if($not > 0){ echo $not; }?></a>
+         <a class="listapags" href="configurações.php"><i class="fa-solid fa-gear"></i>configurações</a>
+         <a class="listapags" href="logout.php" onclick="reset()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+      </div>
+   </div>
 </div>

@@ -97,7 +97,6 @@
 	        </div>';?>
 
     <div class="card-fundo">
-      <h2 class="p-3">Meus posts</h2>
       <?php ler_posts_usuario(); ?>
     </div>
   </div>

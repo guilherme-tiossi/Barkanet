@@ -1,6 +1,10 @@
 <?php
 include("conexao.php");
 include("lib/includes.php");    
+$id = $_GET['id'];  
+if ($id == $_SESSION['userId']){
+    header("Location: perfil.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,10 +29,7 @@ include("lib/includes.php");
   <!--Centro-->
   <div class="col-6">
     <?php
-    $id = $_GET['id'];  
-    if ($id == $_SESSION['userId']){
-        header("Location: perfil.php");
-    }
+
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = '$id'");
     $stmt ->execute();
        foreach($stmt as $row) {

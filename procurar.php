@@ -26,9 +26,9 @@
     <div class="col-6">
       <div class="card-fundo">
       <!--Pesquisa com código-->
-      <h2>Insira o código de amizade:</h2>
+      <h2>Insira a sua busca:</h2>
       <form action="" method="post">
-        <input type="text" name="buscar" placeholder="#c0d1g0" required>
+        <input type="text" name="buscar" required>
         <button type="submit">Procurar</button><br>
       </form>
 
@@ -95,19 +95,21 @@
             $id_de = $row['id_de'];
             
             if($id_para == $_SESSION['userId']){
-              $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_de'");
+              $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_de'");
               $stmt3 ->execute();
               foreach ($stmt3 as $row):
-                echo $row["nome"];
+                $idposter = $row['id'];
+                echo "<a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a>";
                 echo "<br>";
               endforeach;
             }
 
             if($id_de == $_SESSION['userId']){
-              $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_para'");
+              $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_para'");
               $stmt3 ->execute();
               foreach ($stmt3 as $row):
-                echo $row["nome"];
+                $idposter = $row['id'];
+                echo "<a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a>";
                 echo "<br>";
               endforeach;
             }

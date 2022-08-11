@@ -28,7 +28,7 @@ $stmt ->execute();
           <img src='img/<?php echo $pfp; ?>' width='60px' title='<?php echo $pfp; ?>'>
         </div>
         <div class='m-1'>
-            <h4><?php echo $nome; ?></h4>
+            <h4> <a href="perfil.php" class="link-perfil"> <?php echo $nome; ?> </a> </h4>
             <a href="update.php" class="editarperfil">Editar perfil</a>
         </div>
       </div>

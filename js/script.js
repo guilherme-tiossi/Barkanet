@@ -433,30 +433,36 @@ function hiddenPop(){
 
 
 function cronometro(segs) {
-    min = 0;
+    min = 29;
     hr = 0;
     segs_c = 0;
     min_c = 0;
     hr_c = 0;
+    min_a = 30;
 
     while (segs >= 60) {
         if (segs >= 60) {
             segs = segs - 60;
             min = min + 1;
-            if(min == 30 && segs == 0){
-                alert("Você já esta no Barkanet a 30 minutos");
-            }
         }
     }
+
 
     while (min >= 60) {
         if (min >= 60) {
             min = min - 60;
             hr = hr + 1;
-            if(hr == 1 && min == 0 && segs == 0){
-                alert("Você já esta no Barkanet a 30 minutos");
-            }
         }
+    }
+
+    while(min_a == min && segs == 0){
+        min_a = min_a - 1;
+        alert("Você já esta no Barkanet a 30 minutos");
+    }
+
+    while(hr_a < hr ){
+        alert("Você já esta no Barkanet a 30 minutos");
+        hr_a = hr
     }
 
     if (hr < 10) {
@@ -488,6 +494,7 @@ function cronometro(segs) {
 }
 
 var segundos = 0;
+var hr_a = 0;
 
 if (localStorage.getItem('tempo') == null) {
     segundos = 0;

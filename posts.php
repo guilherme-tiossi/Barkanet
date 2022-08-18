@@ -50,14 +50,20 @@ include("conexao.php");
 
     $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE usuario in ($users) AND idgrupo = '0' ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
     $stmt->execute();
+
     echo "<div class='card-fundo mx-auto'>";
         foreach ($stmt as $row) :
+        $n = $pdo->prepare("SELECT * FROM usuarios WHERE id = '{$row['usuario']}'");
+        $n->execute();
+        foreach ($n as $w) :
+          $foto_perfil = $w['profilepic'];
+
         echo "<div class='mx-auto mb-2' style='width: 80%;'>
                 <div class='mt-3 card-posts'>
                 <div class='card-body'>
                     <div class='d-flex flex-row bd-highlight mb-0'>
                         <div class='p-2 bd-highlight'>
-                            <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
+                            <img class='float-left' src='img/$foto_perfil' width='64' height='64' title='".$foto_perfil."'>
                         </div>
                         <div class='p-2 bd-highlight'>
                             <p class='mb-0' style='font-size: 18px';>";
@@ -111,7 +117,7 @@ include("conexao.php");
               <input type="submit" name="comentar" value="Enviar">
             </form> </div> </div>';
             endforeach;
-
+        endforeach;
       $pagina_anterior = $pagina - 1;
       $pagina_posterior = $pagina + 1;
       ?>

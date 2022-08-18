@@ -64,7 +64,7 @@
               $nomegrupo = $row['nome_grupo'];
 
               if($row['tipo_grupo'] == "Privado" ){
-                echo "<a href='?pagina=grupo&id_grupo=$idgrupo&id=$adm_grupo'>{$nomegrupo}</a>";
+                echo "<a href='?pagina=grupo2&id_grupo=$idgrupo&id=$adm_grupo'>{$nomegrupo}</a>";
                 echo " " . $row["descricao_grupo"];
                 echo "</br>";
               }
@@ -99,7 +99,7 @@
               $stmt3 ->execute();
               foreach ($stmt3 as $row):
                 $idposter = $row['id'];
-                echo "<a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a>";
+                echo "<a href='?pagina=perfil&id=$idposter'>" . $row['nome'] . "</a>";
                 echo "<br>";
               endforeach;
             }
@@ -109,7 +109,7 @@
               $stmt3 ->execute();
               foreach ($stmt3 as $row):
                 $idposter = $row['id'];
-                echo "<a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a>";
+                echo "<a href='?pagina=perfil&id=$idposter'>" . $row['nome'] . "</a>";
                 echo "<br>";
               endforeach;
             }

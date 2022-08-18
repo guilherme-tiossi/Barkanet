@@ -9,11 +9,6 @@ $stmt ->execute();
    }
 ?>
 
-<head>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script type="text/javascript" src="js/script.js"></script>
-</head>
-
 <div class="card-fundo-esquerda">
   <div>
     <!--Barra de pesquisa-->

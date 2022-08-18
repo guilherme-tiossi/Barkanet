@@ -57,7 +57,7 @@ endforeach;
     </div>
 
     <div id="grupos">
-      <h5 class="m-2">Grupos que você participa:</h5>
+      <h5 class="m-2">Grupos de que você participa:</h5>
       <div class='lista-grupos'>
       <?php
       $stmt = $pdo->prepare("SELECT *

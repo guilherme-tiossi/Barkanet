@@ -231,7 +231,7 @@
 		
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-			echo "<b>{$dados['nome']}</b>";
+			echo "<br>"."<b>{$dados['nome']}</b>";
 			verfica_solicitacoes_grupo_procurar($con, $_SESSION['userId'], $id_amigo, $id_grupo);
 			echo "<br>";
 			echo"<a href='procurar.php'>Voltar</a>";
@@ -255,7 +255,6 @@
 	}
 
 	function verfica_solicitacoes_grupo_pggrupo($con, $id_usuario, $id_amigo, $id_grupo){
-
 		//CONSULTA DE ADMINISTRADOR
 		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ? AND id_grupo = ?) OR (id_adm = ? AND id_usuario = ? AND id_grupo = ?)");
 		$sql->bind_param("ssssss", $id_usuario, $id_amigo, $_GET['id_grupo'], $id_amigo, $id_usuario, $_GET['id_grupo']);
@@ -282,9 +281,10 @@
 					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Cancelar Solicitação</a>";
 				}
 
-				if($dados['id_adm'] == $id_usuario && $id_amigo == $dados['id_usuario'] && $dados['para'] == $id_usuario && $dados['status'] == 0){
-					echo " pediu para entrar no grupo: ";
+				if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] != $id_usuario && $dados['para'] == $id_usuario && $dados['status'] == 0){
+					echo " pediu para entrar no grupo ";
 					echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Aceitar</a>";
+					echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Recusar</a>";
 				}
 			}
 		}
@@ -304,7 +304,6 @@
 	}
 
 	function verfica_solicitacoes_grupo_procurar($con, $id_usuario, $id_amigo, $id_grupo){
-
 		//CONSULTA NOME GRUPO
 		$sql = $con->prepare("SELECT nome_grupo FROM tbgrupos WHERE id_grupo = '$id_grupo'");
 		$sql->execute();
@@ -313,8 +312,8 @@
 		$nome_grupo = $dados['nome_grupo'];
 
 		//CONSULTA DE USUARIO
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
-		$sql->bind_param("ss", $id_amigo, $id_usuario);
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ? AND status = 0 AND id_grupo = ?) OR (id_adm = ? AND id_usuario = ? AND status = 0 AND id_grupo = ?)");
+		$sql->bind_param("ssssss", $id_amigo, $id_usuario, $id_grupo, $id_usuario, $id_amigo, $id_grupo);
 		$sql->execute();
 		$get = $sql->get_result();
 		$total = $get->num_rows;
@@ -328,18 +327,24 @@
 				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'> Entrar</a>   ";
 				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Recusar</a>";
 			}
+
+			if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_amigo && $dados['para'] == $id_usuario && $dados['status'] == 0){
+				echo " pediu para entrar no grupo $nome_grupo ";
+				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Aceitar</a>";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Recusar</a>";
+			}
 		}
 
 		else{
-			$sql = $con->prepare("SELECT adm_grupo FROM tbgrupos WHERE id_grupo = ?");
+			$sql = $con->prepare("SELECT id_grupo, adm_grupo FROM tbgrupos WHERE id_grupo = ?");
 			$sql->bind_param("s", $id_grupo);
 			$sql->execute();
 			$get = $sql->get_result();
 			$total = $get->num_rows;
 			$dados = $get->fetch_assoc();
 
-			if($total > 0 && $dados['adm_grupo'] == $id_amigo){
-				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_usuario}'> Pedir para entrar</a>";
+			if($total > 0 && $dados['adm_grupo'] == $id_amigo && $dados['id_grupo'] == $id_grupo){
+				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_amigo}'> Pedir para entrar</a>";
 			}
 		}
 	}
@@ -390,9 +395,9 @@
 		
 	}
 
-	function verifica_membro_solicitacao($con, $id_adm, $id_usuario){
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
-		$sql->bind_param("ss", $id_adm, $id_usuario);
+	function verifica_membro_solicitacao($con, $id_adm, $id_usuario, $id_grupo){
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0 AND id_grupo = ?");
+		$sql->bind_param("sss", $id_adm, $id_usuario, $id_grupo);
 		$sql->execute();
 
 		return $sql->get_result()->num_rows;
@@ -400,7 +405,7 @@
 
 	function send_solicitacion_grupo($con, $id_grupo, $id_adm){
 		$zero = 0;
-		if(verifica_membro_solicitacao($con, $id_adm, $_SESSION['userId']) <= 0){
+		if(verifica_membro_solicitacao($con, $id_adm, $_SESSION['userId'], $id_grupo) <= 0){
 			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
 			$sql->bind_param("sssss", $id_adm, $_SESSION['userId'], $id_grupo, $id_adm, $zero);
 			$sql->execute();
@@ -439,29 +444,27 @@
 	}
 
 	function aceita_solicitacao_grupo($con, $id_grupo, $id_adm, $id_usuario){
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0");
-		$sql->bind_param("ss", $id_adm, $id_usuario);
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 0 AND id_grupo = ?");
+		$sql->bind_param("sss", $id_adm, $id_usuario, $id_grupo);
 		$sql->execute();
 		$get = $sql->get_result();
 		$total = $get->num_rows;
 
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-				echo "passou 1";
-				if(atualiza_solicitacao_grupo($con, $id_adm, $id_usuario) > 0){
+				if(atualiza_solicitacao_grupo($con, $id_adm, $id_usuario, $id_grupo) > 0){
 					redireciona("pggrupo.php?id_grupo={$id_grupo}");	
 				}else{
 					echo "erro ao atualizar;";
 				}
-				
 		}else{
 			return false;
 		}
 	}
 
-	function atualiza_solicitacao_grupo($con, $id_adm, $id_usuario){
-		$sql = $con->prepare("UPDATE membros_grupos SET status = 1 WHERE id_adm = ? AND id_usuario = ?");
-		$sql->bind_param("ss", $id_adm, $id_usuario);
+	function atualiza_solicitacao_grupo($con, $id_adm, $id_usuario, $id_grupo){
+		$sql = $con->prepare("UPDATE membros_grupos SET status = 1 WHERE id_adm = ? AND id_usuario = ? AND id_grupo = ?");
+		$sql->bind_param("sss", $id_adm, $id_usuario, $id_grupo);
 		$sql->execute();
 
 		return $sql->affected_rows;
@@ -551,8 +554,8 @@
 		if($total > 0){
 			$dados = $get->fetch_assoc();
 			echo "<b>{$dados['nome']}</b> <br>";
-			echo "<a href='pgamigo.php?id=$perfil'>Perfil</a>"." - ";
 			verfica_solicitacoes($con, $_SESSION['userId'], $perfil);
+			echo "<br>";
 		}
 	}
 

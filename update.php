@@ -36,6 +36,7 @@
 				global $bio;
 				global $id;
 				global $pfp;
+				global $cordefundo;
 				$nome = $row['nome'];
 				$nasc = $row['data_nasc'];
 				$nasc = date_create_from_format("Y-m-d", $nasc)->format("d/m/Y");
@@ -43,6 +44,7 @@
 				$bio = $row['bio'];
 				$id = $row['id'];
 				$pfp = $row['profilepic'];
+				$cordefundo = $row['cordefundo'];
 				}
 			echo 
 			'<div class="card-fundo pt-1">
@@ -88,6 +90,13 @@
 	                                <b>Código:</b>
 	                                '.$cod.'
 	                            </p>
+								<select id="cordefundo" name="cordefundo">
+								<option value="rgb(238, 239, 243))">Padrão</option>
+  								<option value="rgb(24, 8, 54)">Mirtilo</option>
+  								<option value="rgb(218, 42, 42)">Morango</option>
+  								<option value="rgb(158, 222, 84)">Limão</option>
+  								<option value="rgb(235, 154, 129)">Pêssego</option>
+								</select>
 	                        </div>
 	                    </div>
 	                	</form>

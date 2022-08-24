@@ -11,6 +11,7 @@ CREATE TABLE `usuarios` (
  `codigo` varchar(7) NOT NULL,
  `bio` text DEFAULT NULL,
  `profilepic` varchar(60) DEFAULT 'avatar.jpg',
+ `cordefundo` varchar(60) DEFAULT 'rgb(238, 239, 243)',
  PRIMARY KEY (`id`),
  UNIQUE KEY `email` (`email`),
  UNIQUE KEY `codigo` (`codigo`)
@@ -94,7 +95,4 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `data_nasc`, `codigo`, `
 (37, 'Sol Ferreira', 'polvogemas@gmail.com', 'gemaspolvo', '2003-12-28', '#9bae43', '', 'avatar.jpg'),
 (38, 'Celeste Strelow', 'cltstrelow@protonmail.com', 'senhaceleste', '2006-01-12', '#3f6430', '', 'avatar.jpg'),
 (39, 'Giuliana Solange', 'giurealemo@protonmail.com', 'realemoonlyconsists', '2004-04-18', '#c159f9', '', 'avatar.jpg'),
-(40, 'Henrique', 'henrique@email.com', 'henrique@email.com', '2005-04-07', '#000000', '', 'avatar.jpg'),
-(41, 'user A', 'userA@email.com', 'userA@email.com', '2005-04-07', '#aaaaaa', '', 'avatar.jpg'),
-(42, 'user B', 'userB@email.com', 'userB@email.com', '2005-04-07', '#bbbbbb', '', 'avatar.jpg'),
-(43, 'user C', 'userC@email.com', 'userC@email.com', '2005-04-07', '#cccccc', '', 'avatar.jpg');
+(40, 'Henrique', 'henrique@email.com', 'henrique@email.com', '2005-04-07', '#000000', '', 'avatar.jpg');

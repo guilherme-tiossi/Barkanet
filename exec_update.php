@@ -16,6 +16,8 @@ foreach($stmt1 as $row) {
     $stmt ->execute();
     $stmt = $pdo->prepare("UPDATE usuarios set data_nasc='$data' WHERE id='$id'");
     $stmt ->execute();
+    $stmt = $pdo->prepare("UPDATE usuarios set cordefundo='" . $_POST['cordefundo'] . "' WHERE id='$id'");
+    $stmt ->execute();
     $stmt = $pdo->prepare("UPDATE tbposts set nome='" . $_POST['nome'] . "' WHERE usuario='$id'");
     $stmt ->execute();
     $stmt = $pdo->prepare("UPDATE comentarios set com_nome='" . $_POST['nome'] . "' WHERE com_user='$id'");

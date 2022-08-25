@@ -87,6 +87,7 @@ include("conexao.php");
           <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
           <br>
           <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo '>
+          <input type="hidden" name="id_amigo" value=0> 
           <input type="hidden" name="grupo_id" value=';  echo $_GET['id_grupo'];  echo '> 
           <input type="submit" name="comentar" value="Enviar">
         </form> </div> </div>';

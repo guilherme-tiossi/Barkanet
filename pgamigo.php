@@ -153,7 +153,9 @@ if ($id == $_SESSION['userId']){
                   <input type="text" name="txcom" id="txcom" maxlength="100">
                   <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
                   <br>
-                  <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo ' 
+                  <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo '>
+                  <input type="hidden" name="grupo_id" value=0> 
+                  <input type="hidden" name="id_amigo" value=';  echo $id;  echo '> 
                   <input type="submit" name="comentar" value="Enviar">
                 </form> </div> </div>';
                 endforeach;

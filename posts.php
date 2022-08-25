@@ -14,6 +14,8 @@ include("conexao.php");
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
     <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 
 <div class="d-flex">

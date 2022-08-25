@@ -26,7 +26,7 @@ endforeach;
       <h5 class="m-2">Meus Grupos:</h5>
       <div class='lista-grupos'>
       <?php
-      $stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE adm_grupo = {$_SESSION['userId']}");
+      $stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE adm_grupo = {$_SESSION['userId']} ORDER BY id_grupo DESC");
       $stmt ->execute();
 
       foreach ($stmt as $row) :
@@ -62,7 +62,7 @@ endforeach;
       <?php
       $stmt = $pdo->prepare("SELECT *
       FROM tbgrupos
-      WHERE EXISTS (SELECT id_grupo FROM membros_grupos WHERE id_grupo = tbgrupos.id_grupo and id_usuario = '{$_SESSION['userId']}' and status = 1)");
+      WHERE EXISTS (SELECT id_grupo FROM membros_grupos WHERE id_grupo = tbgrupos.id_grupo and id_usuario = '{$_SESSION['userId']}' and status = 1) ORDER BY id_grupo DESC");
       $stmt ->execute();
 
       foreach ($stmt as $row) :
@@ -89,6 +89,21 @@ endforeach;
         </div> <br>";
       endforeach;
       ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Alerta-->
+<div class="modal" id="modal-cronometro" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <div class="modal-alerta">
+          <h1 class="txt-modal">TEMPO: <b id="cronometro-modal" class="cro-modal"></b></h1>
+          <p class="m-2 alert">Você já esta no Barkanet a 30 minutos</p>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fecharAlerta()">OK já vou sair</button>
+        </div>
       </div>
     </div>
   </div>

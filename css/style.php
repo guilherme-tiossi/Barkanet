@@ -188,6 +188,22 @@ input[type=text]{
   outline: none;
 }
 
+.modal-alerta{
+  background-color: rgb(238, 239, 243);
+  border: 2px solid #b9babe;;
+  border-radius: 5px;
+  padding: 0.8rem;
+}
+
+.cro-modal{
+  color: #e60000;
+  font-size: 3rem;
+}
+
+.txt-modal{
+  font-size: 3rem;
+}
+
 /*================================================ CSS MENUS ================================================*/
 
 .inputpesquisa,

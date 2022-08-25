@@ -433,7 +433,7 @@ function hiddenPop(){
 
 
 function cronometro(segs) {
-    min = 0;
+    min = 59;
     hr = 0;
     segs_c = 0;
     min_c = 0;
@@ -455,13 +455,23 @@ function cronometro(segs) {
         }
     }
 
-    while(min_a == min && segs == 0){
+    if(min_a == min && segs == 0){
         min_a = min_a - 1;
-        alert("Você já esta no Barkanet a 30 minutos");
+        $(document).ready(function(){
+            $('#modal-cronometro').modal('show');
+        });
     }
 
-    while(hr_a < hr ){
-        alert("Você já esta no Barkanet a 30 minutos");
+    if(hr == 1 && min == 0 && segs == 0){
+        $(document).ready(function(){
+            $('#modal-cronometro').modal('show');
+        });
+    }
+
+    if(hr_a < hr && hr != 1){
+        $(document).ready(function(){
+            $('#modal-cronometro').modal('show');
+        });
         hr_a = hr
     }
 
@@ -494,7 +504,7 @@ function cronometro(segs) {
 }
 
 var segundos = 0;
-var hr_a = 0;
+var hr_a = 1;
 
 if (localStorage.getItem('tempo') == null) {
     segundos = 0;
@@ -506,6 +516,7 @@ function conta() {
     segundos++;
 
     document.getElementById("cronometro").innerHTML = cronometro(segundos);
+    document.getElementById("cronometro-modal").innerHTML = cronometro(segundos);
     localStorage.setItem("tempo", total);
 }
 
@@ -528,3 +539,8 @@ function meusgrupos(){
     document.getElementById('grupos').className = "to-hide";
     document.getElementById('meusgrupos').className = "";
 }
+
+function fecharAlerta(){
+    document.getElementById('modal-cronometro').className = "to-hide";
+}
+

@@ -77,6 +77,7 @@ include("conexao.php");
 								endforeach; 	
 								}
 								$idposter = $row['usuario'];
+                $idgrupo = $row['idgrupo'];
 								echo "<b> <a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> </b>
 								<br>
 								<b> $row[titulo]</b>
@@ -114,6 +115,7 @@ include("conexao.php");
               <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
               <br>
               <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo ' 
+              <input type="hidden" name="idgrupo" value='; echo $idgrupo; echo '>
               <input type="submit" name="comentar" value="Enviar">
             </form> </div> </div>';
             endforeach;

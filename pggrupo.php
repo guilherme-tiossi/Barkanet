@@ -48,6 +48,7 @@ include("conexao.php");
                         <div class='p-2 bd-highlight'>
                             <p class='mb-0' style='font-size: 18px';>";
                                 $idposter = $row['usuario'];
+                                
                                 echo "<b> <a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> </b>
                                 <br>
                                 <b> $row[titulo]</b>
@@ -77,6 +78,7 @@ include("conexao.php");
                         $swo[comentario]
                     </p> </div> </div>";
             endforeach;
+            $buceta = "40";
         echo '     <br>
         <h5>Publicar seu Comentario</h5>
         <form action="exec_com.php"  method="post">
@@ -84,7 +86,8 @@ include("conexao.php");
           <input type="text" name="txcom" id="txcom" maxlength="100">
           <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
           <br>
-          <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo ' 
+          <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo '>
+          <input type="hidden" name="grupo_id" value=';  echo $_GET['id_grupo'];  echo '> 
           <input type="submit" name="comentar" value="Enviar">
         </form> </div> </div>';
         endforeach;

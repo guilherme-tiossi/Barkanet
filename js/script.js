@@ -433,7 +433,7 @@ function hiddenPop(){
 
 
 function cronometro(segs) {
-    min = 59;
+    min = 0;
     hr = 0;
     segs_c = 0;
     min_c = 0;

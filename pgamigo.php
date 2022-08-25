@@ -5,6 +5,12 @@ $id = $_GET['id'];
 if ($id == $_SESSION['userId']){
     header("Location: perfil.php");
 }
+$stmt = $pdo->prepare("SELECT count(*) FROM amigos WHERE (id_de = {$_SESSION['userId']} AND id_para = {$id} AND status = '1') OR (id_para = {$_SESSION['userId']} AND id_de = {$id} AND status = '1')");
+$stmt->execute();
+$row_count = $stmt->fetchColumn();
+if ($row_count < 1){
+    header("Location: procurar.php");
+}
 ?>
 
 <!DOCTYPE html>

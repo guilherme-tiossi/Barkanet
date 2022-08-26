@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Deletar Conta</title>
+    <title>Configurações</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
@@ -29,32 +29,21 @@
 
   <!--Centro-->
   <div class="col-6">
-  <section>
-		<div>
-			<h1>Deletar conta</h1>
-			<?php
-            if(isset($_SESSION['nao_autenticado'])):
-            ?>
-            <div>
-            	<p class="alert">Email ou senha incorretos</p>
-            </div>
-            <?php
-            endif;
-            unset($_SESSION['nao_autenticado']);
-            ?>
-			<form method="POST" action="exec_deleta.php" onsubmit="return verificaExclusao()">
-				<label for="email">Email: </label>
-				<input type="text" name="email" id="email">
-				<span id="alerta-email" class="to-hide" role="alert">Preencha o campo email corretamente</span>
-				<br>
-				<label for="senha">Senha: </label>
-				<input type="password" name="senha" id="senha">
-				<span id="alerta-senha" class="to-hide" role="alert">Preencha o campo senha corretamente</span>
-				<br>
-				<input type="submit" name="deleta" value="Deletar">
-			</form>
-		</div>
-	</section>
+    <a href="update-pass.php?id='<?php $_SESSION['userId'] ?>'"> Alterar Senha  </a>
+    <br>
+    <a href="deleta.php"> Deletar Conta </a>
+    <br>
+    <p> Mudar tema </p>
+    <form method="POST" action="exec_mudar-tema.php" autocomplete="off" enctype="multipart/form-data">
+        <select id="cordefundo" name="cordefundo">
+        <option value="rgb(238, 239, 243)">Padrão</option>
+        <option value="rgb(24, 8, 54)">Mirtilo</option>
+        <option value="rgb(218, 42, 42)">Morango</option>
+        <option value="rgb(158, 222, 84)">Limão</option>
+        <option value="rgb(235, 154, 129)">Pêssego</option>
+        </select>
+        <input type="submit" value="Confirmar">
+	</form>
   </div>
 
   <!--Menu Direita-->
@@ -64,4 +53,4 @@
 </div>
 
 </body>
-</html>
+</html> 

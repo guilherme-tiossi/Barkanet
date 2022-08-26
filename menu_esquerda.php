@@ -83,7 +83,7 @@ $stmt ->execute();
          <a class="listapags" href="perfil.php"><i class="fa-solid fa-user"></i>Perfil</a>
          <a class="listapags" href="posts.php"><i class="fa-solid fa-image"></i>Posts</a>
          <a class="listapags" href="procurar.php"><i class="fa-solid fa-magnifying-glass"></i>Procurar <?php if($not > 0){ echo $not; }?></a>
-         <a class="listapags" href="configurações.php"><i class="fa-solid fa-gear"></i>configurações</a>
+         <a class="listapags" href="configuracoes.php"><i class="fa-solid fa-gear"></i>Configurações</a>
          <a class="listapags" href="logout.php" onclick="reset()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
       </div>
    </div>

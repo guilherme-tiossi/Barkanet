@@ -18,8 +18,8 @@ if($row == 1) {
 	$stmt2 ->execute();
 	$stmt2 = $pdo->prepare("DELETE FROM comentarios WHERE com_email = '$email'");
 	$stmt2 ->execute();
-
-	header('Location: login.php');
+	session_destroy();
+	header('Location: deletado.php');
 	exit();
 } else {
 	$_SESSION['nao_autenticado'] = true;

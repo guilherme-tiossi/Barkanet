@@ -75,7 +75,7 @@ endforeach;
           <a href='pggrupo.php?id_grupo=$id_grupo'>
                 <div class='d-flex flex-row mb-0'>
                   <div class='p-2'>
-                    <img src='img/$row[foto_grupo]' title='$row[foto_grupo]' class='imggrupo'> 
+                    <img src='img/$row[foto_grupo]' title='$row[foto_grupo]' class='imggrupo'>
                   </div>
                   <div class='p-2'>
                     <h5>".$nome_grupo."</h5>
@@ -84,6 +84,11 @@ endforeach;
                     </div>
                     <p><i class='fa-solid fa-tag'></i> ".$tipo_grupo."</p>
                   </div>
+              </div>
+              <a class='' id='mostraropcoesgrps' onclick='mostraropcoesgrupos()'> <i class='fa-solid fa-pencil'></i> </a>
+              <a class='to-hide' id='fecharopcoesgrp' onclick='ocultaropcoesgrupos()'> <i class='fa-solid fa-pencil'></i> </a>
+              <div id='opcoesgrupo' class='to-hide'>
+              <p> haii </p>
               </div>
           </a>
         </div> <br>";

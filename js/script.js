@@ -540,6 +540,21 @@ function meusgrupos(){
     document.getElementById('meusgrupos').className = "";
 }
 
+function mostraropcoesgrupos() {
+      document.getElementById('opcoesgrupo').className = '';
+      document.getElementById('fecharopcoesgrp').className = '';
+      document.getElementById('mostraropcoesgrps').className = "to-hide";
+      document.getElementById('ocultaropcoesgrps').className = "";
+    
+}
+
+function ocultaropcoesgrupos(){
+    document.getElementById('opcoesgrupo').className = 'to-hide';
+    document.getElementById('fecharopcoesgrp').className = 'to-hide';
+    document.getElementById('mostraropcoesgrps').className = "";
+    document.getElementById('ocultaropcoesgrps').className = "to-hide";
+}
+
 function fecharAlerta(){
     document.getElementById('modal-cronometro').className = "to-hide";
 }

@@ -19,7 +19,7 @@
 				$pfp = $row['profilepic'];
 				}
 			echo 
-			'<div class="card-fundo pt-1">
+			'<div class="card-fundo pt-1" id="infouser">
 			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">
@@ -29,9 +29,9 @@
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Nome:</b>
 	                                <br>'.mb_strimwidth($nome, 0, 16, "...").'
-	                                <a href="update.php'.'" class="icon-lapis">
-							            <i class="fa-solid fa-pencil"></i>
-							        </a>
+									<a class="icon-lapis" onclick="mostraropcoesperfil()">
+									<i class="fa-solid fa-pencil"></i>
+									</a>
 	                            </p>
 	                        </div>
 	                        <div class="p-2 bd-highlight">
@@ -45,16 +45,16 @@
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Biografia:</b>
 	                                <br>'.mb_strimwidth($bio, 0, 30, "...").'
-	                                <a href="update.php'.'" class="icon-lapis">
-							            <i class="fa-solid fa-pencil"></i>
-							        </a>
+									<a class="icon-lapis" onclick="mostraropcoesperfil()">
+									<i class="fa-solid fa-pencil"></i>
+									</a>
 	                            </p>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Data de nascimento:</b>
 	                                <br>'.$nasc.'
-	                                <a href="update.php'.'" class="icon-lapis">
-							            <i class="fa-solid fa-pencil"></i>
-							        </a>
+									<a class="icon-lapis" onclick="mostraropcoesperfil()">
+									<i class="fa-solid fa-pencil"></i>
+									</a>
 	                            </p>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Código:</b>
@@ -62,6 +62,63 @@
 	                            </p>
 	                        </div>
 	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        </div>
+			<div class="card-fundo pt-1" id="edituser">
+			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
+	            <div class="card card-perfil">
+	                <div class="card-body">
+	                	<form method="POST" action="exec_update.php" autocomplete="off" enctype="multipart/form-data">
+	                    <div class="d-flex flex-row bd-highlight mb-0">
+	                        <div class="p-2 bd-highlight">
+														<div class="image-upload">
+															<label for="pfp" class="position-absolute">
+																<i class="fa-solid fa-pencil"> <input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
+															</label>
+															<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
+														</div>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Nome:</b>
+	                                <br>
+                                  <input class="textoupdate_nome" type="text" name="nome" id="nome" value="'.$nome.'">
+                                  <input type="submit" hidden>
+	                            </p>
+	                        </div>
+	                        <div class="p-2 bd-highlight">
+	                            <h5 class="m-0">
+	                                <b>Informações da conta:</b>
+	                            </h5>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>E-mail:</b>
+	                                <br>'.$email.'
+	                            </p>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Biografia:</b>
+	                                <br>
+                                  <input class="textoupdate_2" type="text" name="bio" id="bio" value="'.$bio.'">              
+                                </p>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Data de nascimento:</b>
+	                                <br>
+                                  <input class="textoupdate_2" type="text" name="data" id="data" value="'.$nasc.'">
+                                  <input type="submit" hidden />
+	                            </p>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Código:</b>
+	                                '.$cod.'
+	                            </p>
+								<select id="cordefundo" name="cordefundo">
+								<option value="rgb(238, 239, 243))">Padrão</option>
+  								<option value="rgb(24, 8, 54)">Mirtilo</option>
+  								<option value="rgb(218, 42, 42)">Morango</option>
+  								<option value="rgb(158, 222, 84)">Limão</option>
+  								<option value="rgb(235, 154, 129)">Pêssego</option>
+								</select>
+	                        </div>
+	                    </div>
+	                	</form>
 	                </div>
 	            </div>
 	        </div>
@@ -225,7 +282,7 @@
 					}
 				if ($id_usuario == $adm_grupo){
 				echo 
-				'<div class="card-fundo pt-1">
+				'<div class="card-fundo pt-1" id="infogrupo">
 				<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 					<div class="card card-perfil">
 						<div class="card-body">
@@ -235,7 +292,7 @@
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Grupo:</b>
 										<br>'.mb_strimwidth($nome_grupo, 0, 16, "...").'
-										<a href="update.php'.'" class="icon-lapis">
+										<a class="icon-lapis" onclick="mostraropcoesgrupos()">
 											<i class="fa-solid fa-pencil"></i>
 										</a>
 									</p>
@@ -247,22 +304,67 @@
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Privacidade:</b>
 										<br>'.$tipo_grupo.'
+										<a class="icon-lapis" onclick="mostraropcoesgrupos()">
+										<i class="fa-solid fa-pencil"></i>
+									</a>
 									</p>
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Descrição:</b>
 										<br>'.mb_strimwidth($descricao_grupo, 0, 30, "...").'
-										<a href="update.php'.'" class="icon-lapis">
+										<a class="icon-lapis" onclick="mostraropcoesgrupos()">
 											<i class="fa-solid fa-pencil"></i>
 										</a>
 									</p>
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Criador:</b>
 										<br>'.$adm_grupo.'
-										<a href="update.php'.'" class="icon-lapis">
-											<i class="fa-solid fa-pencil"></i>
-										</a>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="to-hide" id="editgrupo">
+				<div class="mx-auto pt-3 pb-3" style="width: 90%;">
+					<div class="card card-perfil">
+						<div class="card-body">
+						<form method="POST" action="exec_update_grupo.php" autocomplete="off" enctype="multipart/form-data">
+							<div class="d-flex flex-row bd-highlight mb-0">
+								<div class="p-2 bd-highlight">
+									<img class="float-left" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
+									<p class="mb-0" style="font-size: 18px";>
+	                                <b>Grupo:</b>
+	                                <br>
+                                  <input class="textoupdate_nome" type="text" name="nome_grupo" id="nome_grupo" value="'.$nome_grupo.'">
+								  <input type="hidden" name="id_grupo" value="' . $id_grupo .'">
+								  <input type="submit" hidden>
+	                            </p>
+								</div>
+								<div class="p-2 bd-highlight">
+									<h5 class="m-0">
+										<b>Editar informações do grupo:</b>
+									</h5>
+									<p class="mb-0" style="font-size: 18px";>
+										<b>Privacidade:</b>
+										<br>
+										<select id="privacidade" name="privacidade">
+										<option value="Publico"> Publico </option>
+  										<option value="Privado"> Privado </option>	
+										</select>
+									</a>
+									</p>
+	                            <p class="mb-0" style="font-size: 18px";>
+	                                <b>Descrição:</b>
+	                                <br>
+                                  <input class="textoupdate_2" type="text" name="descricao_grupo" id="descricao_grupo" value="'.$descricao_grupo.'">              
+                                </p>
+									<p class="mb-0" style="font-size: 18px";>
+										<b>Criador:</b>
+										<br>'.$adm_grupo.'
+									</p>
+								</div>
+							</div>
+							</form>
 						</div>
 					</div>
 				</div>

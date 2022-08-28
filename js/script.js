@@ -545,6 +545,11 @@ function mostraropcoesgrupos() {
     document.getElementById('infogrupo').className = "to-hide";
 }
 
+function mostraropcoesperfil() {
+    document.getElementById('edituser').className = "card-fundo pt-1";
+    document.getElementById('infouser').className = "to-hide";
+}
+
 function fecharAlerta(){
     document.getElementById('modal-cronometro').className = "to-hide";
 }

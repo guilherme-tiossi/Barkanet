@@ -68,6 +68,8 @@
 	        </div>';
 			};
 
+	
+
 	function ler_amigos_usuario(){
 		global $pdo;
 		echo "<div class='card card-amigos'>";
@@ -209,6 +211,101 @@
       </div>';
       	};
 		
+	function ler_dados_grupo($id_grupo, $id_usuario){
+			global $pdo;
+			$stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE id_grupo = '$id_grupo'");
+			 $stmt->execute();
+				foreach($stmt as $row) {
+					global $nome_grupo; global $descricao_grupo; global $tipo_grupo; global $adm_grupo; global $foto_grupo;
+					$nome_grupo = $row['nome_grupo'];
+					$descricao_grupo = $row['descricao_grupo'];
+					$tipo_grupo = $row['tipo_grupo'];
+					$adm_grupo = $row['adm_grupo'];
+					$foto_grupo = $row['foto_grupo'];
+					}
+				if ($id_usuario == $adm_grupo){
+				echo 
+				'<div class="card-fundo pt-1">
+				<div class="mx-auto pt-3 pb-3" style="width: 90%;">
+					<div class="card card-perfil">
+						<div class="card-body">
+							<div class="d-flex flex-row bd-highlight mb-0">
+								<div class="p-2 bd-highlight">
+									<img class="float-left" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
+									<p class="mb-0" style="font-size: 18px";>
+										<b>Grupo:</b>
+										<br>'.mb_strimwidth($nome_grupo, 0, 16, "...").'
+										<a href="update.php'.'" class="icon-lapis">
+											<i class="fa-solid fa-pencil"></i>
+										</a>
+									</p>
+								</div>
+								<div class="p-2 bd-highlight">
+									<h5 class="m-0">
+										<b>Informações do grupo:</b>
+									</h5>
+									<p class="mb-0" style="font-size: 18px";>
+										<b>Privacidade:</b>
+										<br>'.$tipo_grupo.'
+									</p>
+									<p class="mb-0" style="font-size: 18px";>
+										<b>Descrição:</b>
+										<br>'.mb_strimwidth($descricao_grupo, 0, 30, "...").'
+										<a href="update.php'.'" class="icon-lapis">
+											<i class="fa-solid fa-pencil"></i>
+										</a>
+									</p>
+									<p class="mb-0" style="font-size: 18px";>
+										<b>Criador:</b>
+										<br>'.$adm_grupo.'
+										<a href="update.php'.'" class="icon-lapis">
+											<i class="fa-solid fa-pencil"></i>
+										</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>';
+				}
+				else{
+					echo 
+					'<div class="card-fundo pt-1">
+					<div class="mx-auto pt-3 pb-3" style="width: 90%;">
+						<div class="card card-perfil">
+							<div class="card-body">
+								<div class="d-flex flex-row bd-highlight mb-0">
+									<div class="p-2 bd-highlight">
+										<img class="float-left" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
+										<p class="mb-0" style="font-size: 18px";>
+											<b>Grupo:</b>
+											<br>'.mb_strimwidth($nome_grupo, 0, 16, "...").'
+										</p>
+									</div>
+									<div class="p-2 bd-highlight">
+										<h5 class="m-0">
+											<b>Informações do grupo:</b>
+										</h5>
+										<p class="mb-0" style="font-size: 18px";>
+											<b>Privacidade:</b>
+											<br>'.$tipo_grupo.'
+										</p>
+										<p class="mb-0" style="font-size: 18px";>
+											<b>Descrição:</b>
+											<br>'.mb_strimwidth($descricao_grupo, 0, 30, "...").'
+										</p>
+										<p class="mb-0" style="font-size: 18px";>
+											<b>Criador:</b>
+											<br>'.$adm_grupo.'
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>';	
+				}
+				};
+
 // ========================== SOLICITAÇÕES DE GRUPOS ==========================
 	function carrega_pagina_atalho($con){
 		$pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 'atalho';

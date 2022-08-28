@@ -26,6 +26,10 @@ include("conexao.php");
 
   <!--Centro-->
   <div class="col-6">
+  <?php 
+  $id_usuario = $_SESSION['userId'];
+  ler_dados_grupo($id_grupo, $id_usuario);
+  ?>
     <div class="card-fundo">
     <?php
     $id_grupo = $_GET['id_grupo'];

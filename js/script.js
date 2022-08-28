@@ -541,7 +541,8 @@ function meusgrupos(){
 }
 
 function mostraropcoesgrupos() {
-    var banana = "banana";
+    document.getElementById('editgrupo').className = "card-fundo pt-1";
+    document.getElementById('infogrupo').className = "to-hide";
 }
 
 function fecharAlerta(){

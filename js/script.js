@@ -541,18 +541,7 @@ function meusgrupos(){
 }
 
 function mostraropcoesgrupos() {
-      document.getElementById('opcoesgrupo').className = '';
-      document.getElementById('fecharopcoesgrp').className = '';
-      document.getElementById('mostraropcoesgrps').className = "to-hide";
-      document.getElementById('ocultaropcoesgrps').className = "";
-    
-}
-
-function ocultaropcoesgrupos(){
-    document.getElementById('opcoesgrupo').className = 'to-hide';
-    document.getElementById('fecharopcoesgrp').className = 'to-hide';
-    document.getElementById('mostraropcoesgrps').className = "";
-    document.getElementById('ocultaropcoesgrps').className = "to-hide";
+    var banana = "banana";
 }
 
 function fecharAlerta(){

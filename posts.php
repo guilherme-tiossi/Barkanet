@@ -54,74 +54,98 @@ include("conexao.php");
     $stmt->execute();
 
     echo "<div class='card-fundo mx-auto'>";
-        foreach ($stmt as $row) :
-        $n = $pdo->prepare("SELECT * FROM usuarios WHERE id = '{$row['usuario']}'");
-        $n->execute();
-        foreach ($n as $w) :
-          $foto_perfil = $w['profilepic'];
+    foreach ($stmt as $row):
+      $idposter = $row['usuario'];
 
-        echo "<div class='mx-auto mb-2' style='width: 80%;'>
-                <div class='mt-3 card-posts'>
-                <div class='card-body'>
-                    <div class='d-flex flex-row bd-highlight mb-0'>
-                        <div class='p-2 bd-highlight'>
-                            <img class='float-left' src='img/$foto_perfil' width='64' height='64' title='".$foto_perfil."'>
-                        </div>
-                        <div class='p-2 bd-highlight'>
-                            <p class='mb-0' style='font-size: 18px';>";
-                                if($row['idgrupo'] > 0){
-                                $stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo, tbgrupos.id_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
-                                $stmt->execute();
-								foreach($stmt as $roww):
-                              	$id_grupo = $roww['id_grupo'];
-							    echo "<a href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo']. "</a>
-								<br>";
-								endforeach; 	
-								}
-								$idposter = $row['usuario'];
-                $idgrupo = $row['idgrupo'];
-								echo "<b> <a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> </b>
-								<br>
-								<b> $row[titulo]</b>
-                            </p>
-                        </div>
-                    </div>
-                    <p class='m-1'> $row[post]</p>
-                    <div class='mx-auto m-1//' style='width: 80%;'>";
-                        if ($row['image'] != null){
-                        echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";}
-                        echo "</div></div>";
-            //comentários
-            $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
-            $swor->execute();
-            foreach ($swor as $swo) :
-            echo "<br>
-            <div class='d-flex flex-row bd-highlight mb-0'>
+        echo "
+        <div class='mx-auto pt-4' style='width: 80%;'>
+          <div class='card-posts'>
+            <div class='card-body'>
+              <div class='d-flex flex-row bd-highlight mb-0'>
                 <div class='p-2 bd-highlight'>
-                    <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
+                  <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
                 </div>
                 <div class='p-2 bd-highlight'>
-                    <p class='mb-0' style='font-size: 17px';>";
-					$idcomenter = $swo['com_user'];
-					echo "
-					    <a href='pgamigo.php?id=$idcomenter'> $swo[com_nome] </a>				
-                        <br>
-						$swo[comentario]
-                        </p> </div> </div>";
-                endforeach;
-            echo '     <br>
-            <h5>Publicar seu Comentario</h5>
-            <form action="exec_com.php"  method="post">
-              <label for="txcom">Comentario:</label>
-              <input type="text" name="txcom" id="txcom" maxlength="100">
-              <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
-              <br>
-              <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo ' 
-              <input type="hidden" name="idgrupo" value='; echo $idgrupo; echo '>
-              <input type="submit" name="comentar" value="Enviar">
-            </form> </div> </div>';
+                  <p class='mb-0' style='font-size: 18px';>";
+        
+        if ($row['idgrupo'] > 0) {
+            $stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo, tbgrupos.id_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
+            $stmt->execute();
+            foreach ($stmt as $roww):
+                $id_grupo = $roww['id_grupo'];
+                echo "<a href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo'] . "</a><br>";
             endforeach;
+        }
+        
+          echo "<b><a href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b><br>
+                <b>$row[titulo]</b>
+                </p>
+              </div>
+            </div>
+
+              <div class='m-3 mt-0'>
+                <p class='h6'> $row[post]</p>
+                <div class='mx-auto m-1' style='width: 80%;'>";
+        if ($row['image'] != null) {
+            echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";
+        }
+          echo "</div>
+              </div>
+            </div>
+          </div>
+        </div>";
+
+        //COMENTARIOS
+        $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
+        $swor->execute();
+        $linhas = $swor->rowCount();
+
+        if($linhas > 0){
+        echo "
+        <div class='mx-auto mb-2' style='width: 80%;'>
+          <div class='card-comentarios'>";
+        foreach ($swor as $swo):
+          $idcomenter = $swo['com_user'];
+          $pfpcom = $swo['profilepic'];
+          $com = $swo['comentario'];
+          $com_nome = $swo['com_nome'];
+
+            echo "
+            <div class='card-body'>
+              <div class='d-flex flex-row bd-highlight mb-0'>
+                <div class='p-2 bd-highlight'>
+                    <img class='float-left' src='img/$pfpcom' width='50' height='50' title='foto'>
+                </div>
+                <div class='p-2 bd-highlight'>
+                    <div class='mb-0' style='font-size: 17px';>
+                      <a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+                      <br>
+                      <p>$com</p>
+                    </div>
+                </div>
+              </div>
+            </div>";
         endforeach;
+          echo "
+          </div>
+        </div>";
+        }
+
+        //COMENTAR
+        $idpost = $row["idpost"];
+        echo '
+        <div class="mx-auto mb-2" style="width: 80%;">
+          <form action="exec_com.php" method="post">
+            <input class="comentario" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+            <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
+            <input type="hidden" name="post_id" value="'.$idpost.'">
+            <button type="submit" name="comentar" class="btn_comentario">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>';
+          echo '
+          </form>
+        </div>';
+    endforeach;
       $pagina_anterior = $pagina - 1;
       $pagina_posterior = $pagina + 1;
       ?>

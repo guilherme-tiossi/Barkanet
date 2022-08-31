@@ -161,112 +161,147 @@
 
     function ler_posts_usuario(){
         global $pdo;
-        global $id;
-        global $pfp;
-//        $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id')  ORDER BY idpost DESC");
-        $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-    	$quantidade_pg = 50;
-	    
-		$stmt=$pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
-        $stmt ->execute();
-        
-        $rowNum = $stmt->rowCount();
-	    $num_pagina = ($rowNum/$quantidade_pg);
-	    $incio = ($quantidade_pg*$pagina)-$quantidade_pg;
+		global $id;
+		global $pfp;
 
-	    $stmt=$pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
-        $stmt ->execute();
+		$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+		$quantidade_pg = 50;
 
-        echo '<h2 class="p-3">Meus posts</h2>';
-        foreach ($stmt as $row) :
-        echo "<div class='mx-auto mb-2' style='width: 80%;'>
-                <div class='mt-3 card-posts'>
-                <div class='card-body'>
-                    <div class='d-flex flex-row bd-highlight mb-0'>
-                        <div class='p-2 bd-highlight'>
-                            <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
-                        </div>
-                        <div class='p-2 bd-highlight'>
-                            <p class='mb-0' style='font-size: 18px';>";
-                                if($row['idgrupo'] > 0){
-                                $stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo, tbgrupos.id_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
-                                $stmt->execute();
-								foreach($stmt as $roww):
-                              	$id_grupo = $roww['id_grupo'];
-							    echo "<a href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo']. "</a>
-								<br>";
-								endforeach; 	
-								}
-								$idposter = $row['usuario'];
-								echo "<b> <a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> </b>
-								<br>
-								<b> $row[titulo]</b>
-                            </p>
-                        </div>
-                    </div>
-                    <p class='m-1'> $row[post]</p>
-                    <div class='mx-auto m-1//' style='width: 80%;'>";
-                        if ($row['image'] != null){
-                        echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";}
-                        echo "</div></div>";
-            //comentários
-            $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
-            $swor->execute();
-            foreach ($swor as $swo) :
-            echo "<br>
-            <div class='d-flex flex-row bd-highlight mb-0'>
-                <div class='p-2 bd-highlight'>
-                    <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
-                </div>
-                <div class='p-2 bd-highlight'>
-                    <p class='mb-0' style='font-size: 17px';>";
-					$idcomenter = $swo['com_user'];
-					echo "
-					    <a href='pgamigo.php?id=$idcomenter'> $swo[com_nome] </a>				
-                        <br>
-						$swo[comentario]
-                        </p> </div> </div>";
-                endforeach;
-            echo '     <br>
-            <h5>Publicar seu Comentario</h5>
-            <form action="exec_com.php"  method="post">
-              <label for="txcom">Comentario:</label>
-              <input type="text" name="txcom" id="txcom" maxlength="100">
-              <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
-              <br>
-              <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo ' 
-              <input type="submit" name="comentar" value="Enviar">
-            </form> </div> </div>';
-            endforeach;
+		$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
+		$stmt->execute();
+
+		$rowNum = $stmt->rowCount();
+		$num_pagina = $rowNum / $quantidade_pg;
+		$incio = $quantidade_pg * $pagina - $quantidade_pg;
+
+		$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
+		$stmt->execute();
+
+		echo '<h2 class="p-3">Meus posts</h2>';
+		foreach ($stmt as $row):
+		$idposter = $row['usuario'];
+
+			echo "
+			<div class='mx-auto' style='width: 80%;'>
+			<div class='mt-3 card-posts'>
+				<div class='card-body'>
+				<div class='d-flex flex-row bd-highlight mb-0'>
+					<div class='p-2 bd-highlight'>
+					<img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
+					</div>
+					<div class='p-2 bd-highlight'>
+					<p class='mb-0' style='font-size: 18px';>";
+			
+			if ($row['idgrupo'] > 0) {
+				$stmt = $pdo->prepare("SELECT tbgrupos.nome_grupo, tbgrupos.id_grupo from tbposts JOIN tbgrupos ON tbposts.idgrupo = tbgrupos.id_grupo WHERE usuario = '$id' AND idpost = $row[idpost]");
+				$stmt->execute();
+				foreach ($stmt as $roww):
+					$id_grupo = $roww['id_grupo'];
+					echo "<a href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo'] . "</a><br>";
+				endforeach;
+			}
+			
+			echo "<b><a href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b><br>
+					<b>$row[titulo]</b>
+					</p>
+				</div>
+				</div>
+
+				<div class='m-3 mt-0'>
+					<p style='font-size: 17px;'> $row[post]</p>
+					<div class='mx-auto m-1' style='width: 80%;'>";
+			if ($row['image'] != null) {
+				echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";
+			}
+			echo "</div>
+				</div>
+				</div>
+			</div>
+			</div>";
+
+			//COMENTARIOS
+			$swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
+			$swor->execute();
+			$linhas = $swor->rowCount();
+
+			if($linhas > 0){
+			echo "
+			<div class='mx-auto mb-2' style='width: 80%;'>
+			<div class='card-comentarios'>";
+			foreach ($swor as $swo):
+			$idcomenter = $swo['com_user'];
+			$pfpcom = $swo['profilepic'];
+			$com = $swo['comentario'];
+			$com_nome = $swo['com_nome'];
+
+				echo "
+				<div class='card-body'>
+				<div class='d-flex flex-row bd-highlight mb-0'>
+					<div class='p-2 bd-highlight'>
+						<img class='float-left' src='img/$pfpcom' width='50' height='50' title='foto'>
+					</div>
+					<div class='p-2 bd-highlight'>
+						<div class='mb-0' style='font-size: 17px;'>
+						<a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+						<br>
+						<p>$com</p>
+						</div>
+					</div>
+				</div>
+				</div>";
+			endforeach;
+			echo "
+			</div>
+			</div>";
+			}
+
+			//COMENTAR
+			$idpost = $row["idpost"];
+			echo '
+			<div class="mx-auto mb-2" style="width: 80%;">
+			<form action="exec_com.php" method="post">
+				<input class="comentario" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+				<span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
+				<input type="hidden" name="post_id" value="'.$idpost.'">
+				<button type="submit" name="comentar" class="btn_comentario">
+				<i class="fa-solid fa-arrow-up-right-from-square"></i>
+				</button>';
+			echo '
+			</form>
+			</div>';
+		endforeach;
+
 		$pagina_anterior = $pagina - 1;
-      	$pagina_posterior = $pagina + 1;
+		$pagina_posterior = $pagina + 1;
 
-      	echo '<div class="card-fundo">
-      <nav>
-        <ul class="pagination pagination-lg justify-content-center pt-2">';
-            if($pagina_anterior != 0){
-                $btn1 = '<a class="page-link" href="perfil.php?pagina='.$pagina_anterior.'" aria-label="Previous">&laquo;</a>';
-            }else{
-              $btn1 = '<span class="page-link">&laquo;</span>';
-            }
-          
-          echo '<li class="page-item">'.$btn1.'</li>';
+		echo '<div class="card-fundo">
+		<nav>
+		<ul class="pagination pagination-lg justify-content-center pt-2">';
+		if ($pagina_anterior != 0) {
+			$btn1 = '<a class="page-link" href="perfil.php?pagina=' . $pagina_anterior . '" aria-label="Previous">&laquo;</a>';
+		} else {
+			$btn1 = '<span class="page-link">&laquo;</span>';
+		}
 
-            for($i = 1; $i < $num_pagina + 1; $i++){
-              $btn2 = '<a class="page-link" href="perfil.php?pagina='.$i.'">'.$i.'</a>';
-              echo '<li class="page-item">'.$btn2.'</li>';
-            }
+		echo '<li class="page-item">' . $btn1 . '</li>';
 
-            if($pagina_posterior <= $num_pagina){
-              $btn3 = '<a class="page-link" href="perfil.php?pagina='.$pagina_posterior.'" aria-label="Previous">&raquo;</a>';
-            }else{
-              $btn3 = '<span class="page-link">&raquo;</span>';
-            }
-          echo '<li class="page-item">'.$btn3.'</li>
-        </ul>
-      </nav>
-      </div>';
-      	};
+		for ($i = 1; $i < $num_pagina + 1; $i++) {
+			$btn2 = '<a class="page-link" href="perfil.php?pagina=' . $i . '">' . $i . '</a>';
+			echo '<li class="page-item">' . $btn2 . '</li>';
+		}
+
+		if ($pagina_posterior <= $num_pagina) {
+			$btn3 = '<a class="page-link" href="perfil.php?pagina=' . $pagina_posterior . '" aria-label="Previous">&raquo;</a>';
+		} else {
+			$btn3 = '<span class="page-link">&raquo;</span>';
+		}
+		echo '<li class="page-item">' .
+			$btn3 .
+			'</li>
+		</ul>
+		</nav>
+	</div>';
+    };
 		
 	function ler_dados_grupo($id_grupo, $id_usuario){
 			global $pdo;

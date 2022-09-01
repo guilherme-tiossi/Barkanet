@@ -66,7 +66,7 @@
 	            </div>
 	        </div>
 	        </div>
-			<div class="card-fundo pt-1" id="edituser">
+			<div class="to-hide" id="edituser">
 			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">

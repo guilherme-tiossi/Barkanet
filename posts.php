@@ -29,7 +29,7 @@ include("conexao.php");
     <?php
     $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-    $quantidade_pg = 50;
+    $quantidade_pg = 1;
 
     $users=array("$id");
     $stmt = $pdo->prepare("SELECT * FROM amigos WHERE (id_de = {$_SESSION['userId']} and status = '1') OR (id_para = {$_SESSION['userId']} AND status = '1')");
@@ -60,7 +60,7 @@ include("conexao.php");
         echo "
         <div class='mx-auto pt-4' style='width: 80%;'>
           <div class='card-posts'>
-            <div class='card-body'>
+            <div class='card-body card bg-light m-2'>
               <div class='d-flex flex-row bd-highlight mb-0'>
                 <div class='p-2 bd-highlight'>
                   <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
@@ -84,7 +84,7 @@ include("conexao.php");
             </div>
 
               <div class='m-3 mt-0'>
-                <p class='h6'> $row[post]</p>
+                <p> $row[post]</p>
                 <div class='mx-auto m-1' style='width: 80%;'>";
         if ($row['image'] != null) {
             echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";
@@ -103,7 +103,7 @@ include("conexao.php");
         if($linhas > 0){
         echo "
         <div class='mx-auto mb-2' style='width: 80%;'>
-          <div class='card-comentarios'>";
+          <div class='card-comentarios pt-3'>";
         foreach ($swor as $swo):
           $idcomenter = $swo['com_user'];
           $pfpcom = $swo['profilepic'];
@@ -111,8 +111,8 @@ include("conexao.php");
           $com_nome = $swo['com_nome'];
 
             echo "
-            <div class='card-body'>
-              <div class='d-flex flex-row bd-highlight mb-0'>
+            <div class='card bg-light m-3 mt-0 p-2' style='width: 80%;'>
+              <div class='d-flex flex-row mb-0'>
                 <div class='p-2 bd-highlight'>
                     <img class='float-left' src='img/$pfpcom' width='50' height='50' title='foto'>
                 </div>
@@ -136,11 +136,11 @@ include("conexao.php");
         echo '
         <div class="mx-auto mb-2" style="width: 80%;">
           <form action="exec_com.php" method="post">
-            <input class="comentario" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+            <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
             <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
             <input type="hidden" name="post_id" value="'.$idpost.'">
             <button type="submit" name="comentar" class="btn_comentario">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <i class="fa-solid fa-square-arrow-up-right"></i>
             </button>';
           echo '
           </form>
@@ -150,14 +150,17 @@ include("conexao.php");
       $pagina_posterior = $pagina + 1;
       ?>
 
-      <div class="card-fundo">
+      <div class="mt-5">
       <nav>
-        <ul class="pagination pagination-lg justify-content-center pt-2">
+        <ul class="pagination justify-content-center pt-2">
           <?php
             if($pagina_anterior != 0){
-                $btn1 = '<a class="page-link" href="posts.php?pagina='.$pagina_anterior.'" aria-label="Previous">&laquo;</a>';
+                $btn1 = '
+                <a class="page-link" href="posts.php?pagina='.$pagina_anterior.'" aria-label="Previous">
+                  <i class="fa-solid fa-reply"></i>
+                </a>';
             }else{
-              $btn1 = '<span class="page-link">&laquo;</span>';
+              $btn1 = '<span class="page-link"><i class="fa-solid fa-reply"></i></span>';
             }
           ?>
           <li class="page-item">
@@ -165,17 +168,23 @@ include("conexao.php");
           </li>
 
           <?php
-            for($i = 1; $i < $num_pagina + 1; $i++){
-              $btn2 = '<a class="page-link" href="posts.php?pagina='.$i.'">'.$i.'</a>';
+              $num_atual = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+              $num_anterior = $num_atual - 1;
+              $num_posterior = $num_atual + 1;
+
+              $btn2 = '<a class="page-link" href="posts.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
               echo '<li class="page-item">'.$btn2.'</li>';
-            }
+              $btn2 = '<a class="page-link" href="posts.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
+              echo '<li class="page-item">'.$btn2.'</li>';
+              $btn2 = '<a class="page-link" href="posts.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+              echo '<li class="page-item">'.$btn2.'</li>';
           ?>
 
           <?php
             if($pagina_posterior <= $num_pagina){
-              $btn3 = '<a class="page-link" href="posts.php?pagina='.$pagina_posterior.'" aria-label="Previous">&raquo;</a>';
+              $btn3 = '<a class="page-link" href="posts.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
             }else{
-              $btn3 = '<span class="page-link">&raquo;</span>';
+              $btn3 = '<span class="page-link"><i class="fa-solid fa-share"></i></span>';
             }
           ?>
           <li class="page-item">

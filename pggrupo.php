@@ -3,6 +3,18 @@ include("lib/includes.php");
 include("conexao.php");
 ?>
 
+<?php
+$stmt = $pdo->prepare("SELECT *
+FROM tbgrupos
+WHERE EXISTS (SELECT id_grupo FROM membros_grupos WHERE id_grupo = tbgrupos.id_grupo and id_usuario = '{$_SESSION['userId']}' and status = 1) ORDER BY id_grupo DESC");
+$stmt ->execute();
+
+$row_count = $stmt->fetchColumn();
+if ($row_count < 1){
+  header('Location: procurar.php');
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,74 +47,113 @@ include("conexao.php");
     $id_grupo = $_GET['id_grupo'];
     $grp = $pdo->prepare("SELECT nome_grupo FROM tbgrupos WHERE id_grupo = '$id_grupo'");
     $grp->execute();
+
     foreach ($grp as $row):
-    $nome_grupo = $row['nome_grupo'];
+      $nome_grupo = $row['nome_grupo'];
     endforeach;
+
     $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE idgrupo = '$id_grupo' ORDER BY idpost DESC");
     $stmt->execute();
-    echo "<div class='card-fundo mx-auto'>
-    <h2 class='p-3'>Posts de " . $nome_grupo . "</h2>";
+    
+    echo "
+    <div class='card-fundo mx-auto'>
+      <h2 class='p-3'>Posts de " . $nome_grupo . "</h2>";
     foreach ($stmt as $row) :
-        echo "<div class='mx-auto' style='width: 80%;'>
-                <!--post-->
-                <div class='mt-3 card-posts'>
-                <div class='card-body'>
-                    <div class='d-flex flex-row bd-highlight mb-0'>
-                        <div class='p-2 bd-highlight'>
-                            <img class='float-left' src='img/" . $row['profilepic'] . "' width='64' height='64' title='foto'>
-                        </div>
-                        <div class='p-2 bd-highlight'>
-                            <p class='mb-0' style='font-size: 18px';>";
-                                $idposter = $row['usuario'];
-                                
-                                echo "<b> <a href='pgamigo.php?id=$idposter'>" . $row['nome'] . "</a> </b>
-                                <br>
-                                <b> $row[titulo]</b>
-                            </p>
-                        </div>
-                    </div>
-                    <p class='m-1'> $row[post]</p>
-                    <div class='mx-auto m-1//' style='width: 80%;'>";
-                        if ($row['image'] != null){
-                        echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]';/>";}
-                        echo "</div></div>";
+      $idposter = $row['usuario'];
+      $pfp_poster = $row['profilepic'];
+      $nome_poster = $row['nome'];
+      $poster = $row['post'];
+      
+      echo "
+      <div class='mx-auto' style='width: 80%;'>
+        <div class='mt-3 card-posts'>
+          <div class='card-body'>
+            <div class='d-flex flex-row bd-highlight mb-0'>
+              <div class='p-2 bd-highlight'>
+                <img class='float-left' src='img/$pfp_poster' width='64' height='64' title='foto'>
+              </div>
+              <div class='p-2 bd-highlight'>
+                <p class='mb-0' style='font-size: 18px';>
+                <b><a href='pgamigo.php?id=$idposter'>$nome_poster</a></b>
+                <br>
+                <b>$row[titulo]</b>
+                </p>
+              </div>
+            </div>
+            <div class='m-3 mt-0'>
+              <p class='m-1'>$poster</p>
+              <div class='mx-auto m-1' style='width: 80%;'>";
+            if ($row['image'] != null){
+              echo "
+                <img src='img/$row[image]' class='img-fluid' title='<$row[image]';/>";
+            }
+            echo "
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>";
 
-            //comentários
+
+            //COMENTARIOS
             $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
             $swor->execute();
-            foreach ($swor as $swo) :
-            echo "<br>
-            <div class='d-flex flex-row bd-highlight mb-0'>
-                <div class='p-2 bd-highlight'>
-                    <img class='float-left' src='img/" . $swo['profilepic'] . "' width='50' height='50' title='foto'>
-                </div>
-                <div class='p-2 bd-highlight'>
-                    <p class='mb-0' style='font-size: 17px';>";
-                    $idcomenter = $swo['com_user'];
-                    echo "<a href='pgamigo.php?id=$idcomenter'> $swo[com_nome] </a>
-                    <br>
-                        $swo[comentario]
-                    </p> </div> </div>";
+            $linhas = $swor->rowCount();
+
+            if($linhas > 0){
+            echo "
+            <div class='mx-auto mb-2' style='width: 80%;'>
+              <div class='card-comentarios'>";
+            foreach ($swor as $swo):
+              $idcomenter = $swo['com_user'];
+              $pfpcom = $swo['profilepic'];
+              $com = $swo['comentario'];
+              $com_nome = $swo['com_nome'];
+
+                echo "
+                <div class='card-body'>
+                  <div class='d-flex flex-row bd-highlight mb-0'>
+                    <div class='p-2 bd-highlight'>
+                        <img class='float-left' src='img/$pfpcom' width='50' height='50' title='foto'>
+                    </div>
+                    <div class='p-2 bd-highlight'>
+                        <div class='mb-0' style='font-size: 17px';>
+                          <a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+                          <br>
+                          <p>$com</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>";
             endforeach;
-            $buceta = "40";
-        echo '     <br>
-        <h5>Publicar seu Comentario</h5>
-        <form action="exec_com.php"  method="post">
-          <label for="txcom">Comentario:</label>
-          <input type="text" name="txcom" id="txcom" maxlength="100">
-          <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
-          <br>
-          <input type="hidden" name="post_id" value=';  echo $row["idpost"];  echo '>
-          <input type="hidden" name="id_amigo" value=0> 
-          <input type="hidden" name="grupo_id" value=';  echo $_GET['id_grupo'];  echo '> 
-          <input type="submit" name="comentar" value="Enviar">
-        </form> </div> </div>';
+              echo "
+              </div>
+            </div>";
+            }
+
+        //COMENTAR
+        $idpost = $row["idpost"];
+        $idgrupo = $_GET['id_grupo'];
+        echo '
+        <div class="mx-auto mb-2" style="width: 80%;">
+          <form action="exec_com.php" method="post">
+            <input class="comentario" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+            <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
+            <input type="hidden" name="post_id" value="'.$idpost.'">
+            <input type="hidden" name="id_amigo" value=0> 
+            <input type="hidden" name="grupo_id" value="'.$idgrupo.'"> 
+            <button type="submit" name="comentar" class="btn_comentario">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>';
+          echo '
+          </form>
+        </div>';
         endforeach;
         echo "</div>";
 
        carrega_pagina_atalho($con);
       
-    //  <!--LISTA DE AMIGOS PARA ADD-->
+      //LISTA DE AMIGOS PARA ADICIONAR
       $stmt2 = $pdo->prepare("SELECT * from tbgrupos where id_grupo = {$_GET['id_grupo']}");
       $stmt2 ->execute();
       foreach ($stmt2 as $row) :
@@ -154,50 +205,3 @@ include("conexao.php");
     <?php include('menu_direita.php');?>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-<?php
-/* MENU ESQUERDA
-$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
-$stmt ->execute();
-$id_grupo = $_GET['id_grupo'];
- foreach($stmt as $row) {
-   $pfp = $row['profilepic'];
-   }
-?>
-<div>
-  <div>
-    <img src='img/<?php echo $pfp; ?>' width = 50 title='<?php echo $pfp; ?>'>
-    <br>
-    <a href="perfil.php">Perfil</a>
-    <br>
-    <a href="procurar.php">Procurar </a>
-
-    <?php
-    $not = return_total_solicitation($con) + return_total_solicitation_grupo($con);
-    if($not > 0){
-      echo $not;
-    }
-    ?>
-    
-    <br>
-    <a href="#">Configurações</a>
-  </div>
-  <div>
-    <div>
-    <h3>Publicar seu post</h3>
-    
-  </div>
-</div>
-<?php
-// FIM DO MENU ESQUERDA*/

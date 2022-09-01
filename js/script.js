@@ -464,13 +464,13 @@ function cronometro(segs) {
 
     if(hr == 1 && min == 0 && segs == 0){
         $(document).ready(function(){
-            $('#modal-cronometro').modal('show');
+            //$('#modal-cronometro').modal('show');
         });
     }
 
     if(hr_a < hr && hr != 1){
         $(document).ready(function(){
-            $('#modal-cronometro').modal('show');
+            //$('#modal-cronometro').modal('show');
         });
         hr_a = hr
     }

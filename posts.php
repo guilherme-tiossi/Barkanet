@@ -29,7 +29,7 @@ include("conexao.php");
     <?php
     $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-    $quantidade_pg = 1;
+    $quantidade_pg = 50;
 
     $users=array("$id");
     $stmt = $pdo->prepare("SELECT * FROM amigos WHERE (id_de = {$_SESSION['userId']} and status = '1') OR (id_para = {$_SESSION['userId']} AND status = '1')");
@@ -49,6 +49,20 @@ include("conexao.php");
     $rowNum = $stmt->rowCount();
     $num_pagina = ($rowNum/$quantidade_pg);
     $incio = ($quantidade_pg*$pagina)-$quantidade_pg;
+
+    if(isset($_GET['pagina'])){
+      if($_GET['pagina'] > ($num_pagina + 1)){
+        echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+      }
+
+      if($_GET['pagina'] == 0){
+        echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+      }
+
+      if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina'])) {
+        echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+      }
+    }
 
     $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE usuario in ($users) AND idgrupo = '0' ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
     $stmt->execute();
@@ -156,11 +170,11 @@ include("conexao.php");
           <?php
             if($pagina_anterior != 0){
                 $btn1 = '
-                <a class="page-link" href="posts.php?pagina='.$pagina_anterior.'" aria-label="Previous">
+                <a class="page-link text-muted" href="posts.php?pagina='.$pagina_anterior.'" aria-label="Previous">
                   <i class="fa-solid fa-reply"></i>
                 </a>';
             }else{
-              $btn1 = '<span class="page-link"><i class="fa-solid fa-reply"></i></span>';
+              $btn1 = '<span class="page-link text-black-50"><i class="fa-solid fa-reply"></i></span>';
             }
           ?>
           <li class="page-item">
@@ -172,19 +186,25 @@ include("conexao.php");
               $num_anterior = $num_atual - 1;
               $num_posterior = $num_atual + 1;
 
-              $btn2 = '<a class="page-link" href="posts.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+              if($num_anterior != 0){
+                $btn2 = '<a class="page-link text-muted" href="posts.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+                echo '<li class="page-item">'.$btn2.'</li>';
+              }
+
+              $btn2 = '<a class="page-link text-muted" href="posts.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
               echo '<li class="page-item">'.$btn2.'</li>';
-              $btn2 = '<a class="page-link" href="posts.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
-              echo '<li class="page-item">'.$btn2.'</li>';
-              $btn2 = '<a class="page-link" href="posts.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
-              echo '<li class="page-item">'.$btn2.'</li>';
+
+              if($num_posterior < ($num_pagina + 1)){
+                $btn2 = '<a class="page-link text-muted" href="posts.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+                echo '<li class="page-item">'.$btn2.'</li>';
+              }
           ?>
 
           <?php
-            if($pagina_posterior <= $num_pagina){
-              $btn3 = '<a class="page-link" href="posts.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+            if($num_posterior < ($num_pagina + 1)){
+              $btn3 = '<a class="page-link text-muted" href="posts.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
             }else{
-              $btn3 = '<span class="page-link"><i class="fa-solid fa-share"></i></span>';
+              $btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
             }
           ?>
           <li class="page-item">

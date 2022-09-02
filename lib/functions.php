@@ -174,6 +174,20 @@
 		$num_pagina = $rowNum / $quantidade_pg;
 		$incio = $quantidade_pg * $pagina - $quantidade_pg;
 
+		if(isset($_GET['pagina'])){
+			if($_GET['pagina'] > ($num_pagina + 1)){
+			  echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+			}
+	  
+			if($_GET['pagina'] == 0){
+			  echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+			}
+	  
+			if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina'])) {
+			  echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+			}
+		}
+
 		$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
 		$stmt->execute();
 
@@ -183,8 +197,8 @@
 
 			echo "
 			<div class='mx-auto' style='width: 80%;'>
-			<div class='mt-3 card-posts'>
-				<div class='card-body'>
+			<div class='card-posts'>
+				<div class='card-body card bg-light m-2'>
 				<div class='d-flex flex-row bd-highlight mb-0'>
 					<div class='p-2 bd-highlight'>
 					<img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
@@ -208,7 +222,7 @@
 				</div>
 
 				<div class='m-3 mt-0'>
-					<p style='font-size: 17px;'> $row[post]</p>
+					<p> $row[post]</p>
 					<div class='mx-auto m-1' style='width: 80%;'>";
 			if ($row['image'] != null) {
 				echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";
@@ -227,7 +241,7 @@
 			if($linhas > 0){
 			echo "
 			<div class='mx-auto mb-2' style='width: 80%;'>
-			<div class='card-comentarios'>";
+			<div class='card-comentarios pt-3'>";
 			foreach ($swor as $swo):
 			$idcomenter = $swo['com_user'];
 			$pfpcom = $swo['profilepic'];
@@ -235,8 +249,8 @@
 			$com_nome = $swo['com_nome'];
 
 				echo "
-				<div class='card-body'>
-				<div class='d-flex flex-row bd-highlight mb-0'>
+				<div class='card bg-light m-3 mt-0 p-2' style='width: 80%;'>
+				<div class='d-flex flex-row mb-0'>
 					<div class='p-2 bd-highlight'>
 						<img class='float-left' src='img/$pfpcom' width='50' height='50' title='foto'>
 					</div>
@@ -245,7 +259,7 @@
 						<a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
 						<br>
 						<p>$com</p>
-						</div>
+					</div>
 					</div>
 				</div>
 				</div>";
@@ -260,11 +274,11 @@
 			echo '
 			<div class="mx-auto mb-2" style="width: 80%;">
 			<form action="exec_com.php" method="post">
-				<input class="comentario" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+				<input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
 				<span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
 				<input type="hidden" name="post_id" value="'.$idpost.'">
 				<button type="submit" name="comentar" class="btn_comentario">
-				<i class="fa-solid fa-arrow-up-right-from-square"></i>
+				<i class="fa-solid fa-square-arrow-up-right"></i>
 				</button>';
 			echo '
 			</form>
@@ -274,33 +288,52 @@
 		$pagina_anterior = $pagina - 1;
 		$pagina_posterior = $pagina + 1;
 
-		echo '<div class="card-fundo">
+		echo '
+		<div class="mt-5">
 		<nav>
-		<ul class="pagination pagination-lg justify-content-center pt-2">';
-		if ($pagina_anterior != 0) {
-			$btn1 = '<a class="page-link" href="perfil.php?pagina=' . $pagina_anterior . '" aria-label="Previous">&laquo;</a>';
-		} else {
-			$btn1 = '<span class="page-link">&laquo;</span>';
-		}
+			<ul class="pagination justify-content-center pt-2">';
+				if($pagina_anterior != 0){
+					$btn1 = '
+					<a class="page-link text-muted" href="perfil.php?pagina='.$pagina_anterior.'" aria-label="Previous">
+					<i class="fa-solid fa-reply"></i>
+					</a>';
+				}else{
+				$btn1 = '<span class="page-link text-black-50"><i class="fa-solid fa-reply"></i></span>';
+				}
+			
+			echo '<li class="page-item">';
+			echo $btn1;
+			echo '</li>';
 
-		echo '<li class="page-item">' . $btn1 . '</li>';
+				$num_atual = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+				$num_anterior = $num_atual - 1;
+				$num_posterior = $num_atual + 1;
 
-		for ($i = 1; $i < $num_pagina + 1; $i++) {
-			$btn2 = '<a class="page-link" href="perfil.php?pagina=' . $i . '">' . $i . '</a>';
-			echo '<li class="page-item">' . $btn2 . '</li>';
-		}
+				if($num_anterior != 0){
+					$btn2 = '<a class="page-link text-muted" href="perfil.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+					echo '<li class="page-item">'.$btn2.'</li>';
+				}
 
-		if ($pagina_posterior <= $num_pagina) {
-			$btn3 = '<a class="page-link" href="perfil.php?pagina=' . $pagina_posterior . '" aria-label="Previous">&raquo;</a>';
-		} else {
-			$btn3 = '<span class="page-link">&raquo;</span>';
-		}
-		echo '<li class="page-item">' .
-			$btn3 .
-			'</li>
-		</ul>
+				$btn2 = '<a class="page-link text-muted" href="perfil.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
+				echo '<li class="page-item">'.$btn2.'</li>';
+
+				if($num_posterior < ($num_pagina + 1)){
+					$btn2 = '<a class="page-link text-muted" href="perfil.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+					echo '<li class="page-item">'.$btn2.'</li>';
+				}
+
+				if($num_posterior < ($num_pagina + 1)){
+				$btn3 = '<a class="page-link text-muted" href="perfil.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+				}else{
+				$btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
+				}
+
+			echo '<li class="page-item">';
+			echo $btn3;
+			echo '</li>
+			</ul>
 		</nav>
-	</div>';
+      	</div>';
     };
 		
 	function ler_dados_grupo($id_grupo, $id_usuario){

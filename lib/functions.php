@@ -426,10 +426,13 @@
 	                                <br>
                                   <input class="textoupdate_2" type="text" name="descricao_grupo" id="descricao_grupo" value="'.$descricao_grupo.'">              
                                 </p>
-									<p class="mb-0" style="font-size: 18px";>
-										<b>Criador:</b>
-										<br>'.$adm_grupo.'
-									</p>
+								<p class="mb-0" style="font-size: 18px";>
+									<b>Criador:</b>
+									<br>'.$adm_grupo.'
+								</p>
+								<p>
+									<a href="exec_deleta_grupo.php?id_grupo=$id_grupo" class="text-danger">Apagar Grupo</a>
+								</p>
 								</div>
 							</div>
 							</form>

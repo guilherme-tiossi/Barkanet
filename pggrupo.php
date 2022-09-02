@@ -51,7 +51,7 @@ if ($row_count < 1) {
       $id_grupo = $_GET['id_grupo'];
       $grp = $pdo->prepare("SELECT nome_grupo FROM tbgrupos WHERE id_grupo = '$id_grupo'");
       $grp->execute();
-      echo "<a href='exec_deleta_grupo.php?id_grupo=$id_grupo'>Apagar Grupo</a>";
+
       foreach ($grp as $row):
           $nome_grupo = $row['nome_grupo'];
       endforeach;

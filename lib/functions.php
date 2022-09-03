@@ -83,7 +83,6 @@
 	                                <b>Nome:</b>
 	                                <br>
                                   <input class="textoupdate_nome" type="text" name="nome" id="nome" value="'.$nome.'">
-                                  <input type="submit" hidden>
 	                            </p>
 	                        </div>
 	                        <div class="p-2 bd-highlight">
@@ -103,19 +102,20 @@
 	                                <b>Data de nascimento:</b>
 	                                <br>
                                   <input class="textoupdate_2" type="text" name="data" id="data" value="'.$nasc.'">
-                                  <input type="submit" hidden />
 	                            </p>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Código:</b>
 	                                '.$cod.'
 	                            </p>
 								<select id="cordefundo" name="cordefundo">
-								<option value="rgb(238, 239, 243))">Padrão</option>
+								<option value="rgb(238, 239, 243)">Padrão</option>
   								<option value="rgb(24, 8, 54)">Mirtilo</option>
   								<option value="rgb(218, 42, 42)">Morango</option>
   								<option value="rgb(158, 222, 84)">Limão</option>
   								<option value="rgb(235, 154, 129)">Pêssego</option>
 								</select>
+								<br>
+								<input type="submit" value="Enviar"/>
 	                        </div>
 	                    </div>
 	                	</form>

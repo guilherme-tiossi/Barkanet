@@ -25,7 +25,7 @@ $id_grupo = $_GET['id_grupo'];
         </div>
         <div class='m-1'>
         <h4> <a href="perfil.php" class="link-perfil"> <?php echo $nome; ?> </a> </h4>
-            <a href="update.php" class="editarperfil">Editar perfil</a>
+        <a href="perfil.php?class=to-hide" class="editarperfil">Editar perfil</a>
         </div>
       </div>
     </div>

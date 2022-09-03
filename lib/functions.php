@@ -215,7 +215,7 @@
 				endforeach;
 			}
 			
-			echo "<b><a href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b><br>
+			echo "<b><a href='perfil.php'>".$row['nome']."</a></b><br>
 					<b>$row[titulo]</b>
 					</p>
 				</div>

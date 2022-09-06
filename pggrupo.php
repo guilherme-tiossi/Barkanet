@@ -14,7 +14,6 @@ if ($row_count < 1) {
   header('Location: procurar.php');
 }
 
-
 if(isset($_GET['id_grupo'])){
   $stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE id_grupo = '{$_GET['id_grupo']}'");
   $stmt->execute();
@@ -24,7 +23,6 @@ if(isset($_GET['id_grupo'])){
     header('Location: procurar.php');
   }
 }
-
 ?>
 
 <!DOCTYPE html>

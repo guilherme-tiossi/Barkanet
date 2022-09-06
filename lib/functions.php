@@ -341,13 +341,19 @@
 			$stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE id_grupo = '$id_grupo'");
 			 $stmt->execute();
 				foreach($stmt as $row) {
-					global $nome_grupo; global $descricao_grupo; global $tipo_grupo; global $adm_grupo; global $foto_grupo;
+					global $nome_grupo; global $descricao_grupo; global $tipo_grupo; global $adm_grupo;
+					global $foto_grupo;
 					$nome_grupo = $row['nome_grupo'];
 					$descricao_grupo = $row['descricao_grupo'];
 					$tipo_grupo = $row['tipo_grupo'];
 					$adm_grupo = $row['adm_grupo'];
 					$foto_grupo = $row['foto_grupo'];
-					}
+				}
+			$stmt2 = $pdo->prepare("SELECT * FROM usuarios INNER JOIN tbgrupos ON usuarios.id = '$adm_grupo'");
+			$stmt2->execute();
+				foreach($stmt2 as $row2) {
+					$nome_adm_grupo = $row2['nome'];
+				}
 				if ($id_usuario == $adm_grupo){
 				echo 
 				'<div class="card-fundo pt-1" id="infogrupo">
@@ -385,7 +391,7 @@
 									</p>
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Criador:</b>
-										<br>'.$adm_grupo.'
+										<br>'.$nome_adm_grupo.'
 								</div>
 							</div>
 						</div>
@@ -428,7 +434,7 @@
                                 </p>
 								<p class="mb-0" style="font-size: 18px";>
 									<b>Criador:</b>
-									<br>'.$adm_grupo.'
+									<br>'.$nome_adm_grupo.'
 								</p>
 								<p>
 									<a href="exec_deleta_grupo.php?id_grupo=$id_grupo" class="text-danger">Apagar Grupo</a>
@@ -469,7 +475,7 @@
 										</p>
 										<p class="mb-0" style="font-size: 18px";>
 											<b>Criador:</b>
-											<br>'.$adm_grupo.'
+											<br>'.$nome_adm_grupo.'
 									</div>
 								</div>
 							</div>

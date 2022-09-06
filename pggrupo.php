@@ -22,6 +22,8 @@ if(isset($_GET['id_grupo'])){
   if ($row_count < 1) {
     header('Location: procurar.php');
   }
+}else{
+  header('Location: procurar.php');
 }
 ?>
 

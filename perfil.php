@@ -38,7 +38,7 @@
   <!--Centro-->
   <div class="col-6">
     <?php ler_dados_usuario($email, $pdo, $class1, $class2);
-    //ler_amigos_usuario();?>
+    ler_amigos_usuario();?>
     <div class="card-fundo">
       <?php ler_posts_usuario(); ?>
     </div>

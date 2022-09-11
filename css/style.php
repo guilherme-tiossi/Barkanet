@@ -30,7 +30,8 @@ include('../lib/includes.php');
 
 .card-amigos{
   background-color: rgb(238, 239, 243);
-  border: 3px solid #b9babe;
+  width: 100%;
+  border: 2px solid #b9babe;
   border-top: none;
   border-radius: 0;
   display: inline-block;

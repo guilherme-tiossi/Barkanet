@@ -8,6 +8,9 @@ include('../lib/includes.php');
     $cor = $stmt->fetchColumn();
     ?>
 <style>
+.PORRA{
+  color: black;
+}
 .link-perfil{
   text-decoration: none;
   color: black !important;

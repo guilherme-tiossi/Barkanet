@@ -1,6 +1,10 @@
+.PORRA{
+  color: black;
+}
+
 .link-perfil{
-  text-decoration: none;
   color: black !important;
+  text-decoration: none;
 }
 
 .icon-lapis{

@@ -38,8 +38,9 @@ include('../lib/includes.php');
   padding: 5px;
   }
 
-.card-amigos img{
+.card-amigos-img{
   padding-right: 0px;
+  display: inline-block;
 }
 
 .card-fundo{

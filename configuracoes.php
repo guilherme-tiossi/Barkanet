@@ -29,7 +29,7 @@
 
   <!--Centro-->
   <div class="col-6">
-    <a href="update-pass.php?id='<?php $_SESSION['userId'] ?>'"> Alterar Senha  </a>
+    <a href='update-pass.php?id=<?php echo $_SESSION['userId']; ?>'> Alterar Senha  </a>
     <br>
     <a href="deleta.php"> Deletar Conta </a>
     <br>

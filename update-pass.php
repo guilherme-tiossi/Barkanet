@@ -16,8 +16,8 @@ $smt ->execute();
 <script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-        <form name="frmUser" method="post" action="" onsubmit="return editarSenha()">
-        <a href="update.php">Voltar</a>
+        <form name="frmUser" method="post" action="exec_senha.php" onsubmit="return editarSenha()">
+        <a href="configuracoes.php">Voltar</a>
         <br>
         <label for="senha">Senha:</label>
         <br>
@@ -34,6 +34,6 @@ $smt ->execute();
         <label for="mostrar">Mostrar senha</label>
         <br>
         <input type="submit" name="submit" value="Salvar" class="button">
-        </form>
+        </form> 
 </body>
 </html>

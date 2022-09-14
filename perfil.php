@@ -2,14 +2,6 @@
 	include("lib/includes.php");
   include_once("lib/functions.php");
 	include("conexao.php");
-  if (isset($_GET['class'])){
-    $class1 = $_GET['class'];
-    $class2 = 'card-fundo pt-1';
-  }
-  else{
-    $class1 = 'card-fundo pt-1';
-    $class2 = 'to-hide';
-  }
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +29,7 @@
 
   <!--Centro-->
   <div class="col-6">
-    <?php ler_dados_usuario($email, $pdo, $class1, $class2);
+    <?php ler_dados_usuario($email, $pdo);
     ler_amigos_usuario();?>
     <div class="card-fundo">
       <?php ler_posts_usuario(); ?>
@@ -49,6 +41,14 @@
     <?php include('menu_direita.php');?>
   </div>
 </div>
+
+<?php
+if (isset($_GET['editar'])){
+  ?><script>
+    mostraropcoesperfil()
+  </script><?php
+}
+?>
 
 </body>
 </html>

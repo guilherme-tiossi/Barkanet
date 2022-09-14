@@ -408,6 +408,7 @@ input[type=text]{
   font-weight: 700;
   font-size: 16px;
   color: #0c0c0d;
+  cursor: pointer;
 }
 
 .div-pesquisa{

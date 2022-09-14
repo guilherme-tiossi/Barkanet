@@ -1,5 +1,5 @@
 <?php
-	function ler_dados_usuario($email, $pdo, $class1, $class2){
+	function ler_dados_usuario($email, $pdo){
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 		 $stmt ->execute();
@@ -19,7 +19,7 @@
 				$pfp = $row['profilepic'];
 				}
 			echo 
-			'<div class="'. $class1 .'" id="infouser">
+			'<div class="card-fundo pt-1" id="infouser">
 			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">
@@ -66,7 +66,7 @@
 	            </div>
 	        </div>
 	        </div>
-			<div class="' . $class2 . '" id="edituser">
+			<div class="to-hide" id="edituser">
 			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 	            <div class="card card-perfil">
 	                <div class="card-body">

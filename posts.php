@@ -70,6 +70,7 @@ include("conexao.php");
     echo "<div class='card-fundo mx-auto'>";
     foreach ($stmt as $row):
       $idposter = $row['usuario'];
+      $pfpamigo = $row['profilepic'];
 
         echo "
         <div class='mx-auto pt-4' style='width: 80%;'>
@@ -77,7 +78,7 @@ include("conexao.php");
             <div class='card-body card bg-light m-2'>
               <div class='d-flex flex-row bd-highlight mb-0'>
                 <div class='p-2 bd-highlight'>
-                  <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
+                  <img class='float-left' src='img/$pfpamigo' width='64' height='64' title='foto'>
                 </div>
                 <div class='p-2 bd-highlight'>
                   <p class='mb-0' style='font-size: 18px';>";

@@ -20,7 +20,7 @@ $stmt ->execute();
     <div class="bordaperfil m-2">
       <div class="d-flex flex-row mb-0">
         <div class='m-1'>
-          <img src='img/<?php echo $pfp; ?>' width='60px' title='<?php echo $pfp; ?>'>
+          <img src='img/<?php echo $pfp; ?>' width='60px' height='60px' title='<?php echo $pfp; ?>'>
         </div>
         <div class='m-1'>
             <h4 class="PORRA">

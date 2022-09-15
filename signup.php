@@ -70,9 +70,11 @@
                <br>
                <label for="senha">Senha: </label>
                <br>
-               <input type="password" name="senha" id="senha">
+					<input type="password" name="senha" id="senha">
                <span id="alert-senha" class="to-hide" role="alert"><br>A senha deve ter no mínimo 8 caracteres</span>
-               <br>
+					<div class="progress">
+						<span id="passwordStrength" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></span>
+               </div>
                <label for="senha">Confirmar senha: </label>
                <br>
                <input type="password" name="senha" id="c_senha">
@@ -82,6 +84,10 @@
                <input type="checkbox" name="mostrar" onclick="senhaCadastro()">
                <label for="mostrar">Mostrar senha</label>
                <br>
+
+
+
+      
                <input type="checkbox" name="termos" id="check_termos">
                <label for="check_termos">Eu li e concordo com os <a href="" data-toggle="modal" data-target="#ModalLongoExemplo">Termos de uso e Privacidade</a></label>
                <span id="alert-termos" class="to-hide" role="alert"><br>Voce precisa aceitar os Termos</span>
@@ -133,7 +139,7 @@
                      <p> 4.2 O Barkanet não garante que o site estará disponível, livre de erros ou bugs. </p>
                      <h3> Modificação dos termos de uso e cancelamento do site </h3>
                      <p> 5.1O Barkanet se reserva o direito de alterar os Termos e Condições, a qualquer momento e sob nosso julgamento. O uso por você do site constituirá o seu consentimento à alteração deste termos.­</p>
-                     <p>5.2O Barkanet se reserva o direito de modificar, descontinuar ou suspender a rede social a qualquer momento, a nosso critério. </p>
+                     <p>5.2O Barkanet se reserva o direito de modificar, descontinuar ou suspender a rede social a qualquer um momento, a nosso critério. </p>
                      <h3> Outro </h3>
                      <p> 6.1Os termos descritos neste documento são somente para conveniência da rede social enquanto existência, e não terão quaisquer efeitos legais e/ou de contrato. </p>
                   </div>
@@ -152,4 +158,76 @@
          </div>
       </section>
    </body>
+
+   <script>
+	function ClassifyChar( ch )
+	{
+		if ( ( 'a' <= ch && 'z' >= ch ) || ' ' == ch )
+			return 'lower';
+		if ( 'A' <= ch && 'Z' >= ch )
+			return 'upper';
+		if ( '0' <= ch && '9' >= ch )
+			return 'number';
+		if ( 0 <= "`~!@#$%^&*()_-+={}|[]\\:\";',./<>?".indexOf( ch ) )
+			return 'symbol';
+		return 'other';
+	}
+	function CalcPasswordStrength( pw )
+	{
+		if ( !pw.length )
+			return 0;
+		var score = { "lower":26, "upper":26, "number":10, "symbol":35, "other":20 };
+		var dist = {}, used = {};
+		for ( var i = 0; i < pw.length; i++ )
+			if ( undefined === used[ pw[ i ] ] )
+			{	used[ pw[ i ] ] = 1;
+				var c = ClassifyChar( pw[ i ] );
+				if ( undefined === dist[ c ] )
+					dist[ c ] = score[ c ] / 2;
+				else 
+					dist[ c ] = score[ c ];
+			}
+		var total = 0;
+		$.each( dist, function( k, v ) { total += v; } );
+		used = {};
+		var strength = 1;
+		for ( var i = 0; i < pw.length; i++ )
+		{	
+			if ( undefined === used[ pw[ i ] ] )
+				used[ pw[ i ] ] = 1;
+			else 
+				used[ pw[ i ] ]++;
+		
+			if ( total > used[ pw[ i ] ] )
+				strength *= total / used[ pw[ i ] ];
+		}
+		return parseInt( Math.log( strength ) );
+	}
+
+	$("#senha").keyup( function( e )
+	{	
+		var ctrl = '#passwordStrength';
+		var strength = CalcPasswordStrength( $("#senha").val() );
+		var percent = Math.max(15, Math.min(100, parseInt( strength )));
+		$('#showPassword').text($("#senha").val());
+		$(ctrl).width( '' + percent + '%' );	
+		$(ctrl).removeClass( 'progress-bar-success progress-bar-warning progress-bar-danger' );
+	
+		if ( 40 > strength )	
+			$(ctrl).text( 'Fraca' ),
+			$(ctrl).addClass( 'progress-bar-danger' );
+		else if ( 60 > strength )	
+			$(ctrl).text( 'Média' ),
+			$(ctrl).addClass( 'progress-bar-warning' );
+		else if ( 90 > strength )	
+			$(ctrl).text( 'Forte' ),
+			$(ctrl).addClass( 'progress-bar-success' );
+		else
+			$(ctrl).text( 'Muito forte' ),
+			$(ctrl).addClass( 'progress-bar-success' );
+	
+		$(ctrl).attr( 'data-strength', strength );
+		$(this).attr( 'data-strength', strength );
+	});
+</script>
 </html>

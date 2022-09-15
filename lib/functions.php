@@ -125,7 +125,58 @@
 	        </div>';
 			};
 
-	
+
+			function ClassifyChar( $ch )
+			{
+				if ( ( 'a' <= $ch && 'z' >= $ch ) || ' ' == $ch )
+					return 'lower';
+				if ( 'A' <= $ch && 'Z' >= $ch )
+					return 'upper';
+				if ( '0' <= $ch && '9' >= $ch )
+					return 'number';
+				if ( false === strpos( "`~!@#$%^&*()_-+={}|[]\\:\";',./<>?", $ch ) )
+					return 'symbol';
+				return 'other';
+			}
+		
+			function CalcPasswordStrength( $pw )
+			{
+				if ( !strlen( $pw ) )
+					return 0;
+				
+				$score = array( "lower"=>26, "upper"=>26, "number"=>10, "symbol"=>35, "other"=>20 );
+				
+				$dist = array(); $used = array();
+				for ( $i = 0; $i < strlen( $pw ); $i++ )
+					if ( !isset( $used[ $pw[ $i ] ] ) )
+					{	$used[ $pw[ $i ] ] = 1;
+						$c = ClassifyChar( $pw[ $i ] );
+						if ( !isset( $dist[ $c ] ) )
+							$dist[ $c ] = $score[ $c ] / 2;
+						else 
+							$dist[ $c ] = $score[ $c ];
+					}
+		
+				$total = 0;
+				foreach( $dist as $k => $v )
+					$total += $v;
+		
+				$used = array();
+				$strength = 1;
+				for ( $i = 0; $i < strlen( $pw ); $i++ )
+				{	
+					if ( !isset( $used[ $pw[ $i ] ] ) )
+						$used[ $pw[ $i ] ] = 1;
+					else 
+						$used[ $pw[ $i ] ]++;
+					
+					if ( $total > $used[ $pw[ $i ] ] )
+						$strength *= $total / $used[ $pw[ $i ] ];
+						
+				}
+				
+				return (int)( log( $strength ) );
+			}
 
 	function ler_amigos_usuario(){
 		global $pdo;

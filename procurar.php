@@ -12,8 +12,6 @@
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
     <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <title>Procurar</title>
   </head>
 
@@ -28,23 +26,51 @@
     <div class="col-6">
       <div class="card-fundo">
       <!--Pesquisa com código-->
-      <h2>Insira a sua busca:</h2>
+      <h2>Insira o código de amizade:</h2>
       <form action="" method="post">
-        <input type="text" name="buscar" required>
+      <input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Search...">
         <button type="submit">Procurar</button><br>
       </form>
+
+      <div id="searchresult"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#live_search").keyup(function(){
+            var input = $(this).val();
+            //alert(input);
+
+            if(input !=""){
+                $.ajax({
+
+                url:"livesearch.php",
+                method:"POST",
+                data:{input:input},
+
+                success:function(data){
+                    $("#searchresult").html(data);
+                    $("#searchresult").css("display","block");
+                }
+                });
+            }else{
+                $("#searchresult").css("display","none");
+            }
+        });
+
+    });
+</script>
 
       <!--Resultado da busca-->
       <div>
       <?php
-      if(isset($_POST['buscar'])){
-        $codigo = $_POST['buscar'];
+      if(isset($_POST['live_search'])){
+        $codigo = $_POST['live_search'];
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE codigo = '$codigo'");
         $stmt ->execute();
         $count1 = $stmt->rowCount();
         echo "Usuários: </br>";
-
-        if($count1 >= 1){
+        if($count1 >= 0){
           foreach($stmt as $row) {
             $id = $row['id'];
             $nome = $row['nome'];
@@ -53,12 +79,11 @@
         }else{
           echo "Usuário não encontrado" . "</br>";
         }
-
+        
         $stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE nome_grupo LIKE '%$codigo%'");
         $stmt ->execute();
         $count2 = $stmt->rowCount();
         echo "</br>Grupos:</br>";
-
           if($count2 >= 1){
             foreach($stmt as $row) {
               $idgrupo = $row['id_grupo'];
@@ -66,7 +91,7 @@
               $nomegrupo = $row['nome_grupo'];
 
               if($row['tipo_grupo'] == "Privado" ){
-                echo "<a href='?pagina=grupo2&id_grupo=$idgrupo&id=$adm_grupo'>{$nomegrupo}</a>";
+                echo "<a href='?pagina=grupo&id_grupo=$idgrupo&id=$adm_grupo'>{$nomegrupo}</a>";
                 echo " " . $row["descricao_grupo"];
                 echo "</br>";
               }
@@ -97,21 +122,19 @@
             $id_de = $row['id_de'];
             
             if($id_para == $_SESSION['userId']){
-              $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_de'");
+              $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_de'");
               $stmt3 ->execute();
               foreach ($stmt3 as $row):
-                $idposter = $row['id'];
-                echo "<a href='?pagina=perfil&id=$idposter'>" . $row['nome'] . "</a>";
+                echo $row["nome"];
                 echo "<br>";
               endforeach;
             }
 
             if($id_de == $_SESSION['userId']){
-              $stmt3 = $pdo->prepare("select id, nome from usuarios where id = '$id_para'");
+              $stmt3 = $pdo->prepare("select nome from usuarios where id = '$id_para'");
               $stmt3 ->execute();
               foreach ($stmt3 as $row):
-                $idposter = $row['id'];
-                echo "<a href='?pagina=perfil&id=$idposter'>" . $row['nome'] . "</a>";
+                echo $row["nome"];
                 echo "<br>";
               endforeach;
             }

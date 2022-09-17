@@ -9,22 +9,20 @@ if(isset($_POST['input'])){
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE codigo = '$codigo'");
         $stmt ->execute();
         $count1 = $stmt->rowCount();
-        echo "Usuários: </br>";
+        echo "<div class='pesquisa'>";
         if($count1 >= 1){
+          echo "Usuários: </br>";
           foreach($stmt as $row) {
             $id = $row['id'];
             $nome = $row['nome'];
           }
           echo "<a href='?pagina=perfil&id={$id}'>{$nome}</a> </br>";
-        }else{
-          echo "Usuário não encontrado" . "</br>";
         }
-        
         $stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE nome_grupo LIKE '%$codigo%'");
         $stmt ->execute();
         $count2 = $stmt->rowCount();
-        echo "</br>Grupos:</br>";
           if($count2 >= 1){
+            echo "</br>Grupos:</br>";
             foreach($stmt as $row) {
               $idgrupo = $row['id_grupo'];
               $adm_grupo = $row['adm_grupo'];
@@ -42,13 +40,8 @@ if(isset($_POST['input'])){
                 echo "</br>";
               }
             }
-          }else{
-            echo "Grupo não encontrado";
           }
       }
-        else{
-            echo "<h6 class='text-danger text-center mt-3'>Nenhum resultado encontrado.</h6>";
-        }
-        echo "</tbody> </table>";
+        echo "</div>";
     
 ?>

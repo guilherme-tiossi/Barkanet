@@ -577,3 +577,17 @@ function fecharAlerta(){
     document.getElementById('modal-cronometro').className = "to-hide";
 }
 
+document.addEventListener('click', function handleClickOutsideBox(event) {
+    const box = document.getElementById('searchresult');  
+    if (!box.contains(event.target)) {
+      box.style.display = 'none';
+    }
+  });
+  
+document.addEventListener('click', function handleClickOutsideBox(event) {
+    const boxx = document.getElementById('live_search');
+    const box = document.getElementById('searchresult');
+    if (boxx.contains(event.target)) {
+      box.style.display = '';
+    }
+  });

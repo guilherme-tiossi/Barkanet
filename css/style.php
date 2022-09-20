@@ -12,8 +12,8 @@ include('../lib/includes.php');
   color: black;
 }
 .link-perfil{
-  text-decoration: none;
   color: black !important;
+  text-decoration: none;
 }
 
 .icon-lapis{
@@ -44,12 +44,10 @@ include('../lib/includes.php');
 }
 
 .card-fundo{
-  background-color: <?php echo $cor;?>; 
-  border-left: 2px solid #b9babe;
-  border-right: 2px solid #b9babe;
-  border-bottom: 2px solid #b9babe;
+  background-color: rgb(238, 239, 243);
+  border-left: 2px solid #a2bf40;
+  border-right: 2px solid #a2bf40;
   border-radius: 0;
-  max-height: 100%;
 }
 
 .card-fundo-esquerda{
@@ -87,12 +85,18 @@ include('../lib/includes.php');
   border-radius: 0;
 }
 
+.card-time{
+  background-color: rgb(238, 239, 243);
+  border: 2px solid #b9babe;;
+  border-radius: 0;
+}
+
 .bg-card-perfil{
   background-color: rgb(238, 239, 243);
 }
 
 .to-hide{
-	display: none;
+  display: none;
 }
 
 .alert{
@@ -112,22 +116,22 @@ span{
 }
 
 .pop-up{
-	color: #fff;
- 	position: fixed;
- 	width: 100%;
- 	bottom: 2rem;
- 	z-index: 1000;
- 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
- 	background: #000;
- 	border-radius: 5px;
- 	padding: 1rem;
- 	margin: 0 auto;
- 	display: grid;
- 	grid-template-columns: 1fr auto;
- 	gap: 0.5rem;
- 	opacity: 0;
- 	transform: translateY(1rem);
- 	animation: slideUp 0.5s forwards;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 2rem;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  background: #000;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(1rem);
+  animation: slideUp 0.5s forwards;
 }
 
 @keyframes slideUp {
@@ -138,35 +142,35 @@ span{
 }
 
 .pop-up-hidden{
-	color: #fff;
- 	position: fixed;
- 	width: 100%;
- 	bottom: 2rem;
- 	z-index: 1000;
- 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
- 	background: #000;
- 	border-radius: 5px;
- 	padding: 1rem;
- 	margin: 0 auto;
- 	display: grid;
- 	grid-template-columns: 1fr auto;
- 	gap: 0.5rem;
- 	opacity: initial;
- 	transform: initial;
- 	animation: slideDown 1s forwards;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 2rem;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  background: #000;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  opacity: initial;
+  transform: initial;
+  animation: slideDown 1s forwards;
 }
 
 @keyframes slideDown {
   to {
     transform: translateY(10rem);
-  	opacity: 0;
+    opacity: 0;
   }
 }
 
 .comentario{
-	font-size: 16px;
-	width: 30vh;
-	height: 6vh;
+  font-size: 16px;
+  width: 30vh;
+  height: 6vh;
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
@@ -174,44 +178,42 @@ span{
 
 .btn_comentario{
   border: none;
-  border-radius: 2px;
-  background-color: #eeeeee;
-  font-size: 20px;
+  color: #91ac39;
+  font-size: 22px;
   width: auto;
-  color: #706f6f;
 }
 
 .card-comentarios{
   background-color: rgb(238, 239, 243);
-  border: 2px solid #b9babe;;
+  border: 2px solid #b9babe;
   border-radius: 0;
   border-top: none;
 }
 
 .textoupdate_nome{
-	font-size:15px;
-	width: 25vh;
-	height: 4vh;
+  font-size:15px;
+  width: 25vh;
+  height: 4vh;
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
 }
 
 .textoupdate_2{
-	font-size:15px;
-	width: 25vh;
-	height: 4vh;
+  font-size:15px;
+  width: 25vh;
+  height: 4vh;
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
 }
 
 .pfp-input{
-	display: none;
+  display: none;
 }
 
 .label-pfpalterar{
-	opacity: 0.3;
+  opacity: 0.3;
 }
 
 input[type=text]{
@@ -241,29 +243,40 @@ input[type=text]{
   border-width: 2px;
   border-color: #BEBEBE;
   border-radius: 0;
+  transition: 0.1s;
 }
 
 .inputpesquisa {
   border-right: 0;
-  background-color: rgb(252, 252, 252);
+  background-color: #fff;
 }
 
 .botaopesquisa {
-  background-color: rgb(252, 252, 252);
+  background-color: #fff;
   border-left: 0;
-  color: #BEBEBE;
+  color: #c5e556;
 }
 
-.inputpesquisa:focus, .inputpesquisa:hover, .botaopesquisa:focus, .botaopesquisa:hover {
+.inputpesquisa:focus, .inputpesquisa:hover, .botaopesquisa:focus,{
+  transition: 0.1s;
   border-color: #BEBEBE;
+  box-shadow: 0rem 0rem 0rem 0rem rgb(0 0 0 / 100%);
+  background-color: rgb(252, 252, 252);
+  outline: none;
+}
+
+.botaopesquisa:hover {
+  transition: 0.1s;
+  border-color: #BEBEBE;
+  color: #829b33;
   box-shadow: 0rem 0rem 0rem 0rem rgb(0 0 0 / 100%);
   background-color: rgb(252, 252, 252);
 }
 
 .bordaperfil {
   padding: 0.35rem calc(1.5rem * 0.5) 0.35rem calc(1.5rem * 0.5);
-  border: 2px solid #BEBEBE;
-  background: linear-gradient(180deg, #DCDCDC 0%, #FDFDFD 100%);
+  border: 2px solid #d2ea7b;
+  background: linear-gradient(180deg, #d2ea7b 0%, #FDFDFD 100%);
   flex-shrink: 0;
   flex-wrap: wrap;
 }
@@ -308,16 +321,16 @@ input[type=text]{
   margin: 0.5rem;
   cursor: pointer;
   font-weight: 700;
-  color: #fff;
-  background-color: #999999;
-  box-shadow: 0 3px 0 #666666;
+  color: #101010;
+  background-color: #d2ea7b;
+  box-shadow: 0 3px 0 #91ac39;
   transition: 0.3s;
 }
 
 .btnposts:active{
   transition: 0.3s;
   top: 3px;
-  background-color: #C0C0C0;
+  background-color: #91ac39;
   position: relative;
   box-shadow: none;
 }
@@ -336,7 +349,7 @@ input[type=text]{
 }
 
 .listapags i {
-  color: rgba(80, 140, 240, 0.7);
+  color: #a2bf40;
   margin-right: 0.5rem;
   font-size: 1.6rem;
   vertical-align:middle;
@@ -350,19 +363,20 @@ input[type=text]{
 
 .bordagrupos {
   padding: 0.35rem calc(1.5rem * 0.5) 0.35rem calc(1.5rem * 0.5);
-  border: 2px solid #BEBEBE;
+  border: 2px solid #c5e556;
   margin-top: 0.4rem;
-  background-color: rgba(112.520718, 44.062154, 249.437846, 0.1);
+  background-color: rgb(238, 239, 243);
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
   flex-wrap: wrap;
+  transition: 0.1s;
 }
 
 .bordagrupos:hover,
 .bordagrupos:focus {
-  color: black;
-  box-shadow: 0rem 0rem 0rem 0.225rem rgb(192 192 192 / 32%);
+  transition: 0.1s;
+  background-color: #e1e3ea;
 }
 
 .bordagrupos a {
@@ -378,6 +392,7 @@ input[type=text]{
 .imggrupo {
   width: 6.2rem;
   height: 6.2rem;
+  border-radius: 2px;
 }
 
 .textogrupo h5 {
@@ -390,18 +405,18 @@ input[type=text]{
 
 #btncriargrupo {
   border-radius: 0;
-  border-color: #C0C0C0;
+  border-color: #829b33;
   margin-top: 15px;
   padding-left: 5px;
   padding-right: 5px;
-  background-color: #C0C0C0;
-  color: black;
+  background: linear-gradient(180deg, #d2ea7b 0%, #e9f5bd 100%);
+  color: #101010;
   font-weight: 650;
 }
 
 #btncriargrupo:hover,
 #btncriargrupo:focus {
-  box-shadow: 0rem 0rem 0rem 0.225rem rgb(192 192 192 / 32%);
+  box-shadow: 0rem 0rem 0rem 0.2205rem rgba(197, 229, 86, 0.3);
 }
 
 .editarperfil{
@@ -413,5 +428,14 @@ input[type=text]{
 
 .div-pesquisa{
   width: auto;
+}
+
+.text-kiwi{
+  color: #91ac39;
+  font-weight: 700;
+}
+
+.text-kiwi: hover{
+  color: #91ac39;
 }
 </style>

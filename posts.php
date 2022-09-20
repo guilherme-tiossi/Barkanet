@@ -155,7 +155,7 @@ include("conexao.php");
             <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
             <input type="hidden" name="post_id" value="'.$idpost.'">
             <button type="submit" name="comentar" class="btn_comentario">
-            <i class="fa-solid fa-square-arrow-up-right"></i>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </button>';
           echo '
           </form>
@@ -171,7 +171,7 @@ include("conexao.php");
           <?php
             if($pagina_anterior != 0){
                 $btn1 = '
-                <a class="page-link text-muted" href="posts.php?pagina='.$pagina_anterior.'" aria-label="Previous">
+                <a class="page-link text-kiwi" href="posts.php?pagina='.$pagina_anterior.'" aria-label="Previous">
                   <i class="fa-solid fa-reply"></i>
                 </a>';
             }else{
@@ -188,22 +188,22 @@ include("conexao.php");
               $num_posterior = $num_atual + 1;
 
               if($num_anterior != 0){
-                $btn2 = '<a class="page-link text-muted" href="posts.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+                $btn2 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
                 echo '<li class="page-item">'.$btn2.'</li>';
               }
 
-              $btn2 = '<a class="page-link text-muted" href="posts.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
+              $btn2 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
               echo '<li class="page-item">'.$btn2.'</li>';
 
               if($num_posterior < ($num_pagina + 1)){
-                $btn2 = '<a class="page-link text-muted" href="posts.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+                $btn2 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
                 echo '<li class="page-item">'.$btn2.'</li>';
               }
           ?>
 
           <?php
             if($num_posterior < ($num_pagina + 1)){
-              $btn3 = '<a class="page-link text-muted" href="posts.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+              $btn3 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
             }else{
               $btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
             }

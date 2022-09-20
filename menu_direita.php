@@ -10,7 +10,7 @@ endforeach;
 ?>
 
 <div class="card-fundo-direita p-2">
-  <div class="card-posts m-2 p-2 mx-auto">
+  <div class="card-time m-2 p-2 mx-auto">
     <h3>TEMPO: <b id="cronometro"></b></h3>
   </div>
   

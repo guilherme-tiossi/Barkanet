@@ -60,7 +60,7 @@
     <?php ler_dados_usuario($email, $pdo);
     ler_amigos_usuario();?>
     <div class="card-fundo">
-      <?php ler_posts_usuario($num_pagina, $inicio, $quantidade_pg); ?>
+      <?php ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg); ?>
     </div>
   </div>
 

@@ -122,11 +122,22 @@ if ($row_count < 1) {
         <div class='card-fundo mx-auto'>
             <h2 class='p-3'>Posts de ".$row['nome']."</h2>";
             foreach ($stmt as $row):
-                echo "
-                <div class='mx-auto' style='width: 80%;'>
+                $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
+                $swor->execute();
+                $linhas = $swor->rowCount();
+
+                echo "<div class='mx-auto' style='width: 80%;'>";
+
+                if($linhas > 0){
+                    echo "
+                    <div class='card-posts' style='border-bottom: none;'>
+                    <div class='card-body card bg-light m-2 mb-0'>";
+                }else{
+                    echo "
                     <div class='card-posts'>
-                        <div class='card-body card bg-light m-2'>
-                            <div class='d-flex flex-row bd-highlight mb-0'>
+                    <div class='card-body card bg-light m-2'>";
+                }
+                echo "<div class='d-flex flex-row bd-highlight mb-0'>
                                 <div class='p-2 bd-highlight'>
                                     <img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
                                 </div>

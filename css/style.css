@@ -68,7 +68,7 @@
 
 .card-posts{
   background-color: rgb(238, 239, 243);
-  border: 2px solid #b9babe;;
+  border: 2px solid #b9babe;
   border-radius: 0;
 }
 
@@ -244,7 +244,7 @@ input[type=text]{
   color: #c5e556;
 }
 
-.inputpesquisa:focus, .inputpesquisa:hover, .botaopesquisa:focus,{
+.inputpesquisa:focus, .inputpesquisa:hover, .botaopesquisa:focus{
   transition: 0.1s;
   border-color: #BEBEBE;
   box-shadow: 0rem 0rem 0rem 0rem rgb(0 0 0 / 100%);
@@ -423,8 +423,8 @@ input[type=text]{
   font-weight: 700;
 }
 
-.text-kiwi: hover{
-  color: #91ac39;
+.text-kiwi:hover{
+  color: #829b33;
 }
 
 .link:link {

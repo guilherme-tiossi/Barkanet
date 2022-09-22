@@ -203,7 +203,7 @@
 		echo "</div>";
 	}
 
-    function ler_posts_usuario($num_pagina, $inicio, $quantidade_pg){
+    function ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg){
         global $pdo;
 		global $id;
 		global $pfp;
@@ -214,12 +214,22 @@
 		echo '<h2 class="p-3">Meus posts</h2>';
 		foreach ($stmt as $row):
 		$idposter = $row['usuario'];
-
-			echo "
-			<div class='mx-auto' style='width: 80%;'>
-			<div class='card-posts'>
-				<div class='card-body card bg-light m-2'>
-				<div class='d-flex flex-row bd-highlight mb-0'>
+		$swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
+		$swor->execute();
+		$linhas = $swor->rowCount();
+  
+		echo "<div class='mx-auto' style='width: 80%;'>";
+  
+		if($linhas > 0){
+		  echo "
+		  <div class='card-posts' style='border-bottom: none;'>
+		  <div class='card-body card bg-light m-2 mb-0'>";
+		}else{
+		  echo "
+		  <div class='card-posts'>
+		  <div class='card-body card bg-light m-2'>";
+		}
+			echo "<div class='d-flex flex-row bd-highlight mb-0'>
 					<div class='p-2 bd-highlight'>
 					<img class='float-left' src='img/$pfp' width='64' height='64' title='foto'>
 					</div>

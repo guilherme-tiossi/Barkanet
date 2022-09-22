@@ -51,44 +51,47 @@ if(isset($_GET['id_grupo'])){
   <!--Centro-->
   <div class="col-6">
   <?php
-  $id_usuario = $_SESSION['userId'];
-  ler_dados_grupo($id_grupo, $id_usuario);
 
-  $pagina_posts = isset($_GET['pagina_posts']) ? $_GET['pagina_posts'] : 1;
-  $quantidade_pg = 50;
+    $pagina_grupo = (isset($_GET['pagina_grupo']) && $_GET['pagina_grupo'] != null && is_numeric($_GET['pagina_grupo'])) ? $_GET['pagina_grupo'] : 1;
+    $quantidade_pg = 50;
 
+    $id_grupo = $_GET['id_grupo'];
+    $grp = $pdo->prepare("SELECT nome_grupo FROM tbgrupos WHERE id_grupo = '$id_grupo'");
+    $grp->execute();
+
+    foreach ($grp as $row):
+      $nome_grupo = $row['nome_grupo'];
+    endforeach;
+
+    $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE idgrupo = '$id_grupo' ORDER BY idpost DESC");
+    $stmt->execute();
+
+    $rowNum = $stmt->rowCount();
+    $num_pagina = $rowNum / $quantidade_pg;
+    $incio = $quantidade_pg * $pagina_grupo - $quantidade_pg;
+
+    if (isset($_GET['pagina_grupo'])) {
+      if ($_GET['pagina_grupo'] > $num_pagina + 1) {
+        echo "<script>document.location.href = 'pggrupo.php?id_grupo=" . $_GET['id_grupo'] . "&pagina_grupo=1';</script>";
+      }
+
+      if ($_GET['pagina_grupo'] == 0) {
+        echo "<script>document.location.href = 'pggrupo.php?id_grupo=" . $_GET['id_grupo'] . "&pagina_grupo=1';</script>";
+      }
+
+      if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina_grupo'])) {
+        echo "<script>document.location.href = 'pggrupo.php?id_grupo=" . $_GET['id_grupo'] . "&pagina_grupo=1';</script>";
+      }
+    }else{
+      echo "<script>document.location.href = 'pggrupo.php?id_grupo=" . $_GET['id_grupo'] . "&pagina_grupo=1';</script>";
+    }
+      
+    $id_usuario = $_SESSION['userId'];
+    ler_dados_grupo($id_grupo, $id_usuario);
+    
   ?>
     <div class="card-fundo max-auto">
       <?php
-      $id_grupo = $_GET['id_grupo'];
-      $grp = $pdo->prepare("SELECT nome_grupo FROM tbgrupos WHERE id_grupo = '$id_grupo'");
-      $grp->execute();
-
-      foreach ($grp as $row):
-          $nome_grupo = $row['nome_grupo'];
-      endforeach;
-
-      $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE idgrupo = '$id_grupo' ORDER BY idpost DESC");
-      $stmt->execute();
-
-      $rowNum = $stmt->rowCount();
-      $num_pagina = $rowNum / $quantidade_pg;
-      $incio = $quantidade_pg * $pagina_posts - $quantidade_pg;
-
-      if (isset($_GET['pagina_posts'])) {
-          if ($_GET['pagina_posts'] > $num_pagina + 1) {
-              echo "<script>document.location.href = 'pggrupo.php?id_grupo=" . $_GET['id_grupo'] . "&pagina_posts=1';</script>";
-          }
-
-          if ($_GET['pagina_posts'] == 0) {
-              echo "<script>document.location.href = 'pggrupo.php?id_grupo=" . $_GET['id_grupo'] . "&pagina_posts=1';</script>";
-          }
-
-          if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina_posts'])) {
-              echo "<script>document.location.href = 'pggrupo.php?id_grupo=" . $_GET['id_grupo'] . "&pagina_posts=1';</script>";
-          }
-      }
-
       $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE idgrupo = '$id_grupo' ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
       $stmt->execute();
 
@@ -191,8 +194,8 @@ if(isset($_GET['id_grupo'])){
         </div>';
       endforeach;
 
-      $pagina_anterior = $pagina_posts - 1;
-      $pagina_posterior = $pagina_posts + 1;
+      $pagina_anterior = $pagina_grupo - 1;
+      $pagina_posterior = $pagina_grupo + 1;
 
       echo '
             <div class="mt-5">
@@ -201,9 +204,9 @@ if(isset($_GET['id_grupo'])){
       if ($pagina_anterior != 0) {
           $btn1 =
               '
-                            <a class="page-link text-muted" href="pggrupo.php?id_grupo=' .
+                            <a class="page-link text-kiwi" href="pggrupo.php?id_grupo=' .
               $_GET['id_grupo'] .
-              '&pagina_posts=' .
+              '&pagina_grupo=' .
               $pagina_anterior .
               '" aria-label="Previous">
                             <i class="fa-solid fa-reply"></i>
@@ -216,25 +219,25 @@ if(isset($_GET['id_grupo'])){
       echo $btn1;
       echo '</li>';
 
-      $num_atual = isset($_GET['pagina_posts']) ? $_GET['pagina_posts'] : 1;
+      $num_atual = isset($_GET['pagina_grupo']) ? $_GET['pagina_grupo'] : 1;
       $num_anterior = $num_atual - 1;
       $num_posterior = $num_atual + 1;
 
       if ($num_anterior != 0) {
-          $btn2 = '<a class="page-link text-muted" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_posts=' . $num_anterior . '">' . $num_anterior . '</a>';
+          $btn2 = '<a class="page-link text-kiwi" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_grupo=' . $num_anterior . '">' . $num_anterior . '</a>';
           echo '<li class="page-item">' . $btn2 . '</li>';
       }
 
-      $btn2 = '<a class="page-link text-muted" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_posts=' . $num_atual . '">' . $num_atual . '</a>';
+      $btn2 = '<a class="page-link text-kiwi" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_grupo=' . $num_atual . '">' . $num_atual . '</a>';
       echo '<li class="page-item">' . $btn2 . '</li>';
 
       if ($num_posterior < $num_pagina + 1) {
-          $btn2 = '<a class="page-link text-muted" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_posts=' . $num_posterior . '">' . $num_posterior . '</a>';
+          $btn2 = '<a class="page-link text-kiwi" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_grupo=' . $num_posterior . '">' . $num_posterior . '</a>';
           echo '<li class="page-item">' . $btn2 . '</li>';
       }
 
       if ($num_posterior < $num_pagina + 1) {
-          $btn3 = '<a class="page-link text-muted" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_posts=' . $pagina_posterior . '" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+          $btn3 = '<a class="page-link text-kiwi" href="pggrupo.php?id_grupo=' . $_GET['id_grupo'] . '&pagina_grupo=' . $pagina_posterior . '" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
       } else {
           $btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
       }

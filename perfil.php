@@ -29,10 +29,38 @@
 
   <!--Centro-->
   <div class="col-6">
+    <?php
+      $pagina = (isset($_GET['pagina']) && $_GET['pagina'] != null && is_numeric($_GET['pagina'])) ? $_GET['pagina'] : 1;
+      $quantidade_pg = 50;
+
+      $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
+      $stmt->execute();
+
+      $rowNum = $stmt->rowCount();
+      $num_pagina = $rowNum / $quantidade_pg;
+      $inicio = $quantidade_pg * $pagina - $quantidade_pg;
+
+      if(isset($_GET['pagina'])){
+        if($_GET['pagina'] > ($num_pagina + 1)){
+          echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+        }
+
+        if($_GET['pagina'] == 0){
+          echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+        }
+
+        if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina'])) {
+          echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+        }
+      }
+      else{
+        echo "<script>document.location.href = 'perfil.php?pagina=1';</script>";
+      }
+    ?>
     <?php ler_dados_usuario($email, $pdo);
     ler_amigos_usuario();?>
     <div class="card-fundo">
-      <?php ler_posts_usuario(); ?>
+      <?php ler_posts_usuario($num_pagina, $inicio, $quantidade_pg); ?>
     </div>
   </div>
 

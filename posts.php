@@ -27,7 +27,7 @@ include("conexao.php");
   <!--Centro-->
   <div class="col-6">
     <?php
-    $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+    $pagina = (isset($_GET['pagina']) && $_GET['pagina'] != null && is_numeric($_GET['pagina']))? $_GET['pagina'] : 1;
 
     $quantidade_pg = 50;
 
@@ -62,6 +62,8 @@ include("conexao.php");
       if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina'])) {
         echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
       }
+    }else{
+      echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
     }
 
     $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE usuario in ($users) AND idgrupo = '0' ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
@@ -155,7 +157,7 @@ include("conexao.php");
             <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
             <input type="hidden" name="post_id" value="'.$idpost.'">
             <button type="submit" name="comentar" class="btn_comentario">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <i class="fa-solid fa-square-arrow-up-right"></i>
             </button>';
           echo '
           </form>

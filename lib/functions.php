@@ -203,36 +203,12 @@
 		echo "</div>";
 	}
 
-    function ler_posts_usuario(){
+    function ler_posts_usuario($num_pagina, $inicio, $quantidade_pg){
         global $pdo;
 		global $id;
 		global $pfp;
 
-		$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-		$quantidade_pg = 50;
-
-		$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
-		$stmt->execute();
-
-		$rowNum = $stmt->rowCount();
-		$num_pagina = $rowNum / $quantidade_pg;
-		$incio = $quantidade_pg * $pagina - $quantidade_pg;
-
-		if(isset($_GET['pagina'])){
-			if($_GET['pagina'] > ($num_pagina + 1)){
-			  echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
-			}
-	  
-			if($_GET['pagina'] == 0){
-			  echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
-			}
-	  
-			if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina'])) {
-			  echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
-			}
-		}
-
-		$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
+		$stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $inicio, $quantidade_pg");
 		$stmt->execute();
 
 		echo '<h2 class="p-3">Meus posts</h2>';
@@ -338,7 +314,7 @@
 			<ul class="pagination justify-content-center pt-2">';
 				if($pagina_anterior != 0){
 					$btn1 = '
-					<a class="page-link text-muted" href="perfil.php?pagina='.$pagina_anterior.'" aria-label="Previous">
+					<a class="page-link text-kiwi" href="perfil.php?pagina='.$pagina_anterior.'" aria-label="Previous">
 					<i class="fa-solid fa-reply"></i>
 					</a>';
 				}else{
@@ -354,20 +330,20 @@
 				$num_posterior = $num_atual + 1;
 
 				if($num_anterior != 0){
-					$btn2 = '<a class="page-link text-muted" href="perfil.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+					$btn2 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
 					echo '<li class="page-item">'.$btn2.'</li>';
 				}
 
-				$btn2 = '<a class="page-link text-muted" href="perfil.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
+				$btn2 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
 				echo '<li class="page-item">'.$btn2.'</li>';
 
 				if($num_posterior < ($num_pagina + 1)){
-					$btn2 = '<a class="page-link text-muted" href="perfil.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+					$btn2 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
 					echo '<li class="page-item">'.$btn2.'</li>';
 				}
 
 				if($num_posterior < ($num_pagina + 1)){
-				$btn3 = '<a class="page-link text-muted" href="perfil.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+				$btn3 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
 				}else{
 				$btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
 				}

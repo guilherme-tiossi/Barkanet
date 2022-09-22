@@ -36,7 +36,7 @@ endforeach;
         $tipo_grupo = $row['tipo_grupo'];
         echo "
         <div class='bordagrupos'>
-          <a href='pggrupo.php?id_grupo=$id_grupo'>
+          <a href='pggrupo.php?id_grupo=$id_grupo&pagina_grupo=1'>
                 <div class='d-flex flex-row mb-0'>
                   <div class='p-2'>
                     <img src='img/$row[foto_grupo]' title='$row[foto_grupo]' class='imggrupo'> 

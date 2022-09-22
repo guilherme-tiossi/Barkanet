@@ -107,14 +107,7 @@
 	                                <b>Código:</b>
 	                                '.$cod.'
 	                            </p>
-								<select id="cordefundo" name="cordefundo">
-								<option value="rgb(238, 239, 243)">Padrão</option>
-  								<option value="rgb(24, 8, 54)">Mirtilo</option>
-  								<option value="rgb(218, 42, 42)">Morango</option>
-  								<option value="rgb(158, 222, 84)">Limão</option>
-  								<option value="rgb(235, 154, 129)">Pêssego</option>
-								</select>
-								<br>
+
 								<input type="submit" value="Enviar"/>
 	                        </div>
 	                    </div>
@@ -202,7 +195,7 @@
             $stmt3 ->execute();
             foreach ($stmt3 as $row):
 				$idposter = $row['id'];
-				echo "<div class='card-amigos-img'> <a href='pgamigo.php?id=$idposter'> <img src='img/" . $row["profilepic"] . "' width='64' height='64' title='foto'> <br>" . mb_strimwidth($row["nome"], 0, 10, "...") . " </a> </div>
+				echo "<div class='card-amigos-img'> <a  href='pgamigo.php?id=$idposter'> <img src='img/" . $row["profilepic"] . "' width='64' height='64' title='foto'> <br> " . mb_strimwidth($row["nome"], 0, 10, "...") . " </a> </div>
 				";
             endforeach;
           }
@@ -266,7 +259,7 @@
 				endforeach;
 			}
 			
-			echo "<b><a href='perfil.php'>".$row['nome']."</a></b><br>
+			echo "<b><a href='perfil.php' class='link'>".$row['nome']."</a></b><br>
 					<b>$row[titulo]</b>
 					</p>
 				</div>
@@ -307,7 +300,7 @@
 					</div>
 					<div class='p-2 bd-highlight'>
 						<div class='mb-0' style='font-size: 17px;'>
-						<a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+						<a class='link' href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
 						<br>
 						<p>$com</p>
 					</div>

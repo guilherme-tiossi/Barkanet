@@ -88,11 +88,11 @@ include("conexao.php");
             $stmt->execute();
             foreach ($stmt as $roww):
                 $id_grupo = $roww['id_grupo'];
-                echo "<a href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo'] . "</a><br>";
+                echo "<a class='link' href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo'] . "</a><br>";
             endforeach;
         }
         
-          echo "<b><a href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b><br>
+          echo "<b><a class='link' href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b><br>
                 <b>$row[titulo]</b>
                 </p>
               </div>
@@ -133,7 +133,7 @@ include("conexao.php");
                 </div>
                 <div class='p-2 bd-highlight'>
                     <div class='mb-0' style='font-size: 17px';>
-                      <a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+                      <a class='link' href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
                       <br>
                       <p>$com</p>
                     </div>

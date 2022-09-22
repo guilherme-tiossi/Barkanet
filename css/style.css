@@ -292,6 +292,7 @@ input[type=text]{
   width: 95%;
 }
 
+
 .mainpost {
   height: 8rem;
   margin: 0 10px 10px 10px;
@@ -424,4 +425,23 @@ input[type=text]{
 
 .text-kiwi: hover{
   color: #91ac39;
+}
+
+.link:link {
+  color: #a2bf40;
+}
+
+/* visited link */
+.link:visited {
+  color: #a2bf40;
+}
+
+/* mouse over link */
+.link:hover {
+  color: #a2bf40;
+}
+
+/* selected link */
+.link:active {
+  color: #a2bf40;
 }

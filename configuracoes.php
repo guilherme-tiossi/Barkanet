@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/style.php">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
     <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
@@ -29,21 +29,10 @@
 
   <!--Centro-->
   <div class="col-6">
-    <a href='update-pass.php?id=<?php echo $_SESSION['userId']; ?>'> Alterar Senha  </a>
+    <a class="link" href='update-pass.php?id=<?php echo $_SESSION['userId']; ?> '> Alterar Senha  </a>
     <br>
-    <a href="deleta.php"> Deletar Conta </a>
+    <a href="deleta.php" class="link"> Deletar Conta </a>
     <br>
-    <p> Mudar tema </p>
-    <form method="POST" action="exec_mudar-tema.php" autocomplete="off" enctype="multipart/form-data">
-        <select id="cordefundo" name="cordefundo">
-        <option value="rgb(238, 239, 243)">Padrão</option>
-        <option value="rgb(24, 8, 54)">Mirtilo</option>
-        <option value="rgb(218, 42, 42)">Morango</option>
-        <option value="rgb(158, 222, 84)">Limão</option>
-        <option value="rgb(235, 154, 129)">Pêssego</option>
-        </select>
-        <input type="submit" value="Confirmar">
-	</form>
   </div>
 
   <!--Menu Direita-->

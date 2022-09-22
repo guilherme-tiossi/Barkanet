@@ -116,21 +116,18 @@ $stmt ->execute();
       <div>
          <form action="exec_posts.php"  method="post" onsubmit="return verificaPostagem()" autocomplete="off" enctype="multipart/form-data">
             <div>
-               <div id="alert-titulo1" class="to-hide">
-                    <span>Coloque um titulo</span>
-               </div>
-               <div id="alert-titulo2" class="to-hide">
-                    <span>O titulo deve ter no maximo 50 caracteres</span>
-               </div>
-               <div id="alert-postagem" class="to-hide">
-                    <span>Digite alguma coisa...</span>
-               </div>
+              <div>
+                <span id="alert-titulo1" class="to-hide">Coloque um titulo</span>
+                <span id="alert-titulo2" class="to-hide">Titulo muito grande</span>
+                <span id="alert-post" class="to-hide">Digite algo...</span>
+                <span id="alert-post2" class="to-hide">Post muito longo</span>
+              </div>
                
                <div class="form-group row">
                   <!--Input titulo-->
                   <div class="col">
                      <input class="form-control-plaintext border border-secondary posttitulo" type="text" name="txTitulo" id="txTitulo" placeholder="Título">
-                  </div>
+                    </div>
                </div>
                <div class="form-group row">
                   <!--Input texto-->

@@ -1,3 +1,21 @@
+.alerta{
+  margin-left: 0.7rem;
+  color: #0049e6;
+  font-weight: 500;
+  font-size: 17px;
+  animation-name: animation-alert;
+  animation-duration: 1s;
+}
+
+@keyframes animation-alert {
+  0%  {color:#0049e6;}
+  20% {color:#6897fa;}
+  40%  {color:#0049e6;}
+  60% {color:#6897fa;}
+  80%  {color:#0049e6;}
+  100% {color:#6897fa;}
+}
+
 .link-perfil{
   color: black !important;
   text-decoration: none;
@@ -84,74 +102,6 @@
 
 .to-hide{
 	display: none;
-}
-
-.alert{
-  color: #e60000;
-  font-size: 17px;
-  font-weight: 700;
-}
-
-span{
-  margin-left: 0.8rem;
-}
-
-.div-alerta{
-  padding: 0.35rem calc(1.5rem * 0.5) 0.35rem calc(1.5rem * 0.5);
-  flex-shrink: 0;
-  flex-wrap: wrap;
-}
-
-.pop-up{
-	color: #fff;
- 	position: fixed;
- 	width: 100%;
- 	bottom: 2rem;
- 	z-index: 1000;
- 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
- 	background: #000;
- 	border-radius: 5px;
- 	padding: 1rem;
- 	margin: 0 auto;
- 	display: grid;
- 	grid-template-columns: 1fr auto;
- 	gap: 0.5rem;
- 	opacity: 0;
- 	transform: translateY(1rem);
- 	animation: slideUp 0.5s forwards;
-}
-
-@keyframes slideUp {
-  to {
-    transform: initial;
-    opacity: initial;
-  }
-}
-
-.pop-up-hidden{
-	color: #fff;
- 	position: fixed;
- 	width: 100%;
- 	bottom: 2rem;
- 	z-index: 1000;
- 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
- 	background: #000;
- 	border-radius: 5px;
- 	padding: 1rem;
- 	margin: 0 auto;
- 	display: grid;
- 	grid-template-columns: 1fr auto;
- 	gap: 0.5rem;
- 	opacity: initial;
- 	transform: initial;
- 	animation: slideDown 1s forwards;
-}
-
-@keyframes slideDown {
-  to {
-    transform: translateY(10rem);
-  	opacity: 0;
-  }
 }
 
 .comentario{
@@ -408,9 +358,9 @@ input[type=text]{
 }
 
 .editarperfil{
+  color: #979494 !important;
   font-weight: 700;
   font-size: 16px;
-  color: #0c0c0d;
   cursor: pointer;
 }
 

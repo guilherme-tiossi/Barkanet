@@ -63,7 +63,7 @@ function senhaLogin() {
     }
 }
 
-/*signup.php.php*/
+/*signup.php*/
 
 function verificaCadastro() {
     var validar = true;
@@ -416,12 +416,12 @@ function verificaPostagem() {
     var postagem = document.getElementById("txPost").value;
 
     if (titulo == "") {
-        document.getElementById('alert-titulo1').className = "alert m-0 p-0";
+        document.getElementById('alert-titulo1').className = "alerta";
         validar = false;
     }
 
     if (titulo.length > 50) {
-        document.getElementById('alert-titulo2').className = "alert m-0 p-0";
+        document.getElementById('alert-titulo2').className = "alerta";
         validar = false;
     }
 
@@ -434,26 +434,25 @@ function verificaPostagem() {
     }
 
     if (postagem == "") {
-        document.getElementById('alert-postagem').className = "alert m-0 p-0";
+        document.getElementById('alert-post').className = "alerta";
         validar = false;
     }
 
     if (postagem != "") {
-        document.getElementById('alert-postagem').className = "to-hide";
+        document.getElementById('alert-post').className = "to-hide";
     }
 
-    if (validar == false) {
-        return validar;
-    } else {
-        return validar;
-        window.location.href = 'posts.php';
+    if (postagem.length > 500) {
+        document.getElementById('alert-post2').className = "alerta";
+        validar = false;
     }
-}
 
-function hiddenPop(){
-    document.getElementById('pop-up').className = "pop-up-hidden";
-}
+    if (postagem.length <= 500) {
+        document.getElementById('alert-post2').className = "to-hide";
+    }
 
+    return validar;
+}
 
 function cronometro(segs) {
     min = 0;
@@ -582,7 +581,7 @@ document.addEventListener('click', function handleClickOutsideBox(event) {
     if (!box.contains(event.target)) {
       box.style.display = 'none';
     }
-  });
+});
   
 document.addEventListener('click', function handleClickOutsideBox(event) {
     const boxx = document.getElementById('live_search');
@@ -590,4 +589,43 @@ document.addEventListener('click', function handleClickOutsideBox(event) {
     if (boxx.contains(event.target)) {
       box.style.display = '';
     }
-  });
+});
+
+/*grupos.php*/
+
+function verificaGrupos() {
+    var validar = true;
+    var nomeGrupo = document.getElementById("nomeGrupo").value;
+    var descGrupo = document.getElementById("descGrupo").value;
+
+
+    if (email == "") {
+        document.getElementById('alert-email').className = "alert";
+        validar = false;
+    }
+
+    if (email.indexOf('@') == -1 & email.indexOf('.com') == -1) {
+        document.getElementById('alert-email').className = "alert";
+        validar = false;
+    }
+
+    if (email != "" & email.indexOf('@') != -1 & email.indexOf('.com') != -1) {
+        document.getElementById('alert-email').className = "to-hide";
+    }
+
+    if (senha == "") {
+        document.getElementById('alert-senha').className = "alert";
+        validar = false;
+    }
+
+    if (senha.length < 8) {
+        document.getElementById('alert-senha').className = "alert";
+        validar = false;
+    }
+
+    if (senha != "" & senha.length >= 8) {
+        document.getElementById('alert-senha').className = "to-hide";
+    }
+    
+    return validar;
+}

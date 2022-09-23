@@ -467,7 +467,7 @@
 									<br>'.$nome_adm_grupo.'
 								</p>
 								<p>
-									<a href="exec_deleta_grupo.php?id_grupo=$id_grupo" class="text-danger">Apagar Grupo</a>
+									<a href="exec_deleta_grupo.php?id_grupo='.$id_grupo.'" class="text-danger">Apagar Grupo</a>
 								</p>
 								</div>
 							</div>

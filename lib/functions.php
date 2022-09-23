@@ -440,7 +440,7 @@
 	                                <b>Grupo:</b>
 	                                <br>
                                   <input class="textoupdate_nome" type="text" name="nome_grupo" id="nome_grupo" value="'.$nome_grupo.'">
-								  <input type="hidden" name="id_grupo" value="' . $id_grupo .'">
+								  <input type="hidden" name="id_grupo" value="'.$id_grupo.'">
 								  <input type="submit" hidden>
 	                            </p>
 								</div>

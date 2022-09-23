@@ -15,4 +15,4 @@
 	$stmt2 = $pdo->prepare("DELETE FROM tbgrupos WHERE id_grupo = '{$_GET['id_grupo']}'");
 	$stmt2 ->execute();
 
-	header('Location: posts.php');
+	header('Location: perfil.php');

@@ -593,39 +593,46 @@ document.addEventListener('click', function handleClickOutsideBox(event) {
 
 /*grupos.php*/
 
-function verificaGrupos() {
+function verificaGrupo() {
     var validar = true;
-    var nomeGrupo = document.getElementById("nomeGrupo").value;
-    var descGrupo = document.getElementById("descGrupo").value;
+    var nomeGrupo = document.getElementById("txNomeGrupo").value;
+    var descGrupo = document.getElementById("txDescricaoGrupo").value;
 
-
-    if (email == "") {
-        document.getElementById('alert-email').className = "alert";
+    if (nomeGrupo == "") {
+        document.getElementById('alert-nome1').className = "text-danger";
         validar = false;
     }
 
-    if (email.indexOf('@') == -1 & email.indexOf('.com') == -1) {
-        document.getElementById('alert-email').className = "alert";
+    if (nomeGrupo.length > 50) {
+        document.getElementById('alert-nome2').className = "text-danger";
         validar = false;
     }
 
-    if (email != "" & email.indexOf('@') != -1 & email.indexOf('.com') != -1) {
-        document.getElementById('alert-email').className = "to-hide";
+    if (nomeGrupo != "") {
+        document.getElementById('alert-nome1').className = "to-hide";
     }
 
-    if (senha == "") {
-        document.getElementById('alert-senha').className = "alert";
+    if (nomeGrupo.length <= 50) {
+        document.getElementById('alert-nome2').className = "to-hide";
+    }
+
+    if (descGrupo == "") {
+        document.getElementById('alert-desc1').className = "text-danger";
         validar = false;
     }
 
-    if (senha.length < 8) {
-        document.getElementById('alert-senha').className = "alert";
+    if (descGrupo != "") {
+        document.getElementById('alert-desc1').className = "to-hide";
+    }
+
+    if (descGrupo.length > 500) {
+        document.getElementById('alert-desc2').className = "text-danger";
         validar = false;
     }
 
-    if (senha != "" & senha.length >= 8) {
-        document.getElementById('alert-senha').className = "to-hide";
+    if (descGrupo.length <= 500) {
+        document.getElementById('alert-desc2').className = "to-hide";
     }
-    
+
     return validar;
 }

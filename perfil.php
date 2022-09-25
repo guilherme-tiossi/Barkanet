@@ -57,10 +57,66 @@
         echo "<script>document.location.href = 'perfil.php?pagina=1';</script>";
       }
     ?>
-    <?php ler_dados_usuario($email, $pdo);
-    ler_amigos_usuario();?>
+    <?php ler_dados_usuario($email, $pdo); ?>
+      
+    <div><?php ler_amigos_usuario(); ?></div>
+    
     <div class="card-fundo">
-      <?php ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg); ?>
+      <div class="conteudo">
+        <?php ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg); ?>
+      </div>
+
+      <?php
+		  $pagina_anterior = $pagina - 1;
+		  $pagina_posterior = $pagina + 1;
+      
+      echo '
+		    <div class="mt-5 paginacao">
+          <nav>
+            <ul class="pagination justify-content-center pt-2">';
+              if($pagina_anterior != 0){
+                $btn1 = '
+                <a class="page-link text-kiwi" href="perfil.php?pagina='.$pagina_anterior.'" aria-label="Previous">
+                <i class="fa-solid fa-reply"></i>
+                </a>';
+              }else{
+              $btn1 = '<span class="page-link text-black-50"><i class="fa-solid fa-reply"></i></span>';
+              }
+            
+            echo '<li class="page-item">';
+            echo $btn1;
+            echo '</li>';
+
+              $num_atual = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+              $num_anterior = $num_atual - 1;
+              $num_posterior = $num_atual + 1;
+
+              if($num_anterior != 0){
+                $btn2 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+                echo '<li class="page-item">'.$btn2.'</li>';
+              }
+
+              $btn2 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
+              echo '<li class="page-item">'.$btn2.'</li>';
+
+              if($num_posterior < ($num_pagina + 1)){
+                $btn2 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+                echo '<li class="page-item">'.$btn2.'</li>';
+              }
+
+              if($num_posterior < ($num_pagina + 1)){
+              $btn3 = '<a class="page-link text-kiwi" href="perfil.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+              }else{
+              $btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
+              }
+
+            echo '<li class="page-item">';
+            echo $btn3;
+            echo '</li>
+            </ul>
+          </nav>
+      	</div>';
+      ?>
     </div>
   </div>
 

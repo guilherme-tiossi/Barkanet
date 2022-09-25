@@ -119,14 +119,25 @@ if ($row_count < 1) {
         $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
         $stmt->execute();
         echo "
-        <div class='card-fundo mx-auto'>
-            <h2 class='p-3'>Posts de ".$row['nome']."</h2>";
+        <div class='card-fundo mx-auto'>";
+        if($rowNum <= 0){
+            echo "
+            <h2 class='p-3'>Posts de ".$row['nome']."</h2>
+            <div class='conteudo'>
+              <p class='msg-timeline text-center'>Ainda não tem nenhum post aqui...</p>
+            </div>";
+        }
+        else{
+            echo "<h2 class='p-3'>Posts de ".$row['nome']."</h2>";
+            
             foreach ($stmt as $row):
                 $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
                 $swor->execute();
                 $linhas = $swor->rowCount();
 
-                echo "<div class='mx-auto' style='width: 80%;'>";
+                echo "
+                <div class='conteudo'>
+                <div class='mx-auto' style='width: 80%;'>";
 
                 if($linhas > 0){
                     echo "
@@ -226,14 +237,15 @@ if ($row_count < 1) {
                             </button>';
                         echo '
                         </form>
-                    </div>';
+                    </div>
+                </div>';
             endforeach;
-
+        }
             $pagina_anterior = $pagina - 1;
             $pagina_posterior = $pagina + 1;
 
             echo '
-            <div class="mt-5">
+            <div class="mt-5 paginacao">
                 <nav>
                     <ul class="pagination justify-content-center pt-2">';
                         if($pagina_anterior != 0){

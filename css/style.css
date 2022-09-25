@@ -53,6 +53,17 @@
   border-left: 2px solid #a2bf40;
   border-right: 2px solid #a2bf40;
   border-radius: 0;
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+
+.conteudo{
+  flex-grow: 1;
+}
+
+.paginacao{
+  flex-grow: 0;
 }
 
 .card-fundo-esquerda{
@@ -73,6 +84,30 @@
   height: 100%;
   width: 100%;
   position: fixed;
+}
+
+.titulo-config{
+  text-align: center;
+  text-transform: uppercase;
+  margin: 2rem 0;
+  font-weight: 700;
+}
+
+.btn-config{
+  background-color: #a2bf40;
+  border: 2px solid #829b33;
+  padding: 10px 20px;
+  border-radius: 2rem;
+  font-weight: 600;
+  background: linear-gradient(0deg, #b7d84b 0%, #e9f5bd 60%);
+  color: #829b33;
+  font-size: 25px;
+  text-align: center;
+  margin: 0 4rem;
+}
+
+.btn-config:hover{
+  color: #829b33;
 }
 
 .lista-grupos{
@@ -212,7 +247,7 @@ input[type=text]{
 
 .bordaperfil {
   padding: 0.35rem calc(1.5rem * 0.5) 0.35rem calc(1.5rem * 0.5);
-  border: 2px solid #d2ea7b;
+  border: 2px solid #a2bf40;
   background: linear-gradient(180deg, #d2ea7b 0%, #FDFDFD 100%);
   flex-shrink: 0;
   flex-wrap: wrap;
@@ -301,7 +336,7 @@ input[type=text]{
 
 .bordagrupos {
   padding: 0.35rem calc(1.5rem * 0.5) 0.35rem calc(1.5rem * 0.5);
-  border: 2px solid #c5e556;
+  border: 2px solid #a2bf40;
   margin-top: 0.4rem;
   background-color: rgb(238, 239, 243);
   flex-shrink: 0;

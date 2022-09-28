@@ -60,7 +60,7 @@
       
     <div><?php ler_amigos_usuario(); ?></div>
     
-    <div class="card-fundo">
+    <div class="card-fundo-ext">
       <div class="conteudo">
         <?php ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg); ?>
       </div>

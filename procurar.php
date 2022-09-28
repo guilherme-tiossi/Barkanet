@@ -24,7 +24,7 @@
 
     <!--Centro-->
     <div class="col-6">
-      <div class="card-fundo">
+      <div class="card-fundo-ext">
       <!--Pesquisa com código-->
       <h2>Insira o código de amizade:</h2>
       <form action="" method="post">

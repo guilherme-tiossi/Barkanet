@@ -66,7 +66,7 @@ include("conexao.php");
     }
 
     echo "
-    <div class='card-fundo'>";
+    <div class='card-fundo-ext'>";
 
       if($rowNum <= 0){
         echo "

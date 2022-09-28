@@ -55,6 +55,15 @@
   border-radius: 0;
   display: flex;
   flex-flow: column;
+}
+
+.card-fundo-ext{
+  background-color: rgb(238, 239, 243);
+  border-left: 2px solid #a2bf40;
+  border-right: 2px solid #a2bf40;
+  border-radius: 0;
+  display: flex;
+  flex-flow: column;
   min-height: 100vh;
 }
 

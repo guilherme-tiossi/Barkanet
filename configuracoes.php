@@ -28,7 +28,7 @@
 
   <!--Centro-->
   <div class="col-6">
-    <div class="card-fundo">
+    <div class="card-fundo-ext">
       <h1 class="titulo-config">Configurações</h1>
       <a class="btn-config" href='update-pass.php?id=<?php echo $_SESSION['userId']; ?> '> Alterar Senha  </a>
       <br>

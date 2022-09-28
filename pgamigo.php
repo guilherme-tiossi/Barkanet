@@ -118,7 +118,7 @@ if ($row_count < 1) {
         $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC LIMIT $incio, $quantidade_pg");
         $stmt->execute();
         echo "
-        <div class='card-fundo mx-auto'>";
+        <div class='card-fundo-ext mx-auto'>";
         if($rowNum <= 0){
             echo "
             <h2 class='p-3'>Posts de ".$row['nome']."</h2>

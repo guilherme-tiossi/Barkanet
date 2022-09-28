@@ -272,7 +272,7 @@ if(isset($_GET['id_grupo'])){
             </div>
           </div>';
       
-      echo "<div class='to-hide'>";
+      echo "<div>";
       //LISTA DE AMIGOS PARA ADICIONAR
       $stmt2 = $pdo->prepare("SELECT * from tbgrupos where id_grupo = {$_GET['id_grupo']}");
       $stmt2->execute();
@@ -293,7 +293,7 @@ if(isset($_GET['id_grupo'])){
                   $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_de'");
                   $stmt3->execute();
                   foreach ($stmt3 as $row):
-                      echo "<a href='?pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
+                      echo "<a href='?pagina_grupo={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
                       echo "<br>";
                   endforeach;
               }
@@ -302,7 +302,7 @@ if(isset($_GET['id_grupo'])){
                   $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_para'");
                   $stmt3->execute();
                   foreach ($stmt3 as $row):
-                      echo "<a href='?pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
+                      echo "<a href='?pagina_grupo={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
                       echo "<br>";
                   endforeach;
               }
@@ -314,8 +314,9 @@ if(isset($_GET['id_grupo'])){
               $id = $row['id'];
               $id_grupo = $row['id_grupo'];
           endforeach;
-          echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}'>Sair do Grupo</a>";
+          echo "<a href='?pagina_grupo={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}'>Sair do Grupo</a>";
       }
+      carrega_pagina_atalho($con);
       echo "</div>";
       ?>
   </div>

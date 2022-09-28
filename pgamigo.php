@@ -26,7 +26,6 @@ if ($row_count < 1) {
     <script src="js/perfil.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>    
-    <!-- se der problema em algum canto nessa pagina talvez seja isso <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> --> 
 </head>
 
 <div class="d-flex">
@@ -38,7 +37,7 @@ if ($row_count < 1) {
   <!--Centro-->
   <div class="col-6">
     <?php
-    $pagina = (isset($_GET['pagina']) && $_GET['pagina'] != null && is_numeric($_GET['pagina'])) ? $_GET['pagina'] : 1;
+    $pagina = (isset($_GET['pag']) && $_GET['pag'] != null && is_numeric($_GET['pag'])) ? $_GET['pag'] : 1;
     $quantidade_pg = 50;
 
     $stmt = $pdo->prepare("SELECT * FROM tbposts WHERE (usuario = '$id') ORDER BY idpost DESC");
@@ -48,21 +47,21 @@ if ($row_count < 1) {
     $num_pagina = $rowNum / $quantidade_pg;
     $incio = $quantidade_pg * $pagina - $quantidade_pg;
 
-    if(isset($_GET['pagina'])){
-        if($_GET['pagina'] > ($num_pagina + 1)){
-        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pagina=1';</script>";
+    if(isset($_GET['pag'])){
+        if($_GET['pag'] > ($num_pagina + 1)){
+        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pag=1';</script>";
         }
 
-        if($_GET['pagina'] == 0){
-        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pagina=1';</script>";
+        if($_GET['pag'] == 0){
+        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pag=1';</script>";
         }
 
-        if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina'])) {
-        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pagina=1';</script>";
+        if (!preg_match('/^[1-9][0-9]*$/', $_GET['pag'])) {
+        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pag=1';</script>";
         }
     }
     else{
-        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pagina=1';</script>";
+        echo "<script>document.location.href = 'pgamigo.php?id=".$id."&pag=1';</script>";
     }
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = '$id'");
     $stmt->execute();
@@ -250,7 +249,7 @@ if ($row_count < 1) {
                     <ul class="pagination justify-content-center pt-2">';
                         if($pagina_anterior != 0){
                             $btn1 = '
-                            <a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pagina='.$pagina_anterior.'" aria-label="Previous">
+                            <a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pag='.$pagina_anterior.'" aria-label="Previous">
                             <i class="fa-solid fa-reply"></i>
                             </a>';
                         }else{
@@ -261,25 +260,25 @@ if ($row_count < 1) {
                     echo $btn1;
                     echo '</li>';
 
-                        $num_atual = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+                        $num_atual = (isset($_GET['pag']))? $_GET['pag'] : 1;
                         $num_anterior = $num_atual - 1;
                         $num_posterior = $num_atual + 1;
 
                         if($num_anterior != 0){
-                            $btn2 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+                            $btn2 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pag='.$num_anterior.'">'.$num_anterior.'</a>';
                             echo '<li class="page-item">'.$btn2.'</li>';
                         }
 
-                        $btn2 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pagina='.$num_atual.'">'.$num_atual.'</a>';
+                        $btn2 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pag='.$num_atual.'">'.$num_atual.'</a>';
                         echo '<li class="page-item">'.$btn2.'</li>';
 
                         if($num_posterior < ($num_pagina + 1)){
-                            $btn2 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+                            $btn2 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pag='.$num_posterior.'">'.$num_posterior.'</a>';
                             echo '<li class="page-item">'.$btn2.'</li>';
                         }
 
                         if($num_posterior < ($num_pagina + 1)){
-                        $btn3 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+                        $btn3 = '<a class="page-link text-kiwi" href="pgamigo.php?id='.$id.'&pag='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
                         }else{
                         $btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
                         }

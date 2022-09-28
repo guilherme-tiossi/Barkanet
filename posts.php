@@ -14,8 +14,7 @@ include("conexao.php");
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
     <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>    
-    <!-- se der problema em algum canto nessa pagina talvez seja isso <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> --> 
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>  
 </head>
 
 <div class="d-flex">
@@ -27,7 +26,7 @@ include("conexao.php");
   <!--Centro-->
   <div class="col-6">
     <?php
-    $pagina = (isset($_GET['pagina']) && $_GET['pagina'] != null && is_numeric($_GET['pagina']))? $_GET['pagina'] : 1;
+    $pagina = (isset($_GET['pag']) && $_GET['pag'] != null && is_numeric($_GET['pag']))? $_GET['pag'] : 1;
 
     $quantidade_pg = 50;
 
@@ -50,20 +49,20 @@ include("conexao.php");
     $num_pagina = ($rowNum/$quantidade_pg);
     $incio = ($quantidade_pg*$pagina)-$quantidade_pg;
 
-    if(isset($_GET['pagina'])){
-      if($_GET['pagina'] > ($num_pagina + 1)){
-        echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+    if(isset($_GET['pag'])){
+      if($_GET['pag'] > ($num_pagina + 1)){
+        echo "<script>document.location.href = 'posts.php?pag=1';</script>";
       }
 
-      if($_GET['pagina'] == 0){
-        echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+      if($_GET['pag'] == 0){
+        echo "<script>document.location.href = 'posts.php?pag=1';</script>";
       }
 
-      if (!preg_match('/^[1-9][0-9]*$/', $_GET['pagina'])) {
-        echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+      if (!preg_match('/^[1-9][0-9]*$/', $_GET['pag'])) {
+        echo "<script>document.location.href = 'posts.php?pag=1';</script>";
       }
     }else{
-      echo "<script>document.location.href = 'posts.php?pagina=1';</script>";
+      echo "<script>document.location.href = 'posts.php?pag=1';</script>";
     }
 
     echo "
@@ -202,7 +201,7 @@ include("conexao.php");
               <?php
                 if($pagina_anterior != 0){
                     $btn1 = '
-                    <a class="page-link text-kiwi" href="posts.php?pagina='.$pagina_anterior.'" aria-label="Previous">
+                    <a class="page-link text-kiwi" href="posts.php?pag='.$pagina_anterior.'" aria-label="Previous">
                       <i class="fa-solid fa-reply"></i>
                     </a>';
                 }else{
@@ -214,27 +213,27 @@ include("conexao.php");
               </li>
 
               <?php
-                  $num_atual = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+                  $num_atual = (isset($_GET['pag']))? $_GET['pag'] : 1;
                   $num_anterior = $num_atual - 1;
                   $num_posterior = $num_atual + 1;
 
                   if($num_anterior != 0){
-                    $btn2 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$num_anterior.'">'.$num_anterior.'</a>';
+                    $btn2 = '<a class="page-link text-kiwi" href="posts.php?pag='.$num_anterior.'">'.$num_anterior.'</a>';
                     echo '<li class="page-item">'.$btn2.'</li>';
                   }
 
-                  $btn2 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$num_atual.'">'.$num_atual.'</a>';
+                  $btn2 = '<a class="page-link text-kiwi" href="posts.php?pag='.$num_atual.'">'.$num_atual.'</a>';
                   echo '<li class="page-item">'.$btn2.'</li>';
 
                   if($num_posterior < ($num_pagina + 1)){
-                    $btn2 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$num_posterior.'">'.$num_posterior.'</a>';
+                    $btn2 = '<a class="page-link text-kiwi" href="posts.php?pag='.$num_posterior.'">'.$num_posterior.'</a>';
                     echo '<li class="page-item">'.$btn2.'</li>';
                   }
               ?>
 
               <?php
                 if($num_posterior < ($num_pagina + 1)){
-                  $btn3 = '<a class="page-link text-kiwi" href="posts.php?pagina='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
+                  $btn3 = '<a class="page-link text-kiwi" href="posts.php?pag='.$pagina_posterior.'" aria-label="Previous"><i class="fa-solid fa-share"></i></a>';
                 }else{
                   $btn3 = '<span class="page-link text-black-50"><i class="fa-solid fa-share"></i></span>';
                 }

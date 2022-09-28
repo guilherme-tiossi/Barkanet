@@ -94,9 +94,7 @@ $stmt ->execute();
                <div class="form-group row">
                   <!--Input imagem-->
                   <div class="d-flex justify-content-end">
-                  <label for="pfp" class="listapags">
-														<i class="fa-solid fa-image"> <input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
-										</label>
+                     <input class="form-control-file imgpost" type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
                   </div>
                </div>
             </div>

@@ -128,8 +128,15 @@ include("conexao.php");
                 <div class='m-3 mt-0'>
                   <p> $row[post]</p>
                   <div class='mx-auto m-1' style='width: 80%;'>";
-          if ($row['image'] != null) {
+          if ($row['image'] != null && (strpos( $row['image'], "jpg" ) == true || strpos( $row['image'], "png" ) == true)) {
               echo "<img src='img/$row[image]' class='img-fluid' title='<$row[image]>' />";
+          }
+          
+          if ($row['image'] != null && (strpos( $row['image'], "mp4" ) == true || strpos( $row['image'], "gif" ) == true)) {
+            echo '<video width="500" controls>';
+            echo "<source src='img/$row[image]' type='video/mp4'>";
+            echo '</video>';
+            echo "$row[image]";
           }
             echo "</div>
                 </div>

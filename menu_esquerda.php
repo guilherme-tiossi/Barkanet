@@ -94,14 +94,14 @@ $stmt ->execute();
                <div class="form-group row">
                   <!--Input imagem-->
                   <div class="d-flex justify-content-end">
-                     <input class="form-control-file imgpost" type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
+                     <input class="form-control-file imgpost" type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .mp4, .gif">
                   </div>
                </div>
             </div>
             <div class="d-flex justify-content-end">
               <!--Botão de posts-->
               <input type="hidden" name="idgrupo" value="0">
-              <button class="text-uppercase btnposts" type="submit" name="submit">Postar</button>
+              <button class="text-uppercase btnposts" type="submit" id="teste" name="teste">Postar</button>
             </div>
          </form>
       </div>

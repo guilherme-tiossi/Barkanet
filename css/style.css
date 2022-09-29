@@ -1,6 +1,6 @@
 .alerta{
   margin-left: 0.7rem;
-  color: #0049e6;
+  color: #a3c0ff;
   font-weight: 500;
   font-size: 17px;
   animation-name: animation-alert;
@@ -8,11 +8,11 @@
 }
 
 @keyframes animation-alert {
-  0%  {color:#0049e6;}
+  0%  {color:#a3c0ff;}
   20% {color:#6897fa;}
-  40%  {color:#0049e6;}
+  40%  {color:#a3c0ff;}
   60% {color:#6897fa;}
-  80%  {color:#0049e6;}
+  80%  {color:#a3c0ff;}
   100% {color:#6897fa;}
 }
 

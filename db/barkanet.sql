@@ -11,7 +11,6 @@ CREATE TABLE `usuarios` (
  `codigo` varchar(7) NOT NULL,
  `bio` text DEFAULT NULL,
  `profilepic` varchar(60) DEFAULT 'avatar.jpg',
- `cordefundo` varchar(60) DEFAULT 'rgb(238, 239, 243)',
  PRIMARY KEY (`id`),
  UNIQUE KEY `email` (`email`),
  UNIQUE KEY `codigo` (`codigo`)

@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/style.php">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
     <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">

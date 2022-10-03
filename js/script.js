@@ -636,3 +636,4 @@ function verificaGrupo() {
 
     return validar;
 }
+

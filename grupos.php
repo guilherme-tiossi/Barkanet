@@ -24,32 +24,31 @@
 
   <!--Centro-->
   <div class="col-6">
-  	<div class="card-fundo">
+  	<div class="card-fundo-ext">
 	<section>
-		<div class="card" style="width: 18rem;">
+		<div class="card m-3" style="width: 25rem;">
 			<div class="card-body">
 				<h3>Criar grupo</h3>
 				<form action="exec_grupos.php"  method="post" onsubmit="return verificaGrupo()" autocomplete="off" enctype="multipart/form-data">
-					<div class="form-group">
-						<input type="text" name="txNomeGrupo" id="txNomeGrupo" placeholder="Nome do grupo">
-						<br>
+					<div class="form-group mt-3">
+						<input class="form-control" type="text" name="txNomeGrupo" id="txNomeGrupo" placeholder="Nome do grupo">
 						<span id="alert-nome1" class="to-hide">Digite um nome para o grupo</span>
 						<span id="alert-nome2" class="to-hide">Nome muito grande</span>
 					</div>
-					<div class="form-group">
-						<textarea type="text" name="txDescricaoGrupo" id="txDescricaoGrupo" placeholder="Descrição"></textarea>
-						<br>
+					<div class="form-group mt-3">
+						<textarea class="form-control" type="text" name="txDescricaoGrupo" id="txDescricaoGrupo" placeholder="Descrição" style="resize: none;"></textarea>
 						<span id="alert-desc1" class="to-hide">Digite a descrição...</span>
 						<span id="alert-desc2" class="to-hide">Descrição muito longa</span>
 					</div>
-					<div class="form-group">
-						<label for="optTipoGrupo">Tipo:</label>
-						<select name="optTipoGrupo" id="optTipoGrupo">
+					<div class="form-group mt-3">
+						<select name="optTipoGrupo" id="optTipoGrupo" class="form-control">
+							<option value="">Tipo...</option>
 							<option value="Privado">Privado</option>
 							<option value="Publico">Publico</option>
 						</select>
+						<span id="alert-tipo" class="to-hide">Selecione um tipo de grupo...</span>
 					</div>
-					<div class="form-group">
+					<div class="form-group mt-3">
 						<input type="submit" name="submit" value="Criar">
 					</div>
 				</form>

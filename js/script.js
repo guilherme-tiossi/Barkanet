@@ -536,6 +536,7 @@ function verificaGrupo() {
 var validar = true;
 var nomeGrupo = document.getElementById("txNomeGrupo").value;
 var descGrupo = document.getElementById("txDescricaoGrupo").value;
+var tipo = document.getElementById("optTipoGrupo").value;
 
 if (nomeGrupo == "") {
     document.getElementById('alert-nome1').className = "text-danger";
@@ -571,6 +572,15 @@ if (descGrupo.length > 500) {
 
 if (descGrupo.length <= 500) {
     document.getElementById('alert-desc2').className = "to-hide";
+}
+
+if(tipo == ""){
+    document.getElementById('alert-tipo').className = "text-danger";
+    validar = false;
+}
+
+if(tipo != ""){
+    document.getElementById('alert-tipo').className = "to-hide";
 }
 
 return validar;

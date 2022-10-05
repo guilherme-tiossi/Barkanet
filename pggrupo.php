@@ -224,7 +224,7 @@ if(isset($_GET['id_grupo'])){
 
       //LISTA DE AMIGO
       echo "
-      <div class='to-hide'>";
+      <div>";
         $stmt2 = $pdo->prepare("SELECT * from tbgrupos where id_grupo = {$_GET['id_grupo']}");
         $stmt2->execute();
         foreach ($stmt2 as $row):
@@ -244,7 +244,7 @@ if(isset($_GET['id_grupo'])){
                     $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_de'");
                     $stmt3->execute();
                     foreach ($stmt3 as $row):
-                        echo "<a href='?pag={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
+                        echo "<a href='?pag={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}' class='link-kiwi'>{$row['nome']}</a>";
                         echo "<br>";
                     endforeach;
                 }
@@ -253,7 +253,7 @@ if(isset($_GET['id_grupo'])){
                     $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_para'");
                     $stmt3->execute();
                     foreach ($stmt3 as $row):
-                        echo "<a href='?pag={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}'>{$row['nome']}</a>";
+                        echo "<a href='?pag={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}' class='link-kiwi'>{$row['nome']}</a>";
                         echo "<br>";
                     endforeach;
                 }
@@ -265,9 +265,8 @@ if(isset($_GET['id_grupo'])){
                 $id = $row['id'];
                 $id_grupo = $row['id_grupo'];
             endforeach;
-            echo "<a href='?pag={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}'>Sair do Grupo</a>";
-        }
-        carrega_pagina_atalho($con);
+            echo "<a href='?pag={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}' class='btn-solicitation-n'>Sair do Grupo</a>";
+        };
         echo "
       </div>";
 

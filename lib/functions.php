@@ -490,6 +490,7 @@
 	}
 
 	function get_perfil_grupo_procurar($con, $id_grupo, $id_amigo){
+		//$sql = $con->prepare("SELECT * FROM tbgrupos WHERE id_grupo = ?");
 		$sql = $con->prepare("SELECT * FROM usuarios WHERE id = ?");
 		$sql->bind_param("s", $id_amigo);
 		$sql->execute();
@@ -498,10 +499,18 @@
 		
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-			echo "<br>"."<b>{$dados['nome']}</b>";
-			verfica_solicitacoes_grupo_procurar($con, $_SESSION['userId'], $id_amigo, $id_grupo);
-			echo "<br>";
-			echo"<a href='procurar.php'>Voltar</a>";
+			echo "
+			<div class='box-solicitation-pesquisa'>
+				<div class='card text-center' style='width: 18rem; box-shadow: 0 0 5px #000;'>
+					<div class='card-body'>
+						<h5 class='card-title mb-2'><b>{$dados['nome']}</b></h5>
+						<div class='col'>";
+							verfica_solicitacoes_grupo_procurar($con, $_SESSION['userId'], $id_amigo, $id_grupo);
+							echo "
+						</div>
+					</div>
+				</div>
+			</div>";
 		}
 	}
 
@@ -514,10 +523,18 @@
 		
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-			echo "<b>{$dados['nome']}</b>";
-			verfica_solicitacoes_grupo_pggrupo($con, $_SESSION['userId'], $id_amigo, $id_grupo);
-			echo "<br>";
-			echo"<a href='pggrupo.php?id_grupo={$id_grupo}'>Voltar</a>";
+			echo "
+			<div class='box-solicitation-pesquisa'>
+				<div class='card text-center' style='width: 18rem; box-shadow: 0 0 5px #000;'>
+					<div class='card-body'>
+						<h5 class='card-title mb-3'><b>{$dados['nome']}</b></h5>
+						<div class='col'>";
+							verfica_solicitacoes_grupo_pggrupo($con, $_SESSION['userId'], $id_amigo, $id_grupo);
+							echo "
+						</div>
+					</div>
+				</div>
+			</div>";
 		}
 	}
 
@@ -541,17 +558,13 @@
 				$dados = $get->fetch_assoc();
 
 				if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] != $id_usuario && $dados['status'] == 1){
-					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Remover</a>";
+					echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-p'>Remover</a>";
 				}
 
 				if($dados['id_adm'] == $id_usuario && $id_amigo == $dados['id_usuario'] && $dados['para'] == $id_amigo && $dados['status'] == 0){
-					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Cancelar Solicitação</a>";
-				}
-
-				if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] != $id_usuario && $dados['para'] == $id_usuario && $dados['status'] == 0){
-					echo " pediu para entrar no grupo ";
-					echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Aceitar</a>";
-					echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Recusar</a>";
+					echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-p'>Cancelar Solicitação</a>";
 				}
 			}
 		}
@@ -565,7 +578,8 @@
 			$dados = $get->fetch_assoc();
 				
 			if($total > 0  && $dados['adm_grupo'] == $id_usuario){
-				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_amigo}'> Convidar</a>";
+				echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
+				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-solicitation-p'>Convidar</a>";
 			}
 		}
 	}
@@ -588,17 +602,22 @@
 		if($total > 0){
 			$dados = $get->fetch_assoc();
 			if($dados['id_adm'] == $id_amigo && $dados['id_usuario'] == $id_usuario && $dados['para'] == $id_usuario && $dados['status'] == 0 && $id_grupo == $dados['id_grupo']){
-				echo " convidou voce para entrar no grupo ";
-				echo "<a href='procurar.php?pagina=pesquisa_grupo&nome_grupo={$nome_grupo}''>$nome_grupo</a> <br>";
-
-				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'> Entrar</a>   ";
-				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'>Recusar</a>";
+				echo "<p class='mb-2'>convidou voce para entrar no grupo ";
+				echo "<a href='?pagina=pesquisa_grupo&nome_grupo={$nome_grupo}''>$nome_grupo</a></p>";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-n'>Recusar</a>";
+				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}' class='btn-solicitation-p'>Entrar</a>   ";
 			}
 
 			if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_amigo && $dados['para'] == $id_usuario && $dados['status'] == 0){
-				echo " pediu para entrar no grupo $nome_grupo ";
-				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}'>Aceitar</a>";
-				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}'> Recusar</a>";
+				echo "<p class='mb-2'>pediu para entrar no grupo ";
+				echo "<a href='?pagina=pesquisa_grupo&nome_grupo={$nome_grupo}''>$nome_grupo</a></p>";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-n'> Recusar</a>";
+				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}' class='btn-solicitation-p'>Aceitar</a>";
+			}
+
+			if($dados['id_adm'] == $id_amigo && $id_usuario == $dados['id_usuario'] && $dados['para'] == $id_amigo && $dados['status'] == 0){
+				echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
+				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-p'>Cancelar Solicitação</a>";
 			}
 		}
 
@@ -610,8 +629,13 @@
 			$total = $get->num_rows;
 			$dados = $get->fetch_assoc();
 
-			if($total > 0 && $dados['adm_grupo'] == $id_amigo && $dados['id_grupo'] == $id_grupo){
-				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_amigo}'> Pedir para entrar</a>";
+			if($total > 0 && $id_usuario != $id_amigo && $dados['adm_grupo'] == $id_amigo && $dados['id_grupo'] == $id_grupo){
+				echo "<br>"."<a href='?pagina=solicitacoes-grupo' class='btn-solicitation-n'>Voltar</a>";
+				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-solicitation-p'> Pedir para entrar</a>";
+			}
+
+			if($total > 0 && $id_usuario == $id_amigo && $dados['id_grupo'] == $id_grupo){
+				redireciona("pggrupo.php?id_grupo={$id_grupo}&pag=1");
 			}
 		}
 	}
@@ -629,10 +653,22 @@
 		
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-			echo "<img src='img/$foto_grupo' width='64' height='64' title='$foto_grupo'>";
-			echo $nome_grupo." - ".$tipo_grupo."<br>";
-			echo mb_strimwidth($desc_grupo, 0, 50, "...");
-			echo "<br>"."<a href='?pagina=solicitacoes-grupo'>Voltar</a>";
+			echo "
+			<div class='box-solicitation-pesquisa'>
+				<div class='card' style='width: 18rem; box-shadow: 0 0 5px #000;'>
+					<div class='card-body'>
+						<div class='text-center'>
+							<img src='img/$foto_grupo' width='84' height='84' title='$foto_grupo'>
+							<h5 class='card-title mb-2'><b>".$nome_grupo."</b></h5>
+						</div>
+						<div class='col'>
+							<p>".$tipo_grupo."</p>
+							<p class='mb-2'>".mb_strimwidth($desc_grupo, 0, 50, "...")."</p>
+							<a href='?pagina=solicitacoes-grupo' class='btn-solicitation-n' style='padding: 5px 100px;'>Voltar</a>
+						</div>
+					</div>
+				</div>
+			</div>";
 		}
 	}
 
@@ -820,9 +856,18 @@
 
 		if($total > 0){
 			$dados = $get->fetch_assoc();
-			echo "<b>{$dados['nome']}</b> <br>";
-			verfica_solicitacoes($con, $_SESSION['userId'], $perfil);
-			echo "<br>";
+			echo "
+			<div class='box-solicitation-pesquisa'>
+				<div class='card text-center' style='width: 18rem; box-shadow: 0 0 5px #000;'>
+					<div class='card-body'>
+						<h5 class='card-title mb-3'><b>{$dados['nome']}</b></h5>
+						<div class='col'>";
+							verfica_solicitacoes($con, $_SESSION['userId'], $perfil);
+							echo "
+						</div>
+					</div>
+				</div>
+			</div>";
 		}
 	}
 
@@ -862,28 +907,22 @@
 			$dados = $get->fetch_assoc();
 
 			if($dados['status'] == 1){
-				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}'>Desfazer Amizade</a>";
-				echo "<br>";
-				echo"<a href='procurar.php'>Voltar</a>";
+				echo"<a href='procurar.php' class='btn-solicitation-n'>Voltar</a>";
+				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-p'>Desfazer Amizade</a>";
 			}
 
 			if($dados['id_para'] == $id_para && $dados['id_de'] == $id_de && $dados['status'] == 0){
-				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}'>Cancelar Solicitação</a>";
-				echo "<br>";
-				echo"<a href='procurar.php'>Voltar</a>";
+				echo"<a href='procurar.php' class='btn-solicitation-n'>Voltar</a>";
+				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-p'>Cancelar Solicitação</a>";
 			}
 
 			if($dados['id_de'] == $id_para && $dados['id_para'] == $id_de && $dados['status'] == 0){
-				echo "<a href='?pagina=aceitar-amizade&id={$dados['id_de']}'>Aceitar Solicitação</a>";
-				echo "<br>";
-				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}'>Recusar Solicitação</a>";
-				echo "<br>";
-				echo"<a href='procurar.php'>Voltar</a>";
+				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-n'>Recusar</a>";
+				echo "<a href='?pagina=aceitar-amizade&id={$dados['id_de']}' class='btn-solicitation-p'>Aceitar</a>";
 			}
 		}else if($total <= 0  && $id_para != $id_de){
-			echo "<a href='?pagina=solicitar-amizade&id={$id_para}'>Adicionar Amigo</a>";
-			echo "<br>";
-			echo"<a href='procurar.php'>Voltar</a>";
+			echo"<a href='procurar.php' class='btn-solicitation-n'>Voltar</a>";
+			echo "<a href='?pagina=solicitar-amizade&id={$id_para}' class='btn-solicitation-p'>Adicionar Amigo</a>";
 		}
 	}
 
@@ -898,7 +937,7 @@
 			$dados = $get->fetch_assoc();
 
 			if($dados['status'] == 1){
-				echo "<td><a href='?pagina=desfazer-amizade&id={$dados['id']}'>Desfazer Amizade</a></td>";
+				echo "<td><a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-n'>Desfazer Amizade</a></td>";
 			}
 		}
 	}
@@ -909,7 +948,7 @@
 		$sql->execute();
 
 		if($sql->affected_rows > 0){
-			redireciona("?pagina=inicio");
+			redireciona("procurar.php");
 		}else{
 			return false;
 		}

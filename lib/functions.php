@@ -77,7 +77,7 @@
 															<label for="pfp" class="position-absolute">
 																<i class="fa-solid fa-pencil"> <input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
 															</label>
-															<img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
+															<img id="blah" class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
 														</div>
 	                            <p class="mb-0" style="font-size: 18px";>
 	                                <b>Nome:</b>

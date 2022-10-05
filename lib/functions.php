@@ -395,10 +395,11 @@
 						<form method="POST" action="exec_update_grupo.php" autocomplete="off" enctype="multipart/form-data">
 							<div class="d-flex flex-row bd-highlight mb-0">
 								<div class="p-2 bd-highlight">
-									<img class="float-left" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
-									<p class="mb-0" style="font-size: 18px";>
-	                                <b>Grupo:</b>
-	                                <br>
+								
+								<label for="pfpgrupo" class="position-absolute">
+									<i class="fa-solid fa-pencil"> <input type="file" name="pfpgrupo" id="pfpgrupo" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
+								</label>
+								<img class="float-left" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
                                   <input class="textoupdate_nome" type="text" name="nome_grupo" id="nome_grupo" value="'.$nome_grupo.'">
 								  <input type="hidden" name="id_grupo" value="'.$id_grupo.'">
 								  <input type="submit" hidden>

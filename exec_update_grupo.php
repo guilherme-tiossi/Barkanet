@@ -24,7 +24,7 @@ session_start();
       "
       <script>
         alert('Invalid Image Extension');
-        document.location.href = 'perfil.php';
+        document.location.href = 'pggrupo.php?id_grupo=$idgrupo';
       </script>
       ";
     }
@@ -33,7 +33,7 @@ session_start();
       "
       <script>
         alert('Image Size Is Too Large');
-        document.location.href = 'perfil.php';
+        document.location.href = 'pggrupo.php?id_grupo=$idgrupo';
       </script>
       ";
     }
@@ -44,7 +44,7 @@ session_start();
       move_uploaded_file($tmpName, 'img/' . $newImageName);
       $stmt = $pdo->prepare("UPDATE tbgrupos SET foto_grupo= '$newImageName' where id_grupo = '".$_POST['id_grupo']."'");
       $stmt->execute();
-      header("Location: perfil.php");
+      header("Location: pggrupo.php?id_grupo=$idgrupo");
     }
 
     echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>"

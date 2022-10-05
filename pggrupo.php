@@ -327,3 +327,22 @@ if(isset($_GET['id_grupo'])){
     <?php include 'menu_direita.php'; ?>
   </div>
 </div>
+
+<script>
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#pfpgrupo").change(function(){
+    readURL(this);
+});
+</script>

@@ -2,6 +2,7 @@
 require_once ("conexao.php");
 $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
 $stmt ->execute();
+$id_grupo = $_GET['id_grupo'];
 
  foreach($stmt as $row) {
    $nome = $row['nome'];
@@ -18,7 +19,6 @@ $stmt ->execute();
       <a class ="btn botaopesquisa" type="button" id="btnpesquisa"> <i class="fa-solid fa-magnifying-glass fa-lg"></i></a>   
    </form>
 </div>
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -61,7 +61,7 @@ $stmt ->execute();
             <h4 class="PORRA">
                <a href="perfil.php" class="link-perfil"> <?php echo $nome; ?> </a>
             </h4>
-            <a href="perfil.php?editar" class="editarperfil">Editar perfil</a>
+            <a href="perfil.php?editar&pag=1" class="editarperfil">Editar perfil</a>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@ $stmt ->execute();
       <div>
          <form action="exec_posts.php"  method="post" onsubmit="return verificaPostagem()" autocomplete="off" enctype="multipart/form-data">
             <div>
-              <div>
+            <div>
                 <span id="alert-titulo1" class="to-hide">Coloque um titulo</span>
                 <span id="alert-titulo2" class="to-hide">Titulo muito grande</span>
                 <span id="alert-post" class="to-hide">Digite algo...</span>
@@ -83,7 +83,7 @@ $stmt ->execute();
                   <!--Input titulo-->
                   <div class="col">
                      <input class="form-control-plaintext border border-secondary posttitulo" type="text" name="txTitulo" id="txTitulo" placeholder="Título">
-                    </div>
+                  </div>
                </div>
                <div class="form-group row">
                   <!--Input texto-->
@@ -105,7 +105,8 @@ $stmt ->execute();
             </div>
          </form>
       </div>
-  </div>
+   </div>
+
 
    <div>
       <!--Botões menu-->

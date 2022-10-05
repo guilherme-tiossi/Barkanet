@@ -61,7 +61,7 @@ $stmt ->execute();
             <h4 class="PORRA">
                <a href="perfil.php" class="link-perfil"> <?php echo $nome; ?> </a>
             </h4>
-            <a href="perfil.php?editar" class="editarperfil">Editar perfil</a>
+            <a href="perfil.php?editar&pag=1" class="editarperfil">Editar perfil</a>
         </div>
       </div>
     </div>
@@ -94,14 +94,14 @@ $stmt ->execute();
                <div class="form-group row">
                   <!--Input imagem-->
                   <div class="d-flex justify-content-end">
-                     <input class="form-control-file imgpost" type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .mp4, .gif">
+                     <input class="form-control-file imgpost" type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
                   </div>
                </div>
             </div>
             <div class="d-flex justify-content-end">
               <!--Botão de posts-->
               <input type="hidden" name="idgrupo" value="0">
-              <button class="text-uppercase btnposts" type="submit" id="teste" name="teste">Postar</button>
+              <button class="text-uppercase btnposts" type="submit" name="submit">Postar</button>
             </div>
          </form>
       </div>
@@ -115,7 +115,7 @@ $stmt ->execute();
          ?>
          <a class="listapags" href="perfil.php"><i class="fa-solid fa-user"></i>Perfil</a>
          <a class="listapags" href="posts.php"><i class="fa-solid fa-image"></i>Posts</a>
-         <a class="listapags" href="procurar.php"><i class="fa-solid fa-magnifying-glass"></i>Procurar <?php if($not > 0){ echo $not; }?></a>
+         <a class="listapags" href="procurar.php"><i class="fa-solid fa-envelope"></i></i>Notificações <?php if($not > 0){ echo $not; }?></a>
          <a class="listapags" href="configuracoes.php"><i class="fa-solid fa-gear"></i>Configurações</a>
          <a class="listapags" href="logout.php" onclick="reset()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
       </div>

@@ -12,7 +12,6 @@ foreach($stmt1 as $row) {
     $nome = $row['nome'];
     $pfp = $row['profilepic'];
 }
-
 if(isset($_POST["submit"])){
   $titulo = $_POST["txTitulo"];
   $post = $_POST["txPost"];
@@ -21,13 +20,19 @@ if(isset($_POST["submit"])){
   if($_FILES["image"]["error"] == 4){
     $stmt = $pdo->prepare("INSERT INTO tbposts(usuario, nome, titulo, post, profilepic, idgrupo) VALUES ('$id', '$nome', '$titulo', '$post', '$pfp', '$idgrupo')");
     $stmt->execute();
+    // echo
+    // "
+    // <script>
+    //   document.location.href = 'posts.php';
+    // </script>
+    // ";
   }
   else{
     $fileName = $_FILES["image"]["name"];
     $fileSize = $_FILES["image"]["size"];
     $tmpName = $_FILES["image"]["tmp_name"];
 
-    $validImageExtension = ['jpg', 'jpeg', 'png', 'gif', 'mp4'];
+    $validImageExtension = ['jpg', 'jpeg', 'png'];
     $imageExtension = explode('.', $fileName);
     $imageExtension = strtolower(end($imageExtension));
     if ( !in_array($imageExtension, $validImageExtension) ){
@@ -57,17 +62,17 @@ if(isset($_POST["submit"])){
       $stmt->execute();
     }
   }
-  if ($idgrupo == 0){
-    echo
-    "
-    <script>
-      document.location.href = 'posts.php';
-    </script>
-    ";
-  }
-  else{
-    echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>";
-  }
+if ($idgrupo == 0){
+  echo
+  "
+  <script>
+    document.location.href = 'posts.php';
+  </script>
+  ";
+}
+else{
+  echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>";
+}
 }
 
 ?>

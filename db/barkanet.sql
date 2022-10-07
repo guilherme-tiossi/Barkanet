@@ -9,7 +9,7 @@ CREATE TABLE `usuarios` (
  `senha` varchar(100) NOT NULL,
  `data_nasc` date NOT NULL,
  `codigo` varchar(7) NOT NULL,
- `bio` text DEFAULT NULL,
+ `bio` varchar(200) DEFAULT NULL,
  `profilepic` varchar(60) DEFAULT 'avatar.jpg',
  PRIMARY KEY (`id`),
  UNIQUE KEY `email` (`email`),

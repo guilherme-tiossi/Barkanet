@@ -82,13 +82,13 @@ $id_grupo = $_GET['id_grupo'];
                <div class="form-group row">
                   <!--Input titulo-->
                   <div class="col">
-                     <input class="form-control-plaintext border border-secondary posttitulo" type="text" name="txTitulo" id="txTitulo" placeholder="Título">
+                     <input class="form-control-plaintext border border-secondary posttitulo" type="text" name="txTitulo" id="txTitulo" placeholder="Título" maxlength='50'>
                   </div>
                </div>
                <div class="form-group row">
                   <!--Input texto-->
                   <div class="col">
-                     <textarea class="form-control-plaintext border border-secondary mainpost" type="text" name="txPost" id="txPost" placeholder="Digite alguma coisa..."></textarea>
+                     <textarea class="form-control-plaintext border border-secondary mainpost" type="text" name="txPost" id="txPost" placeholder="Digite alguma coisa..." maxlength='500'></textarea>
                   </div>
                </div>
                <div class="form-group row">

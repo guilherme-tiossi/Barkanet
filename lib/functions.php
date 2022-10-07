@@ -18,108 +18,121 @@
 				$id = $row['id'];
 				$pfp = $row['profilepic'];
 				}
+				
 			echo 
-			'<div class="card-fundo pt-1" id="infouser">
-			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
-	            <div class="card card-perfil">
-	                <div class="card-body">
-	                    <div class="d-flex flex-row bd-highlight mb-0">
-	                        <div class="p-2 bd-highlight">
-	                            <img class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
-	                            <p class="mb-0" style="font-size: 18px";>
+			"<div class='card-fundo pt-1' id='infouser'>
+			<div class='mx-auto pt-3 pb-3' style='width: 90%;'>
+	            <div class='card card-perfil'>
+	                <div class='card-body'>
+	                    <div class='d-flex flex-row bd-highlight mb-0'>
+	                        <div class='p-2 bd-highlight'>
+	                            <img class='float-left' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
+	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Nome:</b>
-	                                <br>'.mb_strimwidth($nome, 0, 16, "...").'
-									<a class="icon-lapis" onclick="mostraropcoesperfil()">
-									<i class="fa-solid fa-pencil"></i>
+									<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+									<i class='fa-solid fa-pencil'></i>
 									</a>
-	                            </p>
+									<div style='width: 10rem;'>
+									<p>".$nome."</p>
+									</div>
+								</p>
 	                        </div>
-	                        <div class="p-2 bd-highlight">
-	                            <h5 class="m-0">
+	                        <div class='p-2 bd-highlight'>
+	                            <h5 class='m-0'>
 	                                <b>Informações da conta:</b>
 	                            </h5>
-	                            <p class="mb-0" style="font-size: 18px";>
+	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>E-mail:</b>
-	                                <br>'.$email.'
+	                                <br>".$email."
 	                            </p>
-	                            <p class="mb-0" style="font-size: 18px";>
-	                                <b>Biografia:</b>
-	                                <br>'.mb_strimwidth($bio, 0, 30, "...").'
-									<a class="icon-lapis" onclick="mostraropcoesperfil()">
-									<i class="fa-solid fa-pencil"></i>
-									</a>
-	                            </p>
-	                            <p class="mb-0" style="font-size: 18px";>
-	                                <b>Data de nascimento:</b>
-	                                <br>'.$nasc.'
-									<a class="icon-lapis" onclick="mostraropcoesperfil()">
-									<i class="fa-solid fa-pencil"></i>
-									</a>
-	                            </p>
-	                            <p class="mb-0" style="font-size: 18px";>
+	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Código:</b>
-	                                '.$cod.'
+	                                ".$cod."
 	                            </p>
+	                            <p class='mb-0' style='font-size: 18px';>
+	                                <b>Data de nascimento:</b>
+									<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+									<i class='fa-solid fa-pencil'></i>
+									</a>
+	                                <br>".$nasc."
+								</p>
+								<div style='width: 18rem; cursor: pointer;' onclick='exibirBio1()' id='bio'>
+									<p class='mb-0' style='font-size: 18px';>
+										<b>Biografia:</b>
+										<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+										<i class='fa-solid fa-pencil'></i>
+										</a>
+										<br><p>".mb_strimwidth($bio, 0, 100, '...')."</p>
+									</p>
+									
+								</div>
+								<div class='to-hide' style='width: 18rem; cursor: pointer;' onclick='exibirBio2()' id='bio-ext'>
+									<p class='mb-0' style='font-size: 18px'; onclick='exibirBio()'>
+										<b>Biografia:</b>
+										<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+										<i class='fa-solid fa-pencil'></i>
+										</a>
+										<br><p>".$bio."</p>
+									</p>
+								</div>
 	                        </div>
 	                    </div>
 	                </div>
 	            </div>
 	        </div>
 	        </div>
-			<div class="to-hide" id="edituser">
-			<div class="mx-auto pt-3 pb-3" style="width: 90%;">
-	            <div class="card card-perfil">
-	                <div class="card-body">
-	                	<form method="POST" action="exec_update.php" autocomplete="off" enctype="multipart/form-data">
-	                    <div class="d-flex flex-row bd-highlight mb-0">
-	                        <div class="p-2 bd-highlight">
-														<div class="image-upload">
-															<label for="pfp" class="position-absolute">
-																<i class="fa-solid fa-pencil"> <input type="file" name="pfp" id="pfp" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
-															</label>
-															<img id="blah" class="float-left" src="img/'.$pfp.'" width="150" height="150" title="'.$pfp.'">
-														</div>
-	                            <p class="mb-0" style="font-size: 18px";>
+
+			<div class='to-hide' id='edituser'>
+			<div class='mx-auto pt-3 pb-3' style='width: 90%;'>
+	            <div class='card card-perfil'>
+	                <div class='card-body'>
+	                	<form method='post' action='exec_update.php' onsubmit='return editarDados()' autocomplete='off' enctype='multipart/form-data'>
+	                    <div class='d-flex flex-row bd-highlight mb-0'>
+	                        <div class='p-2 bd-highlight'>
+								<div>
+									<label for='pfp' class='icon-camera'>
+										<i class='fa-solid fa-camera'><input type='file' name='pfp' id='pfp' class ='pfp-input' accept='.png, .jpeg, .jpg'></i>
+									</label>
+									<img id='blah' class='float-left' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
+								</div>
+	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Nome:</b>
 	                                <br>
-                                  <input class="textoupdate_nome" type="text" name="nome" id="nome" value="'.$nome.'">
-	                            </p>
+                                  <input class='textoupdate_nome' type='text' name='nome' id='nome' value='".$nome."'>
+								  <span id='alert-nome' class='to-hide' role='alert'><br>O nome deve ter no <br> mínimo 3 caracteres</span>
+								</p>
 	                        </div>
-	                        <div class="p-2 bd-highlight">
-	                            <h5 class="m-0">
+	                        <div class='p-2 bd-highlight'>
+	                            <h5 class='m-0'>
 	                                <b>Informações da conta:</b>
 	                            </h5>
-	                            <p class="mb-0" style="font-size: 18px";>
-	                                <b>E-mail:</b>
-	                                <br>'.$email.'
-	                            </p>
-	                            <p class="mb-0" style="font-size: 18px";>
-	                                <b>Biografia:</b>
-	                                <br>
-                                  <input class="textoupdate_2" type="text" name="bio" id="bio" value="'.$bio.'">              
-                                </p>
-	                            <p class="mb-0" style="font-size: 18px";>
+	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Data de nascimento:</b>
 	                                <br>
-                                  <input class="textoupdate_2" type="text" name="data" id="data" value="'.$nasc.'">
-	                            </p>
-	                            <p class="mb-0" style="font-size: 18px";>
-	                                <b>Código:</b>
-	                                '.$cod.'
-	                            </p>
-
-								<input type="submit" value="Enviar"/>
+                                  <input class='textoupdate_2' type='text' name='data' id='data' value='".$nasc."'>
+								  <span id='alert-data' class='to-hide' role='alert'><br>Preencha o campo data de nascimento</span>
+								  <span id='alert-idade' class='to-hide' role='alert'><br>Voce não tem idade suficiente para usar essa rede social</span>
+								  <span id='alert-idade1' class='to-hide' role='alert'><br>Insira uma data de nascimento válida.</span>
+						   		</p>
+	                            <p class='mb-0' style='font-size: 18px';>
+	                                <b>Biografia:</b>
+	                                <br>
+                                  <textarea class='textoupdate_3' type='text' name='bio' id='bio' maxlength='200'>".$bio."</textarea>
+								  <span id='alert-bio' class='to-hide' role='alert'><br>A bio esta muito grande</span>
+								</p>
 	                        </div>
+							<div class='p-2 bd-highlight'>
+								<input type='submit' value='Enviar'class='btn-solicitation-p'>
+							</div>
 	                    </div>
 	                	</form>
 	                </div>
 	            </div>
 	        </div>
-	        </div>';
-			};
+	    	</div>";
+	};
 
-
-			function ClassifyChar( $ch )
+	function ClassifyChar( $ch )
 			{
 				if ( ( 'a' <= $ch && 'z' >= $ch ) || ' ' == $ch )
 					return 'lower';
@@ -169,7 +182,7 @@
 				}
 				
 				return (int)( log( $strength ) );
-			}
+	}
 
 	function ler_amigos_usuario(){
 		global $pdo;
@@ -255,8 +268,8 @@
 			}
 			
 			echo "<b><a href='perfil.php' class='link'>".$row['nome']."</a></b><br>
-					<b>$row[titulo]</b>
-					</p>
+					<p class='titulo-post'>$row[titulo]</p>
+				</p>
 				</div>
 				</div>
 
@@ -474,7 +487,7 @@
 					</div>
 					</div>';	
 				}
-				};
+	};
 
 // ========================== SOLICITAÇÕES DE GRUPOS ==========================
 	function carrega_pagina_atalho($con){

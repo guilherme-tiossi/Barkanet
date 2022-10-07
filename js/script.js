@@ -212,12 +212,12 @@ var ano = data.split('/')[2];
 var idade = anoAtual - ano;
 
 if (nome == "") {
-    document.getElementById('alert-nome').className = "alert";
+    document.getElementById('alert-nome').className = "alerta";
     validar = false;
 }
 
 if (nome.length <= 2) {
-    document.getElementById('alert-nome').className = "alert";
+    document.getElementById('alert-nome').className = "alerta";
     validar = false;
 }
 
@@ -226,7 +226,7 @@ if (nome != "" & nome.length > 2) {
 }
 
 if (data == "") {
-    document.getElementById('alert-data').className = "alert";
+    document.getElementById('alert-data').className = "alerta";
     validar = false;
 }
 
@@ -235,7 +235,7 @@ if (data != "") {
 }
 
 if (idade < 16) {
-    document.getElementById('alert-idade').className = "alert";
+    document.getElementById('alert-idade').className = "alerta";
     validar = false;
 }
 
@@ -244,7 +244,7 @@ if (idade >= 16) {
 }
 
 if (idade > 105) {
-    document.getElementById('alert-idade1').className = "alert";
+    document.getElementById('alert-idade1').className = "alerta";
     validar = false;
 }
 
@@ -252,12 +252,12 @@ if (idade <= 105) {
     document.getElementById('alert-idade1').className = "to-hide";
 }
 
-if (bio.length > 100) {
-    document.getElementById('alert-bio').className = "alert";
+if (bio.length > 200) {
+    document.getElementById('alert-bio').className = "alerta";
     validar = false;
 }
 
-if (bio.length <= 100) {
+if (bio.length <= 200) {
     document.getElementById('alert-bio').className = "to-hide";
 }
 
@@ -584,4 +584,15 @@ if(tipo != ""){
 }
 
 return validar;
+}
+
+
+function exibirBio1(){
+    document.getElementById('bio-ext').className = "";
+    document.getElementById('bio').className = "to-hide";
+}
+
+function exibirBio2(){
+    document.getElementById('bio-ext').className = "to-hide";
+    document.getElementById('bio').className = "";
 }

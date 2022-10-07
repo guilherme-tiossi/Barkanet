@@ -5,6 +5,8 @@
   font-size: 17px;
   animation-name: animation-alert;
   animation-duration: 1s;
+  word-wrap: break-word; 
+  word-break: break-word;
 }
 
 @keyframes animation-alert {
@@ -100,6 +102,13 @@
   text-transform: uppercase;
   margin: 2rem 0;
   font-weight: 700;
+}
+
+.titulo-post{
+  font-weight: 600;
+  font-size: 18px;
+  word-wrap: break-word; 
+  word-break: break-word;
 }
 
 .pesquisa-box {
@@ -270,6 +279,24 @@
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
+}
+
+.textoupdate_3{
+	font-size:15px;
+	width: 45vh;
+  border: none;
+  min-height: 19vh;
+  background-color: transparent;
+  border-bottom: 2px solid #b9babe;
+  outline: none;
+  resize: none;
+}
+
+.bio-ext{
+	font-size:15px;
+	width: 45vh;
+  height: 19vh;
+  overflow-y: scroll;
 }
 
 .pfp-input{

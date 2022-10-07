@@ -93,21 +93,19 @@ if ($row_count < 1) {
                                <b>Informações da conta:</b>
                            </h5>
                            <p class="mb-0" style="font-size: 18px";>
-                               <b>E-mail:</b>
-                               <br>'.$email.'
-                           </p>
-                           <p class="mb-0" style="font-size: 18px";>
-                               <b>Biografia:</b>
-                               <br>'.$bio.'
+                               <b>Código:</b>
+                               '.$cod.'
                            </p>
                            <p class="mb-0" style="font-size: 18px";>
                                <b>Data de nascimento:</b>
                                <br>'.$nasc.'
                            </p>
+                           <div class="card" style="width: 18rem;">
                            <p class="mb-0" style="font-size: 18px";>
-                               <b>Código:</b>
-                               '.$cod.'
+                               <b>Biografia:</b>
+                               <br>'.$bio.'
                            </p>
+                           </div>
                        </div>
                    </div>
                </div>
@@ -166,7 +164,7 @@ if ($row_count < 1) {
                                     echo "
                                     <b><a href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b>
                                     <br>
-                                    <b>$row[titulo]</b>
+                                    <p class='titulo-post'>$row[titulo]</p>
                                     </p>
                                 </div>
                             </div>

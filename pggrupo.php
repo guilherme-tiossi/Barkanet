@@ -137,7 +137,7 @@ if(isset($_GET['id_grupo'])){
                         <p class='mb-0' style='font-size: 18px';>
                         <b><a href='pgamigo.php?id=$idposter'>$nome_poster</a></b>
                         <br>
-                        <b>$row[titulo]</b>
+                        <p class='titulo-post'>$row[titulo]</p>
                         </p>
                       </div>
                     </div>

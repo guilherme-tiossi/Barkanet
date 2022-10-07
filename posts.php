@@ -120,7 +120,7 @@ include("conexao.php");
           }
           
             echo "<b><a class='link' href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b><br>
-                  <b>$row[titulo]</b>
+                  <p class='titulo-post'>$row[titulo]</p>
                   </p>
                 </div>
               </div>

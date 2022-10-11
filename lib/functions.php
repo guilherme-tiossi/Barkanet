@@ -96,6 +96,9 @@
 	                	<form method='post' action='exec_update.php' onsubmit='return editarDados()' autocomplete='off' enctype='multipart/form-data'>
 	                    <div class='d-flex flex-row bd-highlight mb-0'>
 	                        <div class='p-2 bd-highlight'>
+								<label for='pfp' class='icon-camera'>
+									<i class='fa-solid fa-camera'><input type='file' name='pfp' id='pfp' class ='pfp-input' accept='.png, .jpeg, .jpg'></i>
+								</label>
 								<img id='blah' class='float-left img-pfp' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
 	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Nome:</b>

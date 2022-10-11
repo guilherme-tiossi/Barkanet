@@ -4,7 +4,7 @@ USE barkanet;
 
 CREATE TABLE `usuarios` (
  `id` int(20) NOT NULL AUTO_INCREMENT,
- `nome` varchar(100) NOT NULL,
+ `nome` varchar(30) NOT NULL,
  `email` varchar(100) NOT NULL,
  `senha` varchar(100) NOT NULL,
  `data_nasc` date NOT NULL,

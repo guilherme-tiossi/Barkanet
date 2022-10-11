@@ -26,10 +26,10 @@
 	                <div class='card-body'>
 	                    <div class='d-flex flex-row bd-highlight mb-0'>
 	                        <div class='p-2 bd-highlight'>
-	                            <img class='float-left' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
+	                            <img class='float-left img-pfp' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
 	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Nome:</b>
-									<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+									<a class='icon-lapis' href='?editar&pag=1'>
 									<i class='fa-solid fa-pencil'></i>
 									</a>
 									<div style='width: 10rem;'>
@@ -51,25 +51,32 @@
 	                            </p>
 	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Data de nascimento:</b>
-									<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+									<a class='icon-lapis' href='?editar&pag=1'>
 									<i class='fa-solid fa-pencil'></i>
 									</a>
 	                                <br>".$nasc."
 								</p>
-								<div style='width: 18rem; cursor: pointer;' onclick='exibirBio1()' id='bio'>
+								<div style='width: 18rem; cursor: pointer;'>
 									<p class='mb-0' style='font-size: 18px';>
 										<b>Biografia:</b>
-										<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+										<a class='icon-lapis' href='?editar&pag=1'>
 										<i class='fa-solid fa-pencil'></i>
 										</a>
-										<br><p>".mb_strimwidth($bio, 0, 100, '...')."</p>
+										<br><p>";
+										if($bio != ""){
+											echo mb_strimwidth($bio, 0, 100, '...');
+										}else{
+											echo "Sem bio...";
+										}
+										
+										echo"</p>
 									</p>
 									
 								</div>
-								<div class='to-hide' style='width: 18rem; cursor: pointer;' onclick='exibirBio2()' id='bio-ext'>
-									<p class='mb-0' style='font-size: 18px'; onclick='exibirBio()'>
+								<div class='to-hide' style='width: 18rem; cursor: pointer;'>
+									<p class='mb-0' style='font-size: 18px';>
 										<b>Biografia:</b>
-										<a class='icon-lapis' onclick='mostraropcoesperfil()'>
+										<a class='icon-lapis' href='?editar&pag=1'>
 										<i class='fa-solid fa-pencil'></i>
 										</a>
 										<br><p>".$bio."</p>
@@ -89,16 +96,11 @@
 	                	<form method='post' action='exec_update.php' onsubmit='return editarDados()' autocomplete='off' enctype='multipart/form-data'>
 	                    <div class='d-flex flex-row bd-highlight mb-0'>
 	                        <div class='p-2 bd-highlight'>
-								<div>
-									<label for='pfp' class='icon-camera'>
-										<i class='fa-solid fa-camera'><input type='file' name='pfp' id='pfp' class ='pfp-input' accept='.png, .jpeg, .jpg'></i>
-									</label>
-									<img id='blah' class='float-left' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
-								</div>
+								<img id='blah' class='float-left img-pfp' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
 	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Nome:</b>
 	                                <br>
-                                  <input class='textoupdate_nome' type='text' name='nome' id='nome' value='".$nome."'>
+                                  <input class='textoupdate_nome' type='text' name='nome' id='nome' value='".$nome."' maxlength='30'>
 								  <span id='alert-nome' class='to-hide' role='alert'><br>O nome deve ter no <br> mínimo 3 caracteres</span>
 								</p>
 	                        </div>
@@ -118,12 +120,9 @@
 	                                <b>Biografia:</b>
 	                                <br>
                                   <textarea class='textoupdate_3' type='text' name='bio' id='bio' maxlength='200'>".$bio."</textarea>
-								  <span id='alert-bio' class='to-hide' role='alert'><br>A bio esta muito grande</span>
 								</p>
+								<input type='submit' value='Salvar' class='btn-editar'>
 	                        </div>
-							<div class='p-2 bd-highlight'>
-								<input type='submit' value='Enviar'class='btn-solicitation-p'>
-							</div>
 	                    </div>
 	                	</form>
 	                </div>

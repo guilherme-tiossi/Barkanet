@@ -1,5 +1,4 @@
 .alerta{
-  margin-left: 0.7rem;
   color: #0049e6;
   font-weight: 500;
   font-size: 17px;
@@ -27,6 +26,23 @@
   font-size: 14px;
   cursor: pointer;
   color: #000;
+}
+
+.icon-camera{
+  font-size: 14;
+  cursor: pointer;
+  color: #000;
+  position: absolute;
+  padding: 1px 5px;
+  background-color: rgb(238, 239, 243);
+  border-right: 2px solid #b9babe;
+  border-bottom: 2px solid #b9babe;
+  border-top: 2px solid #b9babe;
+  border-left: 2px solid #b9babe;
+}
+
+.img-pfp{
+  border: 2px solid #b9babe;
 }
 
 .card-perfil{
@@ -194,6 +210,23 @@
   color: #fff;
 }
 
+.btn-editar{
+  padding: 5px 10px;
+  width: 100%;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: #a2bf40;
+  border: 1px solid #829b33;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.btn-editar:hover{
+  color: #fff;
+}
+
 .btn-config{
   background-color: #a2bf40;
   border: 2px solid #829b33;
@@ -283,9 +316,9 @@
 
 .textoupdate_3{
 	font-size:15px;
-	width: 45vh;
+	width: 25vh;
   border: none;
-  min-height: 19vh;
+  height: 15.2vh;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
   outline: none;

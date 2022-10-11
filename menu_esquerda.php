@@ -19,8 +19,6 @@ $stmt ->execute();
    </form>
 </div>
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#live_search").keyup(function(){
@@ -58,7 +56,7 @@ $stmt ->execute();
           <img src='img/<?php echo $pfp; ?>' width='60px' height='60px' title='<?php echo $pfp; ?>'>
         </div>
         <div class='m-1'>
-            <h4 class="PORRA">
+            <h4>
                <a href="perfil.php" class="link-perfil"> <?php echo $nome; ?> </a>
             </h4>
             <a href="perfil.php?editar&pag=1" class="editarperfil">Editar perfil</a>

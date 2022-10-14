@@ -8,6 +8,11 @@
   word-break: break-word;
 }
 
+.vid-fluid{
+  width: 100% !important;
+  height: auto !important;
+}
+
 @keyframes animation-alert {
   0%  {color:#0049e6;}
   20% {color:#6897fa;}

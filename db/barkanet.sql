@@ -22,7 +22,7 @@ CREATE TABLE `tbposts` (
  `nome` varchar(100) NOT NULL,
  `titulo` varchar(50) NOT NULL,
  `post` varchar(500) NOT NULL,
- `image` varchar(60) DEFAULT NULL,
+ `file` varchar(60) DEFAULT NULL,
  `profilepic` varchar(60) CHARACTER SET latin1 NOT NULL,
  `idgrupo` int(11) DEFAULT NULL,
  PRIMARY KEY (`idpost`),

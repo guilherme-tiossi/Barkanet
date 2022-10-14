@@ -94,7 +94,7 @@ $id_grupo = $_GET['id_grupo'];
                <div class="form-group row">
                   <!--Input imagem-->
                   <div class="d-flex justify-content-end">
-                     <input class="form-control-file imgpost" type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
+                  <input class="form-control-file imgpost" type="file" name="file" id="file" accept=".jpg, .jpeg, .png, .gif, .mp4">
                   </div>
                </div>
             </div>

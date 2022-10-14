@@ -17,7 +17,7 @@ if(isset($_POST["submit"])){
   $post = $_POST["txPost"];
   $idgrupo = $_POST['idgrupo'];
 
-  if($_FILES["image"]["error"] == 4){
+  if($_FILES["file"]["error"] == 4){
     $stmt = $pdo->prepare("INSERT INTO tbposts(usuario, nome, titulo, post, profilepic, idgrupo) VALUES ('$id', '$nome', '$titulo', '$post', '$pfp', '$idgrupo')");
     $stmt->execute();
     // echo
@@ -28,18 +28,18 @@ if(isset($_POST["submit"])){
     // ";
   }
   else{
-    $fileName = $_FILES["image"]["name"];
-    $fileSize = $_FILES["image"]["size"];
-    $tmpName = $_FILES["image"]["tmp_name"];
+    $fileName = $_FILES["file"]["name"];
+    $fileSize = $_FILES["file"]["size"];
+    $tmpName = $_FILES["file"]["tmp_name"];
 
-    $validImageExtension = ['jpg', 'jpeg', 'png'];
+    $validImageExtension = ['jpg', 'jpeg', 'png', 'gif', 'mp4'];
     $imageExtension = explode('.', $fileName);
     $imageExtension = strtolower(end($imageExtension));
-    if ( !in_array($imageExtension, $validImageExtension) ){
+    if (!in_array($imageExtension, $validImageExtension) ){
       echo
       "
       <script>
-        alert('Invalid Image Extension');
+        alert('Invalid File Extension');
         document.location.href = 'posts.php';
       </script>
       ";
@@ -48,7 +48,7 @@ if(isset($_POST["submit"])){
       echo
       "
       <script>
-        alert('Image Size Is Too Large');
+        alert('File Size Is Too Large');
         document.location.href = 'posts.php';
       </script>
       ";
@@ -56,23 +56,30 @@ if(isset($_POST["submit"])){
     else{
       $newImageName = uniqid();
       $newImageName .= '.' . $imageExtension;
+      if($imageExtension == 'jpeg' || $imageExtension == 'png' || $imageExtension == 'jpeg'){
+        move_uploaded_file($tmpName, 'img/' . $newImageName);
+        $stmt = $pdo->prepare("INSERT INTO tbposts(usuario, nome, titulo, post, file, profilepic, idgrupo) VALUES ('$id', '$nome', '$titulo', '$post', '$newImageName', '$pfp', '$idgrupo')");
+        $stmt->execute();
+      }
+      else{
+        move_uploaded_file($tmpName, 'img/' . $newImageName);
+        $stmt = $pdo->prepare("INSERT INTO tbposts(usuario, nome, titulo, post, file, profilepic, idgrupo) VALUES ('$id', '$nome', '$titulo', '$post', '$newImageName', '$pfp', '$idgrupo')");
+        $stmt->execute();
+      }
 
-      move_uploaded_file($tmpName, 'img/' . $newImageName);
-      $stmt = $pdo->prepare("INSERT INTO tbposts(usuario, nome, titulo, post, image, profilepic, idgrupo) VALUES ('$id', '$nome', '$titulo', '$post', '$newImageName', '$pfp', '$idgrupo')");
-      $stmt->execute();
     }
   }
-if ($idgrupo == 0){
-  echo
-  "
-  <script>
-    document.location.href = 'posts.php';
-  </script>
-  ";
-}
-else{
-  echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>";
-}
+  if ($idgrupo == 0){
+    echo
+    "
+    <script>
+      document.location.href = 'posts.php';
+    </script>
+    ";
+  }
+  else{
+    echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>";
+  }
 }
 
 ?>

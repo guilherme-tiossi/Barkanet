@@ -157,12 +157,12 @@ if ($row_count < 1) {
                                         foreach ($stmt as $roww):
                                             $id_grupo = $roww['id_grupo'];
                                             echo "
-                                            <a href='pggrupo.php?id_grupo=$id_grupo'>".$roww['nome_grupo']."</a><br>";
+                                            <b> <a href='pggrupo.php?id_grupo=$id_grupo' class='link'>".$roww['nome_grupo']."</a></b><br>";
                                         endforeach;
                                     }
                                     $idposter = $row['usuario'];
                                     echo "
-                                    <b><a href='pgamigo.php?id=$idposter'>".$row['nome']."</a></b>
+                                    <b><a href='pgamigo.php?id=$idposter' class='link'>".$row['nome']."</a></b>
                                     <br>
                                     <p class='titulo-post'>$row[titulo]</p>
                                     </p>
@@ -209,7 +209,7 @@ if ($row_count < 1) {
                                         </div>
                                         <div class='p-2 bd-highlight'>
                                             <div class='mb-0' style='font-size: 17px;'>
-                                                <a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+                                                <b><a href='pgamigo.php?id=$idcomenter' class='link'> $com_nome </a></b>
                                                 <br>
                                                 <p>$com</p>
                                             </div>

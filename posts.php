@@ -18,7 +18,7 @@ include("conexao.php");
 </head>
 
 <div class="d-flex">
-  <!--Menu Esquerada-->
+  <!--Menu Esquerda-->
   <div class="col">
     <?php include('menu_esquerda.php');?>
   </div>
@@ -164,7 +164,7 @@ include("conexao.php");
                   </div>
                   <div class='p-2 bd-highlight'>
                       <div class='mb-0' style='font-size: 17px';>
-                        <a class='link' href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+                        <b> <a class='link' href='pgamigo.php?id=$idcomenter'>$com_nome</a> </b>				
                         <br>
                         <p>$com</p>
                       </div>

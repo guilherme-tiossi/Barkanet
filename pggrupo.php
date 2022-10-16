@@ -135,7 +135,7 @@ if(isset($_GET['id_grupo'])){
                       </div>
                       <div class='p-2 bd-highlight'>
                         <p class='mb-0' style='font-size: 18px';>
-                        <b><a href='pgamigo.php?id=$idposter'>$nome_poster</a></b>
+                        <b><a href='pgamigo.php?id=$idposter' class='link'>$nome_poster</a></b>
                         <br>
                         <p class='titulo-post'>$row[titulo]</p>
                         </p>
@@ -181,7 +181,7 @@ if(isset($_GET['id_grupo'])){
                               </div>
                               <div class='p-2 bd-highlight'>
                                   <div class='mb-0' style='font-size: 17px';>
-                                    <a href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+                                    <b> <a href='pgamigo.php?id=$idcomenter' class='link'>$com_nome</a> </b>				
                                     <br>
                                     <p>$com</p>
                                   </div>

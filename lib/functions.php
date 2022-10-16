@@ -265,7 +265,7 @@
 				$stmt->execute();
 				foreach ($stmt as $roww):
 					$id_grupo = $roww['id_grupo'];
-					echo "<a href='pggrupo.php?id_grupo=$id_grupo'>" . $roww['nome_grupo'] . "</a><br>";
+					echo "<b> <a href='pggrupo.php?id_grupo=$id_grupo' class='link'>" . $roww['nome_grupo'] . "</a> </b><br>";
 				endforeach;
 			}
 			
@@ -314,7 +314,7 @@
 					</div>
 					<div class='p-2 bd-highlight'>
 						<div class='mb-0' style='font-size: 17px;'>
-						<a class='link' href='pgamigo.php?id=$idcomenter'>$com_nome</a>				
+						<b> <a class='link' href='pgamigo.php?id=$idcomenter'>$com_nome</a> </b>				
 						<br>
 						<p>$com</p>
 					</div>

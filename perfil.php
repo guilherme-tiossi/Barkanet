@@ -27,7 +27,7 @@
 <body>
 
 <div class="d-flex">
-  <!--Menu Esquerada-->
+  <!--Menu Esquerda-->
   <div class="col">
     <?php include('menu_esquerda.php');?>
   </div>

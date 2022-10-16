@@ -341,7 +341,7 @@ if (senha.length < 8) {
 if (senha != "" & senha.length >= 8) {
     document.getElementById('alerta-senha').className = "to-hide";
 }
-
+$('#ModalLongoExemplo').modal('hide');
 return validar;
 }
 

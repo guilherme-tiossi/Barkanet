@@ -84,12 +84,8 @@
                   </div>
                   <div class="modal-body">
                      <p> 
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie iaculis ipsum. Vestibulum nunc nulla, tristique eget dolor bibendum, convallis bibendum metus. Morbi sed massa nec augue malesuada mattis. Praesent purus neque, ullamcorper vel sem ac, sollicitudin pulvinar ipsum. Nullam luctus libero eros. Aliquam tellus erat, imperdiet et tincidunt id, fermentum eu risus. Nulla tempus malesuada dapibus. In hac habitasse platea dictumst. Sed iaculis suscipit risus sed facilisis. Aliquam erat volutpat.
-
-Nulla semper erat sit amet augue pharetra interdum. Mauris neque sem, viverra id tincidunt a, dignissim eu est. Donec sit amet turpis diam. Etiam fermentum magna non nibh pharetra tempor. In luctus magna nec libero molestie, quis sollicitudin arcu commodo. Donec congue sodales nisi, sagittis efficitur dolor maximus non. Cras efficitur non nunc lacinia vehicula. Fusce non suscipit felis.
-
-Vivamus vitae magna nec ligula suscipit tincidunt. Curabitur consectetur est eget placerat lobortis. Nam posuere velit id orci venenatis ullamcorper. Phasellus euismod condimentum magna quis facilisis. Suspendisse vitae tincidunt eros, nec ornare ipsum. Pellentesque ut laoreet turpis. Donec magna libero, blandit in enim eleifend, tristique ullamcorper arcu.  </p>
+                     Você tem certeza de que deseja excluir sua conta do Barkanet? Seu dados, incluindo publicações e comentários serão apagados imediatamente. Essa ação é irreversível.
+          </p>
                   </div>
                   <div class="modal-footer">
                      <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>

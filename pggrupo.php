@@ -145,9 +145,9 @@ if(isset($_GET['id_grupo'])){
                       <p class='m-1'>$poster</p>
                       <div class='mx-auto m-1' style='width: 80%;'>";
                       if ($row['file'] != null) {
-                        if(strripos($row['file'], 'jpg') == true || strripos($row['file'], 'jpeg') == true || strripos($row['file'], 'png') == true)
+                        if(strripos($row['file'], 'jpg') == true || strripos($row['file'], 'jpeg') == true || strripos($row['file'], 'png') == true || strripos($row['file'], 'gif') == true){
                           echo "<img src='img/$row[file]' class='img-fluid' title='<$row[file]>' />";
-                        else {
+                        }else {
                           echo "<video class='vid-fluid' controls><source src='img/$row[file]' title='<$row[file]>''/></video>";
                         }
                       }

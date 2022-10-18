@@ -56,32 +56,15 @@
 									</a>
 	                                <br>".$nasc."
 								</p>
-								<div style='width: 18rem; cursor: pointer;'>
-									<p class='mb-0' style='font-size: 18px';>
-										<b>Biografia:</b>
-										<a class='icon-lapis' href='?editar&pag=1'>
-										<i class='fa-solid fa-pencil'></i>
-										</a>
-										<br><p>";
-										if($bio != ""){
-											echo mb_strimwidth($bio, 0, 100, '...');
-										}else{
-											echo "Sem bio...";
-										}
-										
-										echo"</p>
-									</p>
-									
-								</div>
-								<div class='to-hide' style='width: 18rem; cursor: pointer;'>
-									<p class='mb-0' style='font-size: 18px';>
-										<b>Biografia:</b>
-										<a class='icon-lapis' href='?editar&pag=1'>
-										<i class='fa-solid fa-pencil'></i>
-										</a>
-										<br><p>".$bio."</p>
-									</p>
-								</div>
+                           <div style='width: 18rem;''>
+                           <p class='mb-0' style='font-size: 18px';>
+                               <b>Biografia:</b>
+							   <a class='icon-lapis' href='?editar&pag=1'>
+							   <i class='fa-solid fa-pencil'></i>
+							   </a>
+                               <br>".$bio." 
+                           </p>
+                           </div>
 	                        </div>
 	                    </div>
 	                </div>

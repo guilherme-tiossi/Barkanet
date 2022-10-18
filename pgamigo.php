@@ -100,7 +100,7 @@ if ($row_count < 1) {
                                <b>Data de nascimento:</b>
                                <br>'.$nasc.'
                            </p>
-                           <div class="card" style="width: 18rem;">
+                           <div style="width: 18rem;">
                            <p class="mb-0" style="font-size: 18px";>
                                <b>Biografia:</b>
                                <br>'.$bio.'

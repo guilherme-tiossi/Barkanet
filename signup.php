@@ -18,7 +18,7 @@
          });
       </script>
    </head>
-<body id="intro" class="h-100 w-100">
+<body id="intro" class="h-75 w-100">
 	<div class="container h-100 w-100">
 	    <div class="row h-100 w-100 align-items-center justify-content-md-center">
 		<div class="col-md-auto">

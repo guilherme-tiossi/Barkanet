@@ -146,13 +146,7 @@
                   </div>
                </div>
             </div>
-         </div>
-         <!--pop-up-->
-         <div>
-            <div class="pop-up" id="pop-up">
-               <p>Utilizamos cookies essenciais de acordo com os nossos <a href="" data-toggle="modal" data-target="#ModalLongoExemplo">Termos de uso e Privacidade</a> e, ao continuar navegando, você concorda com estas condições.</p>
-               <button type="button" class="btn btn-primary" onclick="hiddenPop()">Aceitar</button>
-            </div>
+         </div>   
          </div>
       </section>
    </body>

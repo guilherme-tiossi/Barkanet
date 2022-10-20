@@ -86,7 +86,6 @@ CREATE TABLE `membros_grupos` (
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `data_nasc`, `codigo`, `bio`, `profilepic`) VALUES
 (31, 'Guilherme Tiossi', 'guilherme@tiossi.com', 'tiossi13y', '2005-03-28', '#4b6f1b', '', 'avatar.jpg'),
-(32, 'Gabriela', 'gabitigre2015@gmail.com', 'senhagabi', '2005-01-12', '#8fc77c', '', 'avatar.jpg'),
 (33, 'Kauã Pereira', 'kauapereira@gmail.com', 'kauasenha', '2005-02-15', '#f07af0', '', 'avatar.jpg'),
 (34, 'Ana Luiza', 'hanahaninha@gmail.com', 'haninhasenha', '2005-01-30', '#3eee62', '', 'avatar.jpg'),
 (35, 'Gustavo Gouveia', 'gustavogouveiaemail@email.com', 'gustavosenha', '2005-03-24', '#9632f0', '', 'avatar.jpg'),

@@ -15,11 +15,12 @@ endforeach;
   </div>
   
   <div>
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <div class="btn-group" role="group">
       <a id="btncriargrupo" class="btn btn-secondary text-uppercase" onclick="grupos()">Todos</a>
       <a id="btncriargrupo" class="btn btn-secondary text-uppercase" onclick="meusgrupos()">Meus Grupos</a>
       <a id="btncriargrupo" class="btn btn-secondary text-uppercase" href="grupos.php">Criar  <i class="fa-solid fa-plus"></i></a>
     </div>
+
     <br>
 
     <div id="meusgrupos" class="to-hide">
@@ -95,8 +96,8 @@ endforeach;
 </div>
 
 <!-- Modal Alerta-->
-<div class="modal" id="modal-cronometro" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal" id="modal-cronometro" tabindex="-1" role="dialog" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body text-center">
         <div class="modal-alerta">

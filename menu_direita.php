@@ -102,7 +102,7 @@ endforeach;
       <div class="modal-body text-center">
         <div class="modal-alerta">
           <h1 class="txt-modal">TEMPO: <b id="cronometro-modal" class="cro-modal"></b></h1>
-          <p class="m-2 alert">Você já esta no Barkanet a 30 minutos</p>
+          <p class="m-2 alert">Você esta no Barkanet há 30 minutos</p>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fecharAlerta()">OK já vou sair</button>
         </div>
       </div>

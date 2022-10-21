@@ -397,41 +397,30 @@ hr = 0;
 segs_c = 0;
 min_c = 0;
 hr_c = 0;
-min_a = 30;
+min_a = min;
 
 while (segs >= 60) {
     if (segs >= 60) {
         segs = segs - 60;
         min = min + 1;
+        min_a = min_a + 1;
     }
 }
 
+verificar_tempo = min_a/30;
+
+if(Number.isInteger(verificar_tempo) == true && segs == 0){
+    $(document).ready(function(){
+        $('#modal-cronometro').modal('show');
+        return msg;
+    });
+}
 
 while (min >= 60) {
     if (min >= 60) {
         min = min - 60;
         hr = hr + 1;
     }
-}
-
-if(min_a == min && segs == 0){
-    min_a = min_a - 1;
-    $(document).ready(function(){
-        $('#modal-cronometro').modal('show');
-    });
-}
-
-if(hr == 1 && min == 0 && segs == 0){
-    $(document).ready(function(){
-        //$('#modal-cronometro').modal('show');
-    });
-}
-
-if(hr_a < hr && hr != 1){
-    $(document).ready(function(){
-        //$('#modal-cronometro').modal('show');
-    });
-    hr_a = hr
 }
 
 if (hr < 10) {
@@ -463,17 +452,15 @@ return fin;
 }
 
 var segundos = 0;
-var hr_a = 1;
 
 if (localStorage.getItem('tempo') == null) {
-segundos = 0;
+    segundos = 0;
 } else {
-segundos = localStorage.getItem('tempo');
+    //localStorage.getItem('tempo');
 }
 
 function conta() {
 segundos++;
-
 document.getElementById("cronometro").innerHTML = cronometro(segundos);
 document.getElementById("cronometro-modal").innerHTML = cronometro(segundos);
 localStorage.setItem("tempo", total);

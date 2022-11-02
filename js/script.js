@@ -412,7 +412,6 @@ verificar_tempo = min_a/30;
 if(Number.isInteger(verificar_tempo) == true && segs == 0){
     $(document).ready(function(){
         $('#modal-cronometro').modal('show');
-        return msg;
     });
 }
 
@@ -456,7 +455,7 @@ var segundos = 0;
 if (localStorage.getItem('tempo') == null) {
     segundos = 0;
 } else {
-    //localStorage.getItem('tempo');
+    segundos = localStorage.getItem('tempo');
 }
 
 function conta() {
@@ -484,6 +483,18 @@ document.getElementById('grupos').className = "";
 function meusgrupos(){
 document.getElementById('grupos').className = "to-hide";
 document.getElementById('meusgrupos').className = "";
+}
+
+function postsgrupos(){
+//document.getElementById('amigosgrupo').className = "to-hide";
+//document.getElementById('postsgrupo').className = "";
+alert('?');
+}
+    
+function amigosgrupos(){
+//document.getElementById('postsgrupo').className = "to-hide";
+//document.getElementById('amigosgrupo').className = "";
+alert('?');
 }
 
 function mostraropcoesgrupos() {

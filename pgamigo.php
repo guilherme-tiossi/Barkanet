@@ -38,6 +38,7 @@ if ($row_count < 1) {
   <!--Centro-->
   <div class="col-6">
     <?php
+    carrega_pagina_atalho($con);
     $pagina = (isset($_GET['pag']) && $_GET['pag'] != null && is_numeric($_GET['pag'])) ? $_GET['pag'] : 1;
     $quantidade_pg = 50;
 
@@ -76,6 +77,11 @@ if ($row_count < 1) {
         $id = $row['id'];
         $pfp = $row['profilepic'];
     }
+    $stmt3 = $pdo->prepare("select * from amigos where (id_de = '$id' and id_para = '$_SESSION[userId]') or (id_para = '$id' and id_de = '$_SESSION[userId]')");
+    $stmt3 ->execute();
+    foreach ($stmt3 as $row3):
+		$idamigo = $row3['id'];
+    endforeach;
     echo '
     <div class="card-fundo mx-auto pt-1">
        <div class="mx-auto pt-3 pb-3" style="width: 90%;">
@@ -105,6 +111,11 @@ if ($row_count < 1) {
                            <p class="mb-0" style="font-size: 18px";>
                                <b>Biografia:</b>
                                <br>'.$bio.'
+                           </p>
+                           </div>
+                           <div style="width: 18rem;">
+                           <p class="mb-0" style="font-size: 18px";>
+                               <a href="?pagina=desfazer-amizade&id='.$idamigo.'" class="btn-vermelho-desfazer">Desfazer amizade</a>
                            </p>
                            </div>
                        </div>

@@ -542,11 +542,13 @@ input[type=text]{
   background: linear-gradient(180deg, #d2ea7b 0%, #e9f5bd 100%);
   color: #101010;
   font-weight: 650;
+  transition: 0.3s;
 }
 
 #btncriargrupo:hover,
 #btncriargrupo:focus {
-  box-shadow: 0rem 0rem 0rem 0.2205rem rgba(197, 229, 86, 0.3);
+  transition: 0.3s;
+  background: linear-gradient(180deg, #c6e067 0%, #e9f5bd 100%);
 }
 
 .editarperfil{
@@ -573,17 +575,95 @@ input[type=text]{
   color: #a2bf40;
 }
 
-/* visited link */
 .link:visited {
   color: #a2bf40;
 }
 
-/* mouse over link */
 .link:hover {
   color: #a2bf40;
 }
 
-/* selected link */
 .link:active {
   color: #a2bf40;
+}
+
+.quebra-linha{
+  word-wrap: break-word; 
+  word-break: break-word;
+}
+
+#intro { 
+  background: url(imgs/img_login.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#cdheader {
+  background: linear-gradient(180deg, #FFFFFF 0%, #D5D8E3 100%);
+  padding-top:5px;
+  padding-bottom:1px;
+  font-family: 'KoHo', sans-serif;
+}
+#cdheader h5 {
+  margin-bottom:0px;
+}
+#cdbody {
+  background: linear-gradient(180deg, #FFFFFF 0%, #D5D8E3 55%);
+}
+
+.card-fundo-btn{
+  background-color: rgb(238, 239, 243);
+  border-left: 2px solid #a2bf40;
+  border-right: 2px solid #a2bf40;
+  border-radius: 0;
+  padding-right: 2rem;
+}
+
+.btn-verde-grupo{
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: #a2bf40;
+  border: 1px solid #829b33;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.btn-verde-grupo:hover{
+  color: #fff;
+}
+
+.btn-vermelho-grupo{
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: #bf4040;
+  border: 1px solid #9b3333;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.btn-vermelho-grupo:hover{
+  color: #fff;
+}
+
+.btn-vermelho-desfazer{
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: #bf4040;
+  border: 1px solid #9b3333;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.btn-vermelho-desfazer:hover{
+  color: #fff;
 }

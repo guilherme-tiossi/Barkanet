@@ -8,10 +8,9 @@ session_start();
 	<meta charset="utf-8">
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/native/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/fonts/font.css">
 	<script type="text/javascript" src="js/script.js"></script>
-	<!--<script src='https://www.google.com/recaptcha/api.js?hl=pt-BR'></script>-->
 </head>
 <body id="intro" class="h-100 w-100">
 	<div class="container h-100 w-100">
@@ -31,9 +30,7 @@ session_start();
 			<?php
             if(isset($_SESSION['nao_autenticado'])):
             ?>
-            <div>
-            	<p class="alert">Email ou senha incorretos</p>
-            </div>
+            <p class="alert">Email ou senha incorretos</p>
             <?php
             endif;
             unset($_SESSION['nao_autenticado']);
@@ -43,16 +40,18 @@ session_start();
 				header('Location: perfil.php');
 			}
 			?>
-			<form method="POST" action="exec_login.php" onsubmit="return verificar()">
+			<form method="POST" action="exec_login.php" onsubmit="return verificaLogin()">
 				<label for="email">EMAIL</label>
 				<br>
 				<input type="text" name="email" id="email">
-				<span id="alert-email" style="display: none;" role="alert">Preencha o campo email corretamente</span>
+				<br>
+				<span id="alert-email" class="to-hide" role="alert">Preencha o campo email corretamente</span>
 				<br>
 				<label for="senha">SENHA</label>
 				<br>
 				<input type="password" name="senha" id="senha">
-				<span id="alert-senha" style="display: none;" role="alert">Preencha o campo senha corretamente</span>
+				<br>
+				<span id="alert-senha" class="to-hide" role="alert">Preencha o campo senha corretamente</span>
 				<br>
 				<input type="checkbox" name="mostrar" onclick="senhaLogin()">
 				<label for="mostrar">Mostrar senha</label>
@@ -68,8 +67,5 @@ session_start();
 		<div class="col"></div>
 	    </div>
 	</div>
-		<!--RECAPTCHA
-		</br></br>
-		<div class="g-recaptcha" data-sitekey="Chave do Site"></div>-->
 </body>
 </html>

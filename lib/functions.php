@@ -171,10 +171,46 @@
 
 	function ler_amigos_usuario(){
 		global $pdo;
-		echo "<div class='card card-amigos'>";
+		echo "<div>";
 		$stmt2 = $pdo->prepare("select * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
         $stmt2 ->execute();
-		
+		$rowNum = $stmt2->rowCount();
+
+		if($rowNum <= 0){
+			echo "
+			<div class='d-flex'>
+				<div class='p-2 flex-fill'>
+					<h2 class='p-3'>Meus Amigos</h2>
+				</div>
+				<div class='p-2 flex-fill'>
+				<div class='d-flex flex-row-reverse'>
+					<div class='btn-group p-3' role='group'>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class='conteudo'>
+			  <p class='msg-timeline text-center'>Voce ainda não fez amizades...</p>
+			</div>";
+		}
+		else{
+			echo "
+			<div class='d-flex'>
+				<div class='p-2 flex-fill'>
+					<h2 class='p-3'>Meus Amigos</h2>
+				</div>
+				<div class='p-2 flex-fill'>
+				<div class='d-flex flex-row-reverse'>
+					<div class='btn-group p-3' role='group'>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+					</div>
+				</div>
+				</div>
+			</div>
+			";
         foreach ($stmt2 as $row) :
           $id_para = $row['id_para'];
           $id_de = $row['id_de'];
@@ -198,6 +234,7 @@
             endforeach;
           }
         endforeach;
+		}
 		echo "</div>";
 	}
 
@@ -212,13 +249,40 @@
 
 		if($rowNum <= 0){
 			echo "
-			<h2 class='p-3'>Timeline Principal</h2>
+			<div class='d-flex'>
+				<div class='p-2 flex-fill'>
+					<h2 class='p-3'>Meus Posts</h2>
+				</div>
+				<div class='p-2 flex-fill'>
+				<div class='d-flex flex-row-reverse'>
+					<div class='btn-group p-3' role='group'>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+					</div>
+				</div>
+				</div>
+			</div>
+			
 			<div class='conteudo'>
 			  <p class='msg-timeline text-center'>Ainda não tem nenhum post aqui...</p>
 			</div>";
 		  }
 		else{
-		echo '<h2 class="p-3">Meus posts</h2>';
+		echo "
+			<div class='d-flex'>
+				<div class='p-2 flex-fill'>
+					<h2 class='p-3'>Meus Posts</h2>
+				</div>
+				<div class='p-2 flex-fill'>
+				<div class='d-flex flex-row-reverse'>
+					<div class='btn-group p-3' role='group'>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
+						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+					</div>
+				</div>
+				</div>
+			</div>
+		";
 		foreach ($stmt as $row):
 		$idposter = $row['usuario'];
 		$swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
@@ -327,8 +391,8 @@
 		endforeach;
 		}
     };
-		
-	function ler_dados_grupo($id_grupo, $id_usuario){
+
+		function ler_dados_grupo($id_grupo, $id_usuario){
 			global $pdo;
 			$stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE id_grupo = '$id_grupo'");
 			 $stmt->execute();
@@ -341,6 +405,12 @@
 					$adm_grupo = $row['adm_grupo'];
 					$foto_grupo = $row['foto_grupo'];
 				}
+			if($tipo_grupo == "Privado"){
+				$outro_tipo = "Publico";
+			}else{
+				$outro_tipo = "Privado";
+			}
+
 			$stmt2 = $pdo->prepare("SELECT * FROM usuarios INNER JOIN tbgrupos ON usuarios.id = '$adm_grupo'");
 			$stmt2->execute();
 				foreach($stmt2 as $row2) {
@@ -354,11 +424,11 @@
 						<div class="card-body">
 							<div class="d-flex flex-row bd-highlight mb-0">
 								<div class="p-2 bd-highlight">
-									<img class="float-left" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
+									<img class="float-left img-pfp" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Grupo:</b>
 										<br>'.mb_strimwidth($nome_grupo, 0, 16, "...").'
-										<a class="icon-lapis" onclick="mostraropcoesgrupos()">
+										<a class="icon-lapis" href="?editar-grupo&id_grupo='.$id_grupo.'&pag=1">
 											<i class="fa-solid fa-pencil"></i>
 										</a>
 									</p>
@@ -370,14 +440,14 @@
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Privacidade:</b>
 										<br>'.$tipo_grupo.'
-										<a class="icon-lapis" onclick="mostraropcoesgrupos()">
+										<a class="icon-lapis" href="?editar-grupo&id_grupo='.$id_grupo.'&pag=1">
 										<i class="fa-solid fa-pencil"></i>
 									</a>
 									</p>
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Descrição:</b>
 										<br>'.mb_strimwidth($descricao_grupo, 0, 30, "...").'
-										<a class="icon-lapis" onclick="mostraropcoesgrupos()">
+										<a class="icon-lapis" href="?editar-grupo&id_grupo='.$id_grupo.'&pag=1">
 											<i class="fa-solid fa-pencil"></i>
 										</a>
 									</p>
@@ -394,17 +464,18 @@
 				<div class="mx-auto pt-3 pb-3" style="width: 90%;">
 					<div class="card card-perfil">
 						<div class="card-body">
-						<form method="POST" action="exec_update_grupo.php" autocomplete="off" enctype="multipart/form-data">
+						<form method="POST" action="exec_update_grupo.php" onsubmit="return editarGrupo()" autocomplete="off" enctype="multipart/form-data">
 							<div class="d-flex flex-row bd-highlight mb-0">
 								<div class="p-2 bd-highlight">
-								
-								<label for="pfpgrupo" class="position-absolute">
-									<i class="fa-solid fa-pencil"> <input type="file" name="pfpgrupo" id="pfpgrupo" class ="pfp-input" accept=".png, .jpeg, .jpg"> </i>
+								<label for="pfpgrupo" class="icon-camera">
+									<i class="fa-solid fa-camera"> <input type="file" name="pfpgrupo" id="pfpgrupo" class ="pfp-input" accept=".png, .jpeg, .jpg"></i>
 								</label>
-								<img id="blah" class="float-left" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
-                                  <input class="textoupdate_nome" type="text" name="nome_grupo" id="nome_grupo" value="'.$nome_grupo.'">
-								  <input type="hidden" name="id_grupo" value="'.$id_grupo.'">
-								  <input type="submit" hidden>
+								<img id="blah" class="float-left img-pfp" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
+								<p class="mb-0" style="font-size: 18px";>
+									<b>Nome:</b><br>
+									<input class="textoupdate_nome" type="text" name="nome_grupo" id="nome_grupo" value="'.$nome_grupo.'" maxlength="30">
+									<span id="alert-nome_grupo" class="to-hide" role="alert"><br>O nome deve ter no <br> mínimo 3 caracteres</span>
+									<input type="hidden" name="id_grupo" value="'.$id_grupo.'">
 	                            </p>
 								</div>
 								<div class="p-2 bd-highlight">
@@ -412,26 +483,23 @@
 										<b>Editar informações do grupo:</b>
 									</h5>
 									<p class="mb-0" style="font-size: 18px";>
-										<b>Privacidade:</b>
+										<b>Tipo:</b>
 										<br>
-										<select id="privacidade" name="privacidade">
-										<option value="Publico"> Publico </option>
-  										<option value="Privado"> Privado </option>	
+										<select id="tipo" name="tipo">
+											<option value="'.$tipo_grupo.'"> '.$tipo_grupo.' </option>
+											<option value="'.$outro_tipo.'"> '.$outro_tipo.' </option>	
 										</select>
-									</a>
 									</p>
-	                            <p class="mb-0" style="font-size: 18px";>
-	                                <b>Descrição:</b>
-	                                <br>
-                                  <input class="textoupdate_2" type="text" name="descricao_grupo" id="descricao_grupo" value="'.$descricao_grupo.'">              
-                                </p>
-								<p class="mb-0" style="font-size: 18px";>
-									<b>Criador:</b>
-									<br>'.$nome_adm_grupo.'
-								</p>
-								<p>
-									<a href="exec_deleta_grupo.php?id_grupo='.$id_grupo.'" class="text-danger">Apagar Grupo</a>
-								</p>
+									<p class="mb-0" style="font-size: 18px";>
+										<b>Descrição:</b>
+										<br>
+										<textarea class="textoupdate_3" type="text" name="descricao_grupo" id="descricao_grupo">'.$descricao_grupo.'</textarea>              
+										<span id="alert-descricao_grupo" class="to-hide" role="alert"><br>Digite a descrição do grupo</span>
+									</p>
+									<p>
+										<input type="submit" value="Salvar" class="btn-verde-grupo">
+										<a href="exec_deleta_grupo.php?id_grupo='.$id_grupo.'" class="btn-vermelho-grupo">Apagar Grupo</a>
+									</p>
 								</div>
 							</div>
 							</form>

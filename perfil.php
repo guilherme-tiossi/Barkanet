@@ -18,11 +18,6 @@
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $("#data").mask("00/00/0000");
-      });
-    </script>
 </head>
 
 <body>
@@ -63,13 +58,13 @@
         echo "<script>document.location.href = 'perfil.php?pag=1';</script>";
       }
     ?>
-    <?php ler_dados_usuario($email, $pdo); ?>
-      
-    <div><?php ler_amigos_usuario(); ?></div>
     
+    <div><?php ler_dados_usuario($email, $pdo); ?></div>
+
     <div class="card-fundo-ext">
       <div class="conteudo">
-        <?php ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg); ?>
+        <div id="meusposts"><?php ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg); ?></div>
+        <div id="meusamigos" class="to-hide"><?php ler_amigos_usuario(); ?></div>
       </div>
 
       <?php
@@ -136,6 +131,18 @@
 if (isset($_GET['editar'])){
   ?><script>
     mostraropcoesperfil()
+  </script><?php
+}
+
+if (isset($_GET['meus-posts'])){
+  ?><script>
+    meusPosts()
+  </script><?php
+}
+
+if (isset($_GET['meus-amigos'])){
+  ?><script>
+    meusAmigos()
   </script><?php
 }
 ?>

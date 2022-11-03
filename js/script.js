@@ -262,6 +262,42 @@ if(dia > 31 || mes > 12 || dia == 00 || mes == 00){
 return validar;
 }
 
+function editarGrupo() {
+    var validar = true;
+    var nome_grupo = document.getElementById("nome_grupo").value;
+    var descricao_grupo = document.getElementById("descricao_grupo").value;
+    
+    if (nome_grupo == "") {
+        document.getElementById('alert-nome_grupo').className = "alerta";
+        validar = false;
+    }
+    
+    if (nome_grupo.length <= 2) {
+        document.getElementById('alert-nome_grupo').className = "alerta";
+        validar = false;
+    }
+    
+    if (nome_grupo != "" & nome_grupo.length > 2) {
+        document.getElementById('alert-nome_grupo').className = "to-hide";
+    }
+
+    if (descricao_grupo == "") {
+        document.getElementById('alert-descricao_grupo').className = "alerta";
+        validar = false;
+    }
+    
+    if (descricao_grupo.length <= 2) {
+        document.getElementById('alert-descricao_grupo').className = "alerta";
+        validar = false;
+    }
+    
+    if (descricao_grupo != "" & descricao_grupo.length > 2) {
+        document.getElementById('alert-descricao_grupo').className = "to-hide";
+    }
+
+    return validar;
+}
+
 function editarSenha() {
 var validar = true;
 var senha = document.getElementById("senha").value;
@@ -485,16 +521,24 @@ document.getElementById('grupos').className = "to-hide";
 document.getElementById('meusgrupos').className = "";
 }
 
-function postsgrupos(){
-//document.getElementById('amigosgrupo').className = "to-hide";
-//document.getElementById('postsgrupo').className = "";
-alert('?');
+function meusPosts(){
+document.getElementById('meusamigos').className = "to-hide";
+document.getElementById('meusposts').className = "";
+}
+
+function meusAmigos(){
+document.getElementById('meusposts').className = "to-hide";
+document.getElementById('meusamigos').className = "";
+}
+
+function grupoPosts(){
+document.getElementById('grupomembros').className = "to-hide";
+document.getElementById('grupoposts').className = "";
 }
     
-function amigosgrupos(){
-//document.getElementById('postsgrupo').className = "to-hide";
-//document.getElementById('amigosgrupo').className = "";
-alert('?');
+function grupoMembros(){
+document.getElementById('grupoposts').className = "to-hide";
+document.getElementById('grupomembros').className = "";
 }
 
 function mostraropcoesgrupos() {

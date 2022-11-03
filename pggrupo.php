@@ -40,7 +40,7 @@ if(isset($_GET['id_grupo'])){
     <link href="fontawesome/css/all.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    </head>
+</head>
 
 <div class="d-flex">
   <!--Menu Esquerada-->
@@ -96,127 +96,154 @@ if(isset($_GET['id_grupo'])){
       $stmt->execute();
       $rowNum = $stmt->rowCount();
 
+      echo "
+      <div class='conteudo'>";
+
       if($rowNum <= 0){
         echo "
-        <h2 class='p-3'>Posts de ".$nome_grupo."</h2>
-        <div class='conteudo'>
-          <p class='msg-timeline text-center'>Ainda não tem nenhum post aqui...</p>
+        <div id='grupoposts'>
+        <div class='d-flex'>
+          <div class='p-2 flex-fill'>
+            <h2 class='p-3'>Posts de ".$nome_grupo."</h2>
+          </div>
+          <div class='p-2 flex-fill'>
+            <div class='d-flex flex-row-reverse'>
+              <div class='btn-group p-3' role='group'>
+                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-posts&id_grupo=".$id_grupo."&pag=1'>Posts</a>
+                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Amigos</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class='msg-timeline text-center'>Ainda não tem nenhum post aqui...</p>
         </div>";
       }
       else{
-        echo "<h2 class='p-3'>Posts de ".$nome_grupo."</h2>";
+        echo "
+        <div id='grupoposts'>
+        <div class='d-flex'>
+          <div class='p-2 flex-fill'>
+            <h2 class='p-3'>Posts de ".$nome_grupo."</h2>
+          </div>
+          <div class='p-2 flex-fill'>
+            <div class='d-flex flex-row-reverse'>
+              <div class='btn-group p-3' role='group'>
+                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-posts&id_grupo=".$id_grupo."&pag=1'>Posts</a>
+                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Amigos</a>
+              </div>
+            </div>
+          </div>
+        </div>";
+          foreach ($stmt as $row):
+              $idposter = $row['usuario'];
+              $pfp_poster = $row['profilepic'];
+              $nome_poster = $row['nome'];
+              $poster = $row['post'];
 
-        foreach ($stmt as $row):
-            $idposter = $row['usuario'];
-            $pfp_poster = $row['profilepic'];
-            $nome_poster = $row['nome'];
-            $poster = $row['post'];
+              $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
+              $swor->execute();
+              $linhas = $swor->rowCount();
+        
+              echo "
+                <div class='mx-auto' style='width: 80%;'>";
 
-            $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
-            $swor->execute();
-            $linhas = $swor->rowCount();
-      
-            echo "
-            <div class='conteudo'>
-              <div class='mx-auto' style='width: 80%;'>";
-
-                if($linhas > 0){
-                  echo "
-                  <div class='mt-3 card-posts' style='border-bottom: none;'>
-                  <div class='card-body card bg-light m-2 mb-0'>";
-                }else{
-                  echo "
-                  <div class='mt-3 card-posts'>
-                  <div class='card-body card bg-light m-2'>";
-                }
-                echo "<div class='d-flex flex-row bd-highlight mb-0'>
-                      <div class='p-2 bd-highlight'>
-                        <img class='float-left' src='img/$pfp_poster' width='64' height='64' title='foto'>
+                  if($linhas > 0){
+                    echo "
+                    <div class='mt-3 card-posts' style='border-bottom: none;'>
+                    <div class='card-body card bg-light m-2 mb-0'>";
+                  }else{
+                    echo "
+                    <div class='mt-3 card-posts'>
+                    <div class='card-body card bg-light m-2'>";
+                  }
+                  echo "<div class='d-flex flex-row bd-highlight mb-0'>
+                        <div class='p-2 bd-highlight'>
+                          <img class='float-left' src='img/$pfp_poster' width='64' height='64' title='foto'>
+                        </div>
+                        <div class='p-2 bd-highlight'>
+                          <p class='mb-0' style='font-size: 18px';>
+                          <b><a href='pgamigo.php?id=$idposter' class='link'>$nome_poster</a></b>
+                          <br>
+                          <p class='titulo-post'>$row[titulo]</p>
+                          </p>
+                        </div>
                       </div>
-                      <div class='p-2 bd-highlight'>
-                        <p class='mb-0' style='font-size: 18px';>
-                        <b><a href='pgamigo.php?id=$idposter' class='link'>$nome_poster</a></b>
-                        <br>
-                        <p class='titulo-post'>$row[titulo]</p>
-                        </p>
-                      </div>
-                    </div>
-                    <div class='m-3 mt-0'>
-                      <p class='m-1'>$poster</p>
-                      <div class='mx-auto m-1' style='width: 80%;'>";
-                      if ($row['file'] != null) {
-                        if(strripos($row['file'], 'jpg') == true || strripos($row['file'], 'jpeg') == true || strripos($row['file'], 'png') == true || strripos($row['file'], 'gif') == true){
-                          echo "<img src='img/$row[file]' class='img-fluid' title='<$row[file]>' />";
-                        }else {
-                          echo "<video class='vid-fluid' controls><source src='img/$row[file]' title='<$row[file]>''/></video>";
+                      <div class='m-3 mt-0'>
+                        <p class='m-1'>$poster</p>
+                        <div class='mx-auto m-1' style='width: 80%;'>";
+                        if ($row['file'] != null) {
+                          if(strripos($row['file'], 'jpg') == true || strripos($row['file'], 'jpeg') == true || strripos($row['file'], 'png') == true || strripos($row['file'], 'gif') == true){
+                            echo "<img src='img/$row[file]' class='img-fluid' title='<$row[file]>' />";
+                          }else {
+                            echo "<video class='vid-fluid' controls><source src='img/$row[file]' title='<$row[file]>''/></video>";
+                          }
                         }
-                      }
-                echo "
+                  echo "
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>";
+                </div>";
 
-                //COMENTARIOS
-                $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
-                $swor->execute();
-                $linhas = $swor->rowCount();
+                  //COMENTARIOS
+                  $swor = $pdo->prepare("SELECT * FROM comentarios WHERE id_post = '{$row['idpost']}'");
+                  $swor->execute();
+                  $linhas = $swor->rowCount();
 
-                if ($linhas > 0) {
-                    echo "
-                  <div class='mx-auto mb-2' style='width: 80%;'>
-                    <div class='card-comentarios pt-3'>";
-                    foreach ($swor as $swo):
-                        $idcomenter = $swo['com_user'];
-                        $pfpcom = $swo['profilepic'];
-                        $com = $swo['comentario'];
-                        $com_nome = $swo['com_nome'];
+                  if ($linhas > 0) {
+                      echo "
+                    <div class='mx-auto mb-2' style='width: 80%;'>
+                      <div class='card-comentarios pt-3'>";
+                      foreach ($swor as $swo):
+                          $idcomenter = $swo['com_user'];
+                          $pfpcom = $swo['profilepic'];
+                          $com = $swo['comentario'];
+                          $com_nome = $swo['com_nome'];
 
-                        echo "
-                          <div class='card bg-light m-3 mt-0 p-2' style='width: 80%;'>
-                            <div class='d-flex flex-row mb-0'>
-                              <div class='p-2 bd-highlight'>
-                                  <img class='float-left' src='img/$pfpcom' width='50' height='50' title='foto'>
+                          echo "
+                            <div class='card bg-light m-3 mt-0 p-2' style='width: 80%;'>
+                              <div class='d-flex flex-row mb-0'>
+                                <div class='p-2 bd-highlight'>
+                                    <img class='float-left' src='img/$pfpcom' width='50' height='50' title='foto'>
+                                </div>
+                                <div class='p-2 bd-highlight'>
+                                    <div class='mb-0' style='font-size: 17px';>
+                                      <b> <a href='pgamigo.php?id=$idcomenter' class='link'>$com_nome</a> </b>				
+                                      <br>
+                                      <p>$com</p>
+                                    </div>
+                                </div>
                               </div>
-                              <div class='p-2 bd-highlight'>
-                                  <div class='mb-0' style='font-size: 17px';>
-                                    <b> <a href='pgamigo.php?id=$idcomenter' class='link'>$com_nome</a> </b>				
-                                    <br>
-                                    <p>$com</p>
-                                  </div>
-                              </div>
-                            </div>
-                          </div>";
-                    endforeach;
-                    echo "
-                    </div>
-                  </div>";
-                }
+                            </div>";
+                      endforeach;
+                      echo "
+                      </div>
+                    </div>";
+                  }
 
-                //COMENTAR
-                $idpost = $row["idpost"];
-                $idgrupo = $_GET['id_grupo'];
-                echo '
-              <div class="mx-auto mb-2" style="width: 80%;">
-                <form action="exec_com.php" method="post">
-                  <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
-                  <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
-                  <input type="hidden" name="post_id" value="' .
-                    $idpost .
-                    '">
-                  <input type="hidden" name="id_amigo" value=0> 
-                  <input type="hidden" name="grupo_id" value="' .
-                    $idgrupo .
-                    '"> 
-                  <button type="submit" name="comentar" class="btn_comentario">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                  </button>';
-                echo '
-                </form>
-              </div>
-            </div>';
-        endforeach;
+                  //COMENTAR
+                  $idpost = $row["idpost"];
+                  $idgrupo = $_GET['id_grupo'];
+                  echo '
+                  <div class="mx-auto mb-2" style="width: 80%;">
+                  <form action="exec_com.php" method="post">
+                    <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+                    <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
+                    <input type="hidden" name="post_id" value="' .
+                      $idpost .
+                      '">
+                    <input type="hidden" name="id_amigo" value=0> 
+                    <input type="hidden" name="grupo_id" value="' .
+                      $idgrupo .
+                      '"> 
+                    <button type="submit" name="comentar" class="btn_comentario">
+                      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>';
+                  echo '
+                  </form>
+                </div>';
+          endforeach;
+        echo "</div>";
       }
 
       $pagina_anterior = $pagina_grupo - 1;
@@ -227,7 +254,20 @@ if(isset($_GET['id_grupo'])){
 
       //LISTA DE AMIGO
       echo "
-      <div>";
+        <div id='grupomembros' class='to-hide'>
+          <div class='d-flex'>
+            <div class='p-2 flex-fill'>
+              <h2 class='p-3'>Membros</h2>
+            </div>
+            <div class='p-2 flex-fill'>
+              <div class='d-flex flex-row-reverse'>
+                <div class='btn-group p-3' role='group'>
+                  <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-posts&id_grupo=".$id_grupo."&pag=1'>Posts</a>
+                  <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Amigos</a>
+                </div>
+              </div>
+            </div>
+          </div>";
         $stmt2 = $pdo->prepare("SELECT * from tbgrupos where id_grupo = {$_GET['id_grupo']}");
         $stmt2->execute();
         foreach ($stmt2 as $row):
@@ -235,7 +275,6 @@ if(isset($_GET['id_grupo'])){
         endforeach;
 
         if ($adm_grupo == $_SESSION['userId']) {
-            echo "<h3>Convidar Amigos</h3>";
             $stmt2 = $pdo->prepare("SELECT * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
             $stmt2->execute();
 
@@ -273,6 +312,7 @@ if(isset($_GET['id_grupo'])){
         echo "
       </div>";
 
+      echo "</div>";
       echo '
             <div class="mt-5 paginacao">
                 <nav>
@@ -329,6 +369,26 @@ if(isset($_GET['id_grupo'])){
     <?php include 'menu_direita.php'; ?>
   </div>
 </div>
+
+<?php
+if (isset($_GET['editar-grupo'])){
+  ?><script>
+    mostraropcoesgrupos()
+  </script><?php
+}
+
+if (isset($_GET['grupo-posts'])){
+  ?><script>
+    grupoPosts()
+  </script><?php
+}
+
+if (isset($_GET['grupo-membros'])){
+  ?><script>
+    grupoMembros()
+  </script><?php
+}
+?>
 
 <script>
 function readURL(input) {

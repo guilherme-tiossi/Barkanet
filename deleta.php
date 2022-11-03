@@ -52,8 +52,8 @@
   	<div class="card-fundo-ext">
 	<section>
 		<div class="card m-3" style="width: 25rem;">
-			<div class="card-body">
-				<h3>Deletar Conta</h3>
+      <div class="card-body">
+      <h3>Deletar Conta</h3>
 			<?php
             if(isset($_SESSION['nao_autenticado'])):
             ?>
@@ -65,7 +65,38 @@
             unset($_SESSION['nao_autenticado']);
             ?>
 			<form  action="exec_deleta.php"  method="post" onsubmit="return verificaExclusao()" autocomplete="off" enctype="multipart/form-data">
-					<div class="form-group mt-3">
+    
+    <?php
+    //ṕroblemas demonios! 
+        echo "<hr> <h4> Selecione um sucessor para fazer a administração dos seguintes grupos: </h4>";
+        $iduser = $_SESSION['userId'];
+            $stmt = $pdo->prepare("select * from tbgrupos where adm_grupo = $iduser");
+            $stmt->execute();
+            foreach ($stmt as $row):
+                $idgrupo = $row["id_grupo"];
+                $nomegrupo = $row["nome_grupo"];
+            echo "<b>" . $nomegrupo . "</b> <hr> <select id='$idgrupo'>";
+        $stmt2 = $pdo->prepare("select * from membros_grupos where (id_adm = $iduser and id_grupo = $idgrupo and id_usuario != $iduser)");
+            $stmt2 ->execute();
+            foreach ($stmt2 as $row):
+              $id_usuario = $row['id_usuario'];
+                $stmt3 = $pdo->prepare("select id, profilepic, nome from usuarios where id = '$id_usuario'");
+                $stmt3 ->execute();
+                foreach ($stmt3 as $row):
+            $idnovoadm = $row['id'];
+            echo "
+            <option value='$idnovoadm'>" . $row['nome'] . "</option> 
+            <br>";
+                endforeach;
+            endforeach;
+            echo "</select> <hr>";
+        endforeach;
+    
+    //ṕroblemas demonios!
+    ?>
+
+
+      <div class="form-group mt-3">
 						<input class="form-control" type="text" name="email" id="email" placeholder="E-mail">
             <span id="alerta-email" class="to-hide" role="alert">Preencha o campo email corretamente</span>
 					</div>

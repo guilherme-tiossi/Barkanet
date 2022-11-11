@@ -1,0 +1,1 @@
+<?php entrar_grupo_publico($con, $_GET['id_grupo'], $_GET['id']);?>

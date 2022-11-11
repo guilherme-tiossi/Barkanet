@@ -1,0 +1,1 @@
+<?php pesquisa_grupo($con, $_GET['nome_grupo']); ?>

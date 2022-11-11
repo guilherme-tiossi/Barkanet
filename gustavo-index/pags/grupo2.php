@@ -1,0 +1,1 @@
+<?php get_perfil_grupo_procurar($con, $_GET['id_grupo'], $_GET['id']); ?>

@@ -1,0 +1,1 @@
+<?php get_perfil($con, $_GET['id']);?>

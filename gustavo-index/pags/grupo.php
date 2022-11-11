@@ -1,0 +1,1 @@
+<?php get_perfil_grupo_pggrupo($con, $_GET['id_grupo'], $_GET['id']); ?>

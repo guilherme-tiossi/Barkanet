@@ -20,7 +20,6 @@ $id_grupo = $_GET['id_grupo'];
    </form>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $("#live_search").keyup(function(){
@@ -47,7 +46,6 @@ $id_grupo = $_GET['id_grupo'];
     });
 </script>
 
-
 <div class="to-hide" id="searchresult"></div>
 <?php carrega_pagina_atalho($con); ?>
 
@@ -58,7 +56,7 @@ $id_grupo = $_GET['id_grupo'];
           <img src='img/<?php echo $pfp; ?>' width='60px' height='60px' title='<?php echo $pfp; ?>'>
         </div>
         <div class='m-1'>
-            <h4 class="PORRA">
+            <h4>
                <a href="perfil.php" class="link-perfil"> <?php echo $nome; ?> </a>
             </h4>
             <a href="perfil.php?editar&pag=1" class="editarperfil">Editar perfil</a>
@@ -116,7 +114,7 @@ $id_grupo = $_GET['id_grupo'];
          ?>
          <a class="listapags" href="perfil.php"><i class="fa-solid fa-user"></i>Perfil</a>
          <a class="listapags" href="posts.php"><i class="fa-solid fa-image"></i>Posts</a>
-         <a class="listapags" href="procurar.php"><i class="fa-solid fa-magnifying-glass"></i>Procurar <?php if($not > 0){ echo $not; }?></a>
+         <a class="listapags" href="procurar.php"><i class="fa-solid fa-envelope"></i></i>Notificações <?php if($not > 0){ echo $not; }?></a>
          <a class="listapags" href="configuracoes.php"><i class="fa-solid fa-gear"></i>Configurações</a>
          <a class="listapags" href="logout.php" onclick="reset()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
       </div>

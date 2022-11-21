@@ -45,7 +45,6 @@ $stmt ->execute();
     });
 </script>
 
-
 <div class="to-hide" id="searchresult"></div>
 <?php carrega_pagina_atalho($con); ?>
 

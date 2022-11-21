@@ -41,8 +41,8 @@
                <div class="modal-content">
                   <div class="modal-header">
                      <h2 class="modal-title" id="TituloModalLongoExemplo"> Termos de Uso e Condições </h2>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                     <span aria-hidden="true">&times;</span>
+                     <button type="button" class="btn-solicitation-n" data-dismiss="modal" aria-label="Fechar">
+                     <span aria-hidden="true">X</span>
                      </button>
                   </div>
                   <div class="modal-body">
@@ -82,7 +82,7 @@
                      <p> 6.1Os termos descritos neste documento são somente para conveniência da rede social enquanto existência, e não terão quaisquer efeitos legais e/ou de contrato. </p>
                   </div>
                   <div class="modal-footer">
-                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                     <button type="button" class="btn-solicitation-p" data-dismiss="modal">Fechar</button>
                   </div>
                </div>
             </div>

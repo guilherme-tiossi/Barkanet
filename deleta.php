@@ -28,108 +28,71 @@
   </div>
 
   <!--Centro-->
-  <!-- <div class="col-6">
-  <section>
-		<div>
-			<h1>Deletar conta</h1>
-        PHP AUTENTICADO OU NAO!
-			<form method="POST" action="exec_deleta.php" onsubmit="return verificaExclusao()">
-				<label for="email">Email: </label>
-				<input type="text" name="email" id="email">
-				<span id="alerta-email" class="to-hide" role="alert">Preencha o campo email corretamente</span>
-				<br>
-				<label for="senha">Senha: </label>
-				<input type="password" name="senha" id="senha">
-				<span id="alerta-senha" class="to-hide" role="alert">Preencha o campo senha corretamente</span>
-				<br>
-				<input type="submit" name="deleta" value="Deletar">
-			</form>
-		</div>
-	</section>
+  <!--
+  <div class="col-6">
+    <section>
+      <div>
+        <h1>Deletar conta</h1>
+          PHP AUTENTICADO OU NAO!
+        <form method="POST" action="exec_deleta.php" onsubmit="return verificaExclusao()">
+          <label for="email">Email: </label>
+          <input type="text" name="email" id="email">
+          <span id="alerta-email" class="to-hide" role="alert">Preencha o campo email corretamente</span>
+          <br>
+          <label for="senha">Senha: </label>
+          <input type="password" name="senha" id="senha">
+          <span id="alerta-senha" class="to-hide" role="alert">Preencha o campo senha corretamente</span>
+          <br>
+          <input type="submit" name="deleta" value="Deletar">
+        </form>
+      </div>
+    </section>
   </div> -->
 
   <div class="col-6">
-  	<div class="card-fundo-ext">
-	<section>
-		<div class="card m-3" style="width: 25rem;">
-      <div class="card-body">
-      <h3>Deletar Conta</h3>
-			<?php
-            if(isset($_SESSION['nao_autenticado'])):
-            ?>
-            <div>
-            	<p class="alert">Email ou senha incorretos</p>
-            </div>
-            <?php
-            endif;
-            unset($_SESSION['nao_autenticado']);
-            ?>
-			<form  action="exec_deleta.php"  method="post" onsubmit="return verificaExclusao()" autocomplete="off" enctype="multipart/form-data">
-    
-    <?php
-    //ṕroblemas demonios! 
-        echo "<hr> <h4> Selecione um sucessor para fazer a administração dos seguintes grupos: </h4>";
-        $iduser = $_SESSION['userId'];
-            $stmt = $pdo->prepare("select * from tbgrupos where adm_grupo = $iduser");
-            $stmt->execute();
-            foreach ($stmt as $row):
-                $idgrupo = $row["id_grupo"];
-                $nomegrupo = $row["nome_grupo"];
-            echo "<b>" . $nomegrupo . "</b> <hr> <select id='$idgrupo'>";
-        $stmt2 = $pdo->prepare("select * from membros_grupos where (id_adm = $iduser and id_grupo = $idgrupo and id_usuario != $iduser)");
-            $stmt2 ->execute();
-            foreach ($stmt2 as $row):
-              $id_usuario = $row['id_usuario'];
-                $stmt3 = $pdo->prepare("select id, profilepic, nome from usuarios where id = '$id_usuario'");
-                $stmt3 ->execute();
-                foreach ($stmt3 as $row):
-            $idnovoadm = $row['id'];
-            echo "
-            <option value='$idnovoadm'>" . $row['nome'] . "</option> 
-            <br>";
-                endforeach;
-            endforeach;
-            echo "</select> <hr>";
-        endforeach;
-    
-    //ṕroblemas demonios!
-    ?>
-
-
-      <div class="form-group mt-3">
-						<input class="form-control" type="text" name="email" id="email" placeholder="E-mail">
-            <span id="alerta-email" class="to-hide" role="alert">Preencha o campo email corretamente</span>
-					</div>
-					<div class="form-group mt-3">
-						<input class="form-control" type="password" name="senha" id="senha" placeholder="Senha">
-            <span id="alerta-senha" class="to-hide" role="alert">Preencha o campo senha corretamente</span>
-					</div>
-					<div class="form-group mt-3">
-          <a href="" data-toggle="modal" data-target="#ModalLongoExemplo"> Deletar </a>
-				
-          <div class="modal fade-modal-lg" id="ModalLongoExemplo" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-               <div class="modal-content">
-                  <div class="modal-header">
-                     <h2 class="modal-title" id="TituloModalLongoExemplo"> VOCÊ TEM CERTEZA QUE DESEJA DELETAR SUA CONTA DO BARKANET? </h2>
-                  </div>
-                  <div class="modal-body">
-                     <p> 
-                     Você tem certeza de que deseja excluir sua conta do Barkanet? Seu dados, incluindo publicações e comentários serão apagados imediatamente. Essa ação é irreversível.
-          </p>
-                  </div>
-                  <div class="modal-footer">
-                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-
-						      <input type="submit" class="btn btn-primary" name="submit" value="Deletar" id="form_exclusao">
-					        </div>
+    <div class="card-fundo-ext">
+      <div class="box-center">
+        <div class="card m-3" style="width: 25rem;">
+          <div class="card-body">
+              <h3>Deletar Conta</h3>
+              <form  action="exec_deleta.php"  method="post" onsubmit="return verificaExclusao()" autocomplete="off" enctype="multipart/form-data">
+                <div class="form-group mt-3">
+                    <input class="form-control" type="text" name="email" id="email" placeholder="E-mail">
+                    <span id="alerta-email" class="to-hide">Preencha o campo email corretamente</span>
+                </div>
+                <div class="form-group mt-3">
+                    <input class="form-control" type="password" name="senha" id="senha" placeholder="Senha">
+                    <span id="alerta-senha" class="to-hide">Preencha o campo senha corretamente</span>
+                </div>
+                <div class="form-group mt-3">
+                    <a href="configuracoes.php" class="btn-solicitation-n">Voltar</a>
+                    <a href="" class="btn-solicitation-p" data-toggle="modal" data-target="#ModalLongoExemplo"> Deletar </a>
+                    <div class="modal fade-modal" id="ModalLongoExemplo" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="TituloModalLongoExemplo"> VOCÊ TEM CERTEZA QUE DESEJA DELETAR SUA CONTA DO BARKANET? </h3>
+                            </div>
+                            <div class="modal-body">
+                                <p> 
+                                  Você tem certeza de que deseja excluir sua conta do Barkanet? Seu dados, incluindo publicações e comentários serão apagados imediatamente. Essa ação é irreversível.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn-solicitation-n" data-dismiss="modal">Cancelar</button>
+                                <input type="submit" class="btn-solicitation-p" name="submit" value="Deletar" id="form_exclusao">
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </form>
           </div>
-          </form>
-			</div>
-		</div>
-	</section>
-	</div>
-  </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
   <!--Menu Direita-->
   <div class="col">

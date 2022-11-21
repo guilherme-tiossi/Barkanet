@@ -304,12 +304,12 @@ var senha = document.getElementById("senha").value;
 var c_senha = document.getElementById("c_senha").value;
 
 if (senha == "") {
-    document.getElementById('alert-senha').className = "alert";
+    document.getElementById('alert-senha').className = "text-danger";
     validar = false;
 }
 
 if (senha.length < 8) {
-    document.getElementById('alert-senha').className = "alert";
+    document.getElementById('alert-senha').className = "text-danger";
     validar = false;
 }
 
@@ -319,12 +319,12 @@ if (senha != "" & senha.length >= 8) {
 
 if (senha != c_senha) {
     document.getElementById('alert-c_senha1').className = "to-hide";
-    document.getElementById('alert-c_senha2').className = "alert";
+    document.getElementById('alert-c_senha2').className = "text-danger";
     validar = false;
 }
 
 if (c_senha == "") {
-    document.getElementById('alert-c_senha1').className = "alert";
+    document.getElementById('alert-c_senha1').className = "text-danger";
     document.getElementById('alert-c_senha2').className = "to-hide";
     validar = false;
 }
@@ -443,7 +443,7 @@ while (segs >= 60) {
     }
 }
 
-verificar_tempo = min_a/30;
+var verificar_tempo = min_a/30;
 
 if(Number.isInteger(verificar_tempo) == true && segs == 0){
     $(document).ready(function(){

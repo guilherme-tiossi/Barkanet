@@ -38,10 +38,11 @@ if(isset($_GET['id_grupo'])){
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
     <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>    
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>  
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
-
+    
 <div class="d-flex">
   <!--Menu Esquerada-->
   <div class="col">
@@ -251,6 +252,7 @@ if(isset($_GET['id_grupo'])){
       $num_atual = isset($_GET['pag']) ? $_GET['pag'] : 1;
       $num_anterior = $num_atual - 1;
       $num_posterior = $num_atual + 1;
+      $i = 0;
 
       //LISTA DE AMIGO
       echo "
@@ -278,36 +280,65 @@ if(isset($_GET['id_grupo'])){
             $stmt2 = $pdo->prepare("SELECT * from amigos where (id_de = {$_SESSION['userId']} and status = '1') or (id_para = {$_SESSION['userId']} and status = '1')");
             $stmt2->execute();
 
+            echo '
+            <div class="box-table">
+            <table class="table table-hover mx-2 largura-tabela">
+            <tbody>';
             foreach ($stmt2 as $row):
                 $id_para = $row['id_para'];
                 $id_de = $row['id_de'];
+                $i += 1;
 
                 if ($id_para == $_SESSION['userId']) {
-                    $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_de'");
+                    $stmt3 = $pdo->prepare("SELECT id, nome, profilepic from usuarios where id = '$id_de'");
                     $stmt3->execute();
                     foreach ($stmt3 as $row):
-                        echo "<a href='?pag={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}' class='link-kiwi'>{$row['nome']}</a>";
-                        echo "<br>";
+                        echo "<tr><td><img src='img/$row[profilepic]' class='pfp-miniatura'></td>";
+                        echo "<td>{$row['nome']}</td><td>";
+                        lista_grupo($con, $_SESSION['userId'], $row['id'], $_GET['id_grupo']);
+                        echo "</td></tr>";
                     endforeach;
                 }
 
                 if ($id_de == $_SESSION['userId']) {
-                    $stmt3 = $pdo->prepare("SELECT id, nome from usuarios where id = '$id_para'");
+                    $stmt3 = $pdo->prepare("SELECT id, nome, profilepic from usuarios where id = '$id_para'");
                     $stmt3->execute();
                     foreach ($stmt3 as $row):
-                        echo "<a href='?pag={$num_atual}&pagina=grupo&id_grupo={$_GET['id_grupo']}&id={$row['id']}' class='link-kiwi'>{$row['nome']}</a>";
-                        echo "<br>";
+                        echo "<tr><td><img src='img/$row[profilepic]' class='pfp-miniatura'></td>";
+                        echo "<td>{$row['nome']}</td><td>";
+                        lista_grupo($con, $_SESSION['userId'], $row['id'], $_GET['id_grupo']);
+                        echo "</td></tr>";
                     endforeach;
                 }
+                
             endforeach;
+            
+            echo "
+            </tbody>
+            </table>
+            </div>";
+
         } else {
-            $stmt2 = $pdo->prepare("SELECT * FROM membros_grupos WHERE (id_adm = $adm_grupo AND id_usuario = {$_SESSION['userId']}) OR (id_usuario = $adm_grupo AND id_adm = {$_SESSION['userId']})");
+          $stmt2 = $pdo->prepare("SELECT * from membros_grupos where id_grupo = {$_GET['id_grupo']}");
+          $stmt2->execute();
+
+          foreach ($stmt2 as $row):
+            $id_usuario = $row['id_usuario'];
+            $stmt2 = $pdo->prepare("SELECT * from usuarios where id = {$id_usuario}");
             $stmt2->execute();
             foreach ($stmt2 as $row):
-                $id = $row['id'];
-                $id_grupo = $row['id_grupo'];
+              $usuario = $row['nome'];
+              echo "<ul><li>$usuario</li></ul>";
             endforeach;
-            echo "<a href='?pag={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}' class='btn-solicitation-n'>Sair do Grupo</a>";
+          endforeach;
+
+          $stmt2 = $pdo->prepare("SELECT * FROM membros_grupos WHERE (id_adm = $adm_grupo AND id_usuario = {$_SESSION['userId']}) OR (id_usuario = $adm_grupo AND id_adm = {$_SESSION['userId']})");
+          $stmt2->execute();
+          foreach ($stmt2 as $row):
+            $id = $row['id'];
+            $id_grupo = $row['id_grupo'];
+          endforeach;
+          echo "<a href='?pag={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}' class='btn-solicitation-n'>Sair do Grupo</a>";
         };
         echo "
       </div>";

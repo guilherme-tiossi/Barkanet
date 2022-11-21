@@ -608,6 +608,49 @@
 		}
 	}
 
+	function lista_grupo($con, $id_usuario, $id_amigo, $id_grupo){
+		//CONSULTA DE ADMINISTRADOR
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ? AND id_grupo = ?) OR (id_adm = ? AND id_usuario = ? AND id_grupo = ?)");
+		$sql->bind_param("ssssss", $id_usuario, $id_amigo, $_GET['id_grupo'], $id_amigo, $id_usuario, $_GET['id_grupo']);
+		$sql->execute();
+		$get = $sql->get_result();
+		$total = $get->num_rows;
+		
+		if($total > 0){
+			$dados = $get->fetch_assoc();
+			$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND id_grupo = ?");
+			$sql->bind_param("sss", $id_usuario, $id_amigo, $_GET['id_grupo']);
+			$sql->execute();
+			$get = $sql->get_result();
+			$total = $get->num_rows;
+
+			if($total > 0){
+				$dados = $get->fetch_assoc();
+
+				if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] != $id_usuario && $dados['status'] == 1){
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-vermelho-grupo'>Remover</a>";
+				}
+
+				if($dados['id_adm'] == $id_usuario && $id_amigo == $dados['id_usuario'] && $dados['para'] == $id_amigo && $dados['status'] == 0){
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-n'>Cancelar Solicitação</a>";
+				}
+			}
+		}
+
+		else{
+			$sql = $con->prepare("SELECT adm_grupo FROM tbgrupos WHERE id_grupo = ?");
+			$sql->bind_param("s", $id_grupo);
+			$sql->execute();
+			$get = $sql->get_result();
+			$total = $get->num_rows;
+			$dados = $get->fetch_assoc();
+				
+			if($total > 0  && $dados['adm_grupo'] == $id_usuario){
+				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-solicitation-p'>Convidar</a>";
+			}
+		}
+	}
+
 	function verfica_solicitacoes_grupo_pggrupo($con, $id_usuario, $id_amigo, $id_grupo){
 		//CONSULTA DE ADMINISTRADOR
 		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE (id_adm = ? AND id_usuario = ? AND id_grupo = ?) OR (id_adm = ? AND id_usuario = ? AND id_grupo = ?)");
@@ -752,18 +795,24 @@
 
 	function send_convite_grupo($con, $id_grupo, $id_usuario){
 		$zero = 0;
+		if (isset($_GET['grupo-membros'])){
+			$red = "pggrupo.php?grupo-membros&id_grupo={$id_grupo}&pag=1";
+		}else{
+			$red = "pggrupo.php?grupo-posts&id_grupo={$id_grupo}&pag=1";
+		}
+
 		if(verifica_membro_convite($con, $_SESSION['userId'], $id_usuario, $id_grupo) <= 0){
 			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
 			$sql->bind_param("sssss", $_SESSION['userId'], $id_usuario, $id_grupo, $id_usuario, $zero);
 			$sql->execute();
 
 			if($sql->affected_rows > 0){
-				redireciona("pggrupo.php?id_grupo={$id_grupo}");
+				redireciona($red);
 			}else{
 				return false;
 			}
 		}else{
-			redireciona("pggrupo.php?id_grupo={$id_grupo}");
+			redireciona($red);
 		}
 		
 	}

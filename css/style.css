@@ -8,6 +8,18 @@
   word-break: break-word;
 }
 
+.alerta-postagem{
+  margin-left: 0.7rem;
+  color: #0049e6;
+  font-weight: 500;
+  font-size: 17px;
+  animation-name: animation-alert;
+  animation-duration: 1s;
+  word-wrap: break-word; 
+  word-break: break-word;
+}
+
+
 .vid-fluid{
   width: 100% !important;
   height: auto !important;
@@ -58,17 +70,22 @@
 
 .card-amigos{
   background-color: rgb(238, 239, 243);
-  width: 100%;
   border: 2px solid #b9babe;
-  border-top: none;
-  border-radius: 0;
-  display: inline-block;
-  padding: 5px;
-  }
-
+  border-radius: 5px;
+  margin-left: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+  
 .card-amigos-img{
-  padding-right: 0px;
-  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+  
+.card-amigos-nome{
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 18px;
 }
 
 .card-fundo{
@@ -206,7 +223,7 @@
 	display: none;
 }
 
-.pfp-miniatura{
+.miniatura{
   width: 40px;
   height: 40px;
   border-radius: 100%;
@@ -481,6 +498,10 @@ input[type=text]{
   color: #829b33;
 }
 
+.link {
+  color: #a2bf40;
+}
+
 .link:link {
   color: #a2bf40;
 }
@@ -594,7 +615,6 @@ input[type=text]{
 }
 
 .btn-vermelho-desfazer{
-  margin: 0 5px;
   padding: 5px 10px;
   color: #fff;
   font-size: 15px;

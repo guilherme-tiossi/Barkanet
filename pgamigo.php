@@ -23,9 +23,10 @@ if ($row_count < 1) {
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/fonts/font.css">
-    <script src="js/perfil.js"></script>
+    <script src="js/script.js"></script>
     <link href="fontawesome/css/all.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 
@@ -115,7 +116,9 @@ if ($row_count < 1) {
                            </div>
                            <div style="width: 18rem;">
                            <p class="mb-0" style="font-size: 18px";>
+                             <div class="mt-3">
                                <a href="?pagina=desfazer-amizade&id='.$idamigo.'" class="btn-vermelho-desfazer">Desfazer amizade</a>
+                             </div>
                            </p>
                            </div>
                        </div>

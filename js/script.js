@@ -59,12 +59,12 @@ var ano = data.split('/')[2];
 var idade = anoAtual - ano;
 
 if (nome == "") {
-    document.getElementById('alert-nome').className = "alert";
+    document.getElementById('alert-nome').className = "alerta";
     validar = false;
 }
 
 if (nome.length < 2) {
-    document.getElementById('alert-nome').className = "alert";
+    document.getElementById('alert-nome').className = "alerta";
     validar = false;
 }
 
@@ -73,7 +73,7 @@ if (nome != "" & nome.length > 2) {
 }
 
 if (data == "") {
-    document.getElementById('alert-data').className = "alert";
+    document.getElementById('alert-data').className = "alerta";
     validar = false;
 }
 
@@ -82,7 +82,7 @@ if (data != "") {
 }
 
 if (idade < 16) {
-    document.getElementById('alert-idade').className = "alert";
+    document.getElementById('alert-idade').className = "alerta";
     validar = false;
 }
 
@@ -91,7 +91,7 @@ if (idade >= 16) {
 }
 
 if (idade > 105) {
-    document.getElementById('alert-idade1').className = "alert";
+    document.getElementById('alert-idade1').className = "alerta";
     validar = false;
 }
 
@@ -100,17 +100,17 @@ if (idade <= 105) {
 }
 
 if (email == "") {
-    document.getElementById('alert-email').className = "alert";
+    document.getElementById('alert-email').className = "alerta";
     validar = false;
 }
 
 if (email.indexOf('@') == -1) {
-    document.getElementById('alert-email').className = "alert";
+    document.getElementById('alert-email').className = "alerta";
     validar = false;
 }
 
 if (email.indexOf('.com') == -1) {
-    document.getElementById('alert-email').className = "alert";
+    document.getElementById('alert-email').className = "alerta";
     validar = false;
 }
 
@@ -119,12 +119,12 @@ if (email != "" & email.indexOf('@') != -1 & email.indexOf('.com') != -1) {
 }
 
 if (senha == "") {
-    document.getElementById('alert-senha').className = "alert";
+    document.getElementById('alert-senha').className = "alerta";
     validar = false;
 }
 
 if (senha.length < 8) {
-    document.getElementById('alert-senha').className = "alert";
+    document.getElementById('alert-senha').className = "alerta";
     validar = false;
 }
 
@@ -134,12 +134,12 @@ if (senha != "" & senha.length >= 8) {
 
 if (senha != c_senha) {
     document.getElementById('alert-c_senha1').className = "to-hide";
-    document.getElementById('alert-c_senha2').className = "alert";
+    document.getElementById('alert-c_senha2').className = "alerta";
     validar = false;
 }
 
 if (c_senha == "") {
-    document.getElementById('alert-c_senha1').className = "alert";
+    document.getElementById('alert-c_senha1').className = "alerta";
     document.getElementById('alert-c_senha2').className = "to-hide";
     validar = false;
 }
@@ -150,7 +150,7 @@ if (senha == c_senha & c_senha != "") {
 }
 
 if(concordar_termos.checked == false) {
-    document.getElementById('alert-termos').className = "alert";
+    document.getElementById('alert-termos').className = "alerta";
     validar = false;
 }
 
@@ -170,12 +170,12 @@ var senha = document.getElementById("senha").value;
 
 
 if (email == "") {
-    document.getElementById('alert-email').className = "alert";
+    document.getElementById('alert-email').className = "alerta";
     validar = false;
 }
 
 if (email.indexOf('@') == -1 & email.indexOf('.com') == -1) {
-    document.getElementById('alert-email').className = "alert";
+    document.getElementById('alert-email').className = "alerta";
     validar = false;
 }
 
@@ -184,12 +184,12 @@ if (email != "" & email.indexOf('@') != -1 & email.indexOf('.com') != -1) {
 }
 
 if (senha == "") {
-    document.getElementById('alert-senha').className = "alert";
+    document.getElementById('alert-senha').className = "alerta";
     validar = false;
 }
 
 if (senha.length < 8) {
-    document.getElementById('alert-senha').className = "alert";
+    document.getElementById('alert-senha').className = "alerta";
     validar = false;
 }
 
@@ -346,17 +346,17 @@ var senha = document.getElementById("senha").value;
 
 
 if (email == "") {
-    document.getElementById('alerta-email').className = "alert";
+    document.getElementById('alerta-email').className = "alerta";
     validar = false;
 }
 
 if (email.indexOf('@') == -1) {
-    document.getElementById('alerta-email').className = "alert";
+    document.getElementById('alerta-email').className = "alerta";
     validar = false;
 }
 
 if (email.indexOf('.com') == -1) {
-    document.getElementById('alerta-email').className = "alert";
+    document.getElementById('alerta-email').className = "alerta";
     validar = false;
 }
 
@@ -365,12 +365,12 @@ if (email != "" & email.indexOf('@') != -1 & email.indexOf('.com') != -1) {
 }
 
 if (senha == "") {
-    document.getElementById('alerta-senha').className = "alert";
+    document.getElementById('alerta-senha').className = "alerta";
     validar = false;
 }
 
 if (senha.length < 8) {
-    document.getElementById('alerta-senha').className = "alert";
+    document.getElementById('alerta-senha').className = "alerta";
     validar = false;
 }
 
@@ -389,12 +389,12 @@ var titulo = document.getElementById("txTitulo").value;
 var postagem = document.getElementById("txPost").value;
 
 if (titulo == "") {
-    document.getElementById('alert-titulo1').className = "alerta";
+    document.getElementById('alert-titulo1').className = "alerta-postagem";
     validar = false;
 }
 
 if (titulo.length > 50) {
-    document.getElementById('alert-titulo2').className = "alerta";
+    document.getElementById('alert-titulo2').className = "alerta-postagem";
     validar = false;
 }
 
@@ -407,7 +407,7 @@ if (titulo.length <= 50) {
 }
 
 if (postagem == "") {
-    document.getElementById('alert-post').className = "alerta";
+    document.getElementById('alert-post').className = "alerta-postagem";
     validar = false;
 }
 
@@ -416,7 +416,7 @@ if (postagem != "") {
 }
 
 if (postagem.length > 500) {
-    document.getElementById('alert-post2').className = "alerta";
+    document.getElementById('alert-post2').className = "alerta-postagem";
     validar = false;
 }
 

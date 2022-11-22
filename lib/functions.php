@@ -210,32 +210,48 @@
 				</div>
 				</div>
 			</div>
-			";
-        foreach ($stmt2 as $row) :
-          $id_para = $row['id_para'];
-          $id_de = $row['id_de'];
-          if($id_para == $_SESSION['userId']){
-            $stmt3 = $pdo->prepare("select id, profilepic, nome from usuarios where id = '$id_de'");
-            $stmt3 ->execute();
-            foreach ($stmt3 as $row):
-				$idposter = $row['id'];
-				echo "<div class='card-amigos-img'> <a href='pgamigo.php?id=$idposter'> <img src='img/" . $row["profilepic"] . "' width='64' height='64' title='foto'> <br> " . mb_strimwidth($row["nome"], 0, 10, "...") . " </a> </div>
-				";
-            endforeach;
-          }
-
-          if($id_de == $_SESSION['userId']){
-            $stmt3 = $pdo->prepare("select id, profilepic, nome from usuarios where id = '$id_para'");
-            $stmt3 ->execute();
-            foreach ($stmt3 as $row):
-				$idposter = $row['id'];
-				echo "<div class='card-amigos-img'> <a  href='pgamigo.php?id=$idposter'> <img src='img/" . $row["profilepic"] . "' width='64' height='64' title='foto'> <br> " . mb_strimwidth($row["nome"], 0, 10, "...") . " </a> </div>
-				";
-            endforeach;
-          }
-        endforeach;
-		}
-		echo "</div>";
+			<div class='d-flex flex-wrap'>";
+			foreach ($stmt2 as $row) :
+			  $id_para = $row['id_para'];
+			  $id_de = $row['id_de'];
+			  if($id_para == $_SESSION['userId']){
+				$stmt3 = $pdo->prepare("select id, profilepic, nome from usuarios where id = '$id_de'");
+				$stmt3 ->execute();
+				foreach ($stmt3 as $row):
+					$idposter = $row['id'];
+					echo "
+					<div class='card-amigos'>
+						<div class='card-body'>
+							<a href='pgamigo.php?id=$idposter'>
+								<img src='img/".$row["profilepic"]."' width='64' height='64' class='card-amigos-img'>
+								<div class='card-amigos-nome'>".mb_strimwidth($row["nome"], 0, 11, "...")."</div>
+							</a>
+						</div>
+					</div>
+					";
+				endforeach;
+			  }
+	
+			  if($id_de == $_SESSION['userId']){
+				$stmt3 = $pdo->prepare("select id, profilepic, nome from usuarios where id = '$id_para'");
+				$stmt3 ->execute();
+				foreach ($stmt3 as $row):
+					$idposter = $row['id'];
+					echo "
+					<div class='card-amigos'>
+						<div class='card-body'>
+							<a href='pgamigo.php?id=$idposter'>
+								<img src='img/".$row["profilepic"]."' width='64' height='64' class='card-amigos-img'>
+								<div class='card-amigos-nome'>".mb_strimwidth($row["nome"], 0, 11, "...")."</div>
+							</a>
+						</div>
+					</div>
+					";
+				endforeach;
+			  }
+			endforeach;
+			}
+			echo "</div></div>";
 	}
 
     function ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg){

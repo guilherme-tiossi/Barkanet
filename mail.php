@@ -36,6 +36,5 @@ function send_mail($recipient,$subject,$message)
   }
 
 }
-header('Location: login.php');
 
 ?>

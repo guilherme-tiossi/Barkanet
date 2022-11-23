@@ -111,7 +111,7 @@ if(isset($_GET['id_grupo'])){
             <div class='d-flex flex-row-reverse'>
               <div class='btn-group p-3' role='group'>
                 <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-posts&id_grupo=".$id_grupo."&pag=1'>Posts</a>
-                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Amigos</a>
+                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Membros</a>
               </div>
             </div>
           </div>

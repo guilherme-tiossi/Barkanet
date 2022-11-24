@@ -17,14 +17,8 @@ session_start();
     $validImageExtension = ['jpg', 'jpeg', 'png'];
     $imageExtension = explode('.', $fileName);
     $imageExtension = strtolower(end($imageExtension));
-    if ( !in_array($imageExtension, $validImageExtension) ){
-      echo
-      "
-      <script>
-        alert('Invalid Image Extension');
-        document.location.href = 'pggrupo.php?id_grupo=$idgrupo';
-      </script>
-      ";
+    if (!in_array($imageExtension, $validImageExtension) ){
+      echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>";
     }
     else if($fileSize > 10000000){
       echo
@@ -45,5 +39,5 @@ session_start();
       header("Location: pggrupo.php?id_grupo=$idgrupo");
     }
 
-    echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>"
+    echo " <script> document.location.href = 'pggrupo.php?id_grupo=$idgrupo' </script>";
 ?>

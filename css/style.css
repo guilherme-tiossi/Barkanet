@@ -744,3 +744,67 @@ input[type=text]{
   background-color: rgb(234, 240, 247);
   color: black;
 }
+
+
+
+
+
+
+
+
+
+.alerta-postagem{
+  margin-left: 0.7rem;
+  color: #0049e6;
+  font-weight: 500;
+  font-size: 17px;
+  animation-name: animation-alert;
+  animation-duration: 1s;
+  word-wrap: break-word; 
+  word-break: break-word;
+}
+
+
+.vid-fluid{
+  width: 100% !important;
+  height: auto !important;
+}
+
+.card-amigos{
+  background-color: rgb(238, 239, 243);
+  border: 2px solid #b9babe;
+  border-radius: 5px;
+  margin-left: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.card-amigos-img{
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+.card-amigos-nome{
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.miniatura{
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  color: #829b33;
+}
+
+.btn-vermelho-desfazer{
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: #bf4040;
+  border: 1px solid #9b3333;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: 0.3s;
+}

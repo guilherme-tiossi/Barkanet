@@ -130,7 +130,7 @@ if(isset($_GET['id_grupo'])){
             <div class='d-flex flex-row-reverse'>
               <div class='btn-group p-3' role='group'>
                 <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-posts&id_grupo=".$id_grupo."&pag=1'>Posts</a>
-                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Amigos</a>
+                <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Membros</a>
               </div>
             </div>
           </div>
@@ -211,7 +211,7 @@ if(isset($_GET['id_grupo'])){
                                     <div class='mb-0' style='font-size: 17px';>
                                       <b> <a href='pgamigo.php?id=$idcomenter' class='link'>$com_nome</a> </b>				
                                       <br>
-                                      <p>$com</p>
+                                      <p style='word-break: break-word;'>$com</p>
                                     </div>
                                 </div>
                               </div>
@@ -228,7 +228,7 @@ if(isset($_GET['id_grupo'])){
                   echo '
                   <div class="mx-auto mb-2" style="width: 80%;">
                   <form action="exec_com.php" method="post">
-                    <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+                    <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="250" autocomplete=off placeholder="comentar...">
                     <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
                     <input type="hidden" name="post_id" value="' .
                       $idpost .
@@ -265,7 +265,7 @@ if(isset($_GET['id_grupo'])){
               <div class='d-flex flex-row-reverse'>
                 <div class='btn-group p-3' role='group'>
                   <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-posts&id_grupo=".$id_grupo."&pag=1'>Posts</a>
-                  <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Amigos</a>
+                  <a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?grupo-membros&id_grupo=".$id_grupo."&pag=1'>Membros</a>
                 </div>
               </div>
             </div>
@@ -326,7 +326,7 @@ if(isset($_GET['id_grupo'])){
             $id_grupo = $row['id_grupo'];
           endforeach;
           echo "<a href='?pag={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}' class='mx-3 btn-solicitation-n'>Sair do Grupo</a>";
-        
+
 
           $stmt2 = $pdo->prepare("SELECT * from membros_grupos where id_grupo = {$_GET['id_grupo']}");
           $stmt2->execute();
@@ -345,11 +345,10 @@ if(isset($_GET['id_grupo'])){
               echo "</tr>";
             endforeach;
           endforeach;
-
           echo "
-            </tbody>
-            </table>
-            </div>";
+          </tbody>
+          </table>
+          </div>";
 
         };
         echo "

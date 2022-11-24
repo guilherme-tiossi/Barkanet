@@ -33,7 +33,7 @@ session_start();
 			<?php
             if(isset($_SESSION['nao_autenticado'])):
             ?>
-            <p class="alert">Email ou senha incorretos</p>
+            <p class="alerta">Email ou senha incorretos</p>
             <?php
             endif;
             unset($_SESSION['nao_autenticado']);
@@ -43,6 +43,8 @@ session_start();
 				header('Location: perfil.php');
 			}
 			?>
+			</div>
+			<div id="cdbody" class="card-body box-center">
 			<form method="POST" action="exec_login.php" onsubmit="return verificaLogin()">
 				<div class="form-group">
 					<label for="email">Email:</label>

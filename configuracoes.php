@@ -46,10 +46,10 @@
                      </button>
                   </div>
                   <div class="modal-body">
-                     <h3> Bem-vindo a Barkanet. </h3>
+                     <h3> Bem-vindo ao Barkanet. </h3>
                      <p> A seguir estão os termos e condições que regulam o uso deste site. </p>
                      <h3>Sobre</h3>
-                     <p>1.1A Barkanet é uma rede social privada, que visa oferecer um ambiente amigável, saudável e seguro aos usuários. Nossa plataforma funciona dentro de um sistema de amizades, onde apenas aqueles que você confia possam ver e interagir com suas postagens e atualizações.
+                     <p>1.1 O Barkanet é uma rede social privada, que visa oferecer um ambiente amigável, saudável e seguro aos usuários. Nossa plataforma funciona dentro de um sistema de amizades, onde apenas aqueles que você confia possam ver e interagir com suas postagens e atualizações.
                      Barkanet traz para seus usuários um sistema de grupos, que funcionam como outra timeline para assuntos específicos, abrangendo temas desde gostos pessoais, fandoms ou até trabalho. Os grupos existem separadamente do sistema de amizades, ou seja, você não precisa ter algum colega de trabalho adicionado como amigo para estar no grupo da sua empresa dentro do Barkanet, assim adicionando mais um tijolo para nossa parede de privacidade interpessoal. 
                      Seja em um ambiente de amizade, familiar ou de trabalho, o nosso papel é manter você conectado apenas com quem você desejase conectar. 
                      </p>
@@ -58,7 +58,7 @@
                      <p> 2.2 Para a utilização imediata dos recursos presentes no site, você precisa se cadastrar. O fornecimento de informações como um e-mail e uma senha são prezados para a conclusão do registro.
                      <p>2.3 Você deve ter 16 anos ou mais para fazer uso do site. Ao se registrar, você garante ao Barkanet que você tem 16 anos ou mais. </p>
                      <p>2.4  Você é responsável pela segurança e uso dos dados cadastrados no site, como o e-mail e a senha, e deve prezar e garantir a confidencialidade e segurança desses dados. </p>
-                     <p>2.5 A Barkanet se reserva o direito de suspender o acesso a conta, caso considere que haja alguma violação de segurança. </p>
+                     <p>2.5 O Barkanet se reserva o direito de suspender o acesso a conta, caso considere que haja alguma violação de segurança. </p>
                      <h3> Uso do site </h3>
                      <p> 3.1 Um dos principais objetivos do Barkanet é proporcionar uma rede social segura, saudável e intuitiva para os usuários, disponibilizando recursos que possibilitam publicação de textos, imagens e vídeos, edição de perfil, lista de amigos, criação de comunidades e grupos etc. Ao se registrar, você concorda em utilizar esses recursos de forma apropriada e concorda em não usar tais recursos para:</p>
                      <p>3.1.1 Atacar, ameaçar, difamar, fazer comentários que contenham algum tipo de discriminação, seja esta racial, social, religiosa, sexual, por causa de nacionalidade, cor, origem ou de qualquer forma que exclua a pessoa socialmente, cause constrangimento e/ou viole a segurança da mesma;</p>
@@ -76,8 +76,8 @@
                      <p> 4.1O Barkanet não é responsável por danos e prejuízos que você possa sofrer como consequência: do conteúdo na rede social, sites e links de terceiros associados a rede social, de produtos ou serviços de terceiros que você possa adquirir na rede social, de lesões pessoais ou danos à propriedade que decorrerem do uso por você do site, do acesso não autorizado às suas informações pessoais armazenadas na sua base de dados, de falhas ou vírus que um terceiro possa causar ao seu computador pessoal como resultado do uso por você do site, de quaisquer interrupções do site ou de qualquer atividade de qualquer pessoa que use o site sem autorização. </p>
                      <p> 4.2 O Barkanet não garante que o site estará disponível, livre de erros ou bugs. </p>
                      <h3> Modificação dos termos de uso e cancelamento do site </h3>
-                     <p> 5.1O Barkanet se reserva o direito de alterar os Termos e Condições, a qualquer momento e sob nosso julgamento. O uso por você do site constituirá o seu consentimento à alteração deste termos.­</p>
-                     <p>5.2O Barkanet se reserva o direito de modificar, descontinuar ou suspender a rede social a qualquer um momento, a nosso critério. </p>
+                     <p> 5.1 O Barkanet se reserva o direito de alterar os Termos e Condições, a qualquer momento e sob nosso julgamento. O uso por você do site constituirá o seu consentimento à alteração deste termos.­</p>
+                     <p>5.2 O Barkanet se reserva o direito de modificar, descontinuar ou suspender a rede social a qualquer um momento, a nosso critério. </p>
                      <h3> Outro </h3>
                      <p> 6.1Os termos descritos neste documento são somente para conveniência da rede social enquanto existência, e não terão quaisquer efeitos legais e/ou de contrato. </p>
                   </div>

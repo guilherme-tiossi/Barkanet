@@ -167,7 +167,7 @@ include("conexao.php");
                       <div class='mb-0' style='font-size: 17px';>
                         <b> <a class='link' href='pgamigo.php?id=$idcomenter'>$com_nome</a> </b>				
                         <br>
-                        <p>$com</p>
+                        <p style='word-break: break-word;'>$com</p>
                       </div>
                   </div>
                 </div>
@@ -183,7 +183,7 @@ include("conexao.php");
           echo '
           <div class="mx-auto mb-2" style="width: 80%;">
             <form action="exec_com.php" method="post">
-              <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+              <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="250" autocomplete=off placeholder="comentar...">
               <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
               <input type="hidden" name="post_id" value="'.$idpost.'">
               <button type="submit" name="comentar" class="btn_comentario">

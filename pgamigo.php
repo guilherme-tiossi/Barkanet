@@ -226,7 +226,7 @@ if ($row_count < 1) {
                                             <div class='mb-0' style='font-size: 17px;'>
                                                 <b><a href='pgamigo.php?id=$idcomenter' class='link'> $com_nome </a></b>
                                                 <br>
-                                                <p>$com</p>
+                                                <p style='word-break: break-word;'>$com</p>
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +242,7 @@ if ($row_count < 1) {
                     echo '
                     <div class="mx-auto mb-2" style="width: 80%;">
                         <form action="exec_com.php" method="post">
-                            <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="100" autocomplete=off placeholder="comentar...">
+                            <input class="comentario mt-2" type="text" name="txcom" id="txcom" maxlength="250" autocomplete=off placeholder="comentar...">
                             <span id="alert-com" class="to-hide" role="alert">Digite um comentario...</span>
                             <input type="hidden" name="post_id" value="'.$idpost.'">
                             <input type="hidden" name="grupo_id" value=0> 

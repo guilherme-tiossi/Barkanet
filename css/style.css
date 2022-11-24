@@ -172,6 +172,18 @@
   align-items: center;
 }
 
+.progress{
+  width: 24rem;
+  height: 15px;
+}
+
+.box-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .btn-solicitation-p{
   padding: 5px 10px;
   margin: 0 5px;

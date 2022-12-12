@@ -213,19 +213,19 @@
 	$("#senha").keyup( function( e )
 	{	
 		var ctrl = '#passwordStrength';
-		var strength = CalcPasswordStrength( $("#senha").val() );
+		var strength = CalcPasswordStrength( $("#senha").val()) + 15;
 		var percent = Math.max(15, Math.min(100, parseInt( strength )));
 		$('#showPassword').text($("#senha").val());
-		$(ctrl).width( '' + percent + '%' );	
+		$(ctrl).width( 15 + percent + '%' );	
 		$(ctrl).removeClass( 'progress-bar-success progress-bar-warning progress-bar-danger' );
 	
-		if ( 40 > strength )	
+		if ( 30 > strength )	
 			$(ctrl).text( 'Fraca' ),
 			$(ctrl).addClass( 'progress-bar-danger' );
-		else if ( 60 > strength )	
+		else if ( 50 > strength )	
 			$(ctrl).text( 'Média' ),
 			$(ctrl).addClass( 'progress-bar-warning' );
-		else if ( 90 > strength )	
+		else if ( 70 > strength )	
 			$(ctrl).text( 'Forte' ),
 			$(ctrl).addClass( 'progress-bar-success' );
 		else

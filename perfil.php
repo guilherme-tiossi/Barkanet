@@ -120,7 +120,6 @@
       ?>
     </div>
   </div>
-  </div>
 
   <!--Menu Direita-->
   <div class="col">

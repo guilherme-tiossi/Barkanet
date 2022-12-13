@@ -2,7 +2,6 @@
 session_start();
 include('conexao.php');
 
-//ṕroblemas demonios!
 $iduser = $_SESSION['userId'];
             $stmt = $pdo->prepare("select * from tbgrupos where adm_grupo = $iduser");
             $stmt->execute();
@@ -15,7 +14,6 @@ $iduser = $_SESSION['userId'];
 				$stmt = $pdo->prepare("UPDATE membros_grupos SET id_adm='" . $_POST[$idgrupo] . "' WHERE id_grupo='$idgrupo'");
 				$stmt ->execute();
         endforeach;
-//ṕroblemas demonios!
 
 
 $email = $_POST['email'];

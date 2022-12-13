@@ -1,4 +1,5 @@
 <?php
+//=============================== FUNÇÔES GERAIS ===================================
 	function ler_dados_usuario($email, $pdo){
 		global $pdo;
 		$stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = '$email'");
@@ -62,7 +63,15 @@
 							   <a class='icon-lapis' href='?editar&pag=1'>
 							   <i class='fa-solid fa-pencil'></i>
 							   </a>
-                               <br>".$bio." 
+                               <br>";
+
+                               if(1 == 1){
+                               	echo "".mb_strimwidth($bio, 0, 59, ' ler mais')."";
+                               }else{
+                               	echo "<textarea class='textoupdate_3' type='text' name='bio' id='bio' maxlength='200' disabled>".$bio."</textarea>";
+                               }
+
+                               echo " 
                            </p>
                            </div>
 	                        </div>
@@ -183,12 +192,12 @@
 					<h2 class='p-3'>Meus Amigos</h2>
 				</div>
 				<div class='p-2 flex-fill'>
-				<div class='d-flex flex-row-reverse'>
-					<div class='btn-group p-3' role='group'>
-						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
-						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+					<div class='d-flex flex-row-reverse'>
+						<div class='btn-group p-3' role='group'>
+							<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
+							<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 			<div class='conteudo'>
@@ -202,12 +211,12 @@
 					<h2 class='p-3'>Meus Amigos</h2>
 				</div>
 				<div class='p-2 flex-fill'>
-				<div class='d-flex flex-row-reverse'>
-					<div class='btn-group p-3' role='group'>
-						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
-						<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+					<div class='d-flex flex-row-reverse'>
+						<div class='btn-group p-3' role='group'>
+							<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-posts&pag=1'>Posts</a>
+							<a id='btnopcoesgrupo' class='btn btn-secondary text-uppercase' href='?meus-amigos&pag=1'>Amigos</a>
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 			<div class='d-flex flex-wrap'>";
@@ -250,8 +259,9 @@
 				endforeach;
 			  }
 			endforeach;
-			}
 			echo "</div>";
+		}
+		echo "</div>";
 	}
 
     function ler_posts_usuario($pagina, $num_pagina, $inicio, $quantidade_pg){
@@ -408,7 +418,7 @@
 		}
     };
 
-		function ler_dados_grupo($id_grupo, $id_usuario){
+	function ler_dados_grupo($id_grupo, $id_usuario){
 			global $pdo;
 			$stmt = $pdo->prepare("SELECT * FROM tbgrupos WHERE id_grupo = '$id_grupo'");
 			 $stmt->execute();
@@ -501,7 +511,7 @@
 									<p class="mb-0" style="font-size: 18px";>
 										<b>Tipo:</b>
 										<br>
-										<select id="tipo" name="tipo">
+										<select id="tipo" name="tipo" class="tipo-grupo">
 											<option value="'.$tipo_grupo.'"> '.$tipo_grupo.' </option>
 											<option value="'.$outro_tipo.'"> '.$outro_tipo.' </option>	
 										</select>
@@ -513,8 +523,8 @@
 										<span id="alert-descricao_grupo" class="to-hide" role="alert"><br>Digite a descrição do grupo</span>
 									</p>
 									<p>
-										<input type="submit" value="Salvar" class="btn-verde-grupo">
-										<a href="exec_deleta_grupo.php?id_grupo='.$id_grupo.'" class="btn-vermelho-grupo">Apagar Grupo</a>
+										<input type="submit" value="Salvar" class="btn-verde">
+										<a href="exec_deleta_grupo.php?id_grupo='.$id_grupo.'" class="btn-cinza">Apagar Grupo</a>
 									</p>
 								</div>
 							</div>
@@ -576,7 +586,6 @@
 	}
 
 	function get_perfil_grupo_procurar($con, $id_grupo, $id_amigo){
-		//$sql = $con->prepare("SELECT * FROM tbgrupos WHERE id_grupo = ?");
 		$sql = $con->prepare("SELECT * FROM usuarios WHERE id = ?");
 		$sql->bind_param("s", $id_amigo);
 		$sql->execute();
@@ -586,16 +595,10 @@
 		if($total > 0){
 			$dados = $get->fetch_assoc();
 			echo "
-			<div class='box-solicitation-pesquisa'>
-				<div class='card text-center' style='width: 18rem; box-shadow: 0 0 5px #000;'>
-					<div class='card-body'>
-						<h5 class='card-title mb-2'><b>{$dados['nome']}</b></h5>
-						<div class='col'>";
-							verfica_solicitacoes_grupo_procurar($con, $_SESSION['userId'], $id_amigo, $id_grupo);
-							echo "
-						</div>
-					</div>
-				</div>
+			<div class='col'>
+				<b>{$dados['nome']}</b>";
+				verfica_solicitacoes_grupo_procurar($con, $_SESSION['userId'], $id_amigo, $id_grupo);
+			echo "
 			</div>";
 		}
 	}
@@ -644,11 +647,11 @@
 				$dados = $get->fetch_assoc();
 
 				if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] != $id_usuario && $dados['status'] == 1){
-					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-vermelho-grupo'>Remover</a>";
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-cinza'>Remover</a>";
 				}
 
 				if($dados['id_adm'] == $id_usuario && $id_amigo == $dados['id_usuario'] && $dados['para'] == $id_amigo && $dados['status'] == 0){
-					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-n'>Cancelar Solicitação</a>";
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-cinza'>Cancelar Solicitação</a>";
 				}
 			}
 		}
@@ -662,7 +665,7 @@
 			$dados = $get->fetch_assoc();
 				
 			if($total > 0  && $dados['adm_grupo'] == $id_usuario){
-				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-solicitation-p'>Convidar</a>";
+				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-verde'>Convidar</a>";
 			}
 		}
 	}
@@ -687,13 +690,13 @@
 				$dados = $get->fetch_assoc();
 
 				if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] != $id_usuario && $dados['status'] == 1){
-					echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
-					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-p'>Remover</a>";
+					echo "<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-verde'>Remover</a>";
 				}
 
 				if($dados['id_adm'] == $id_usuario && $id_amigo == $dados['id_usuario'] && $dados['para'] == $id_amigo && $dados['status'] == 0){
-					echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
-					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-p'>Cancelar Solicitação</a>";
+					echo "<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+					echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-verde'>Cancelar Solicitação</a>";
 				}
 			}
 		}
@@ -707,8 +710,8 @@
 			$dados = $get->fetch_assoc();
 				
 			if($total > 0  && $dados['adm_grupo'] == $id_usuario){
-				echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
-				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-solicitation-p'>Convidar</a>";
+				echo "<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+				echo "<a href='?pagina=solicitar-convite-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-verde'>Convidar</a>";
 			}
 		}
 	}
@@ -732,21 +735,21 @@
 			$dados = $get->fetch_assoc();
 			if($dados['id_adm'] == $id_amigo && $dados['id_usuario'] == $id_usuario && $dados['para'] == $id_usuario && $dados['status'] == 0 && $id_grupo == $dados['id_grupo']){
 				echo "<p class='mb-2'>convidou voce para entrar no grupo ";
-				echo "<a href='?pagina=pesquisa_grupo&nome_grupo={$nome_grupo}''>$nome_grupo</a></p>";
-				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-n'>Recusar</a>";
-				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}' class='btn-solicitation-p'>Entrar</a>   ";
+				echo "<a href='?pag=1&pagina=pesquisa_grupo&nome_grupo={$nome_grupo}''>$nome_grupo</a></p>";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-cinza'>Recusar</a>";
+				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}' class='btn-verde'>Entrar</a>   ";
 			}
 
 			if($dados['id_adm'] == $id_usuario && $dados['id_usuario'] == $id_amigo && $dados['para'] == $id_usuario && $dados['status'] == 0){
 				echo "<p class='mb-2'>pediu para entrar no grupo ";
-				echo "<a href='?pagina=pesquisa_grupo&nome_grupo={$nome_grupo}''>$nome_grupo</a></p>";
-				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-n'> Recusar</a>";
-				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}' class='btn-solicitation-p'>Aceitar</a>";
+				echo "<a href='?pag=1&pagina=pesquisa_grupo&nome_grupo={$nome_grupo}'>$nome_grupo</a></p>";
+				echo "<a href='?pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-cinza'>Recusar</a>";
+				echo "<a href='?pagina=aceitar-solicitacao-grupo&id_grupo={$id_grupo}&id_adm={$dados['id_adm']}&id_usuario={$dados['id_usuario']}' class='btn-verde'>Aceitar</a>";
 			}
 
 			if($dados['id_adm'] == $id_amigo && $id_usuario == $dados['id_usuario'] && $dados['para'] == $id_amigo && $dados['status'] == 0){
-				echo "<a href='pggrupo.php?id_grupo={$id_grupo}' class='btn-solicitation-n'>Voltar</a>";
-				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-solicitation-p'>Cancelar Solicitação</a>";
+				echo "<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+				echo "<a href='?pagina=remover-usuario-grupo&id_grupo={$id_grupo}&id={$dados['id']}' class='btn-verde'>Cancelar Solicitação</a>";
 			}
 		}
 
@@ -759,8 +762,8 @@
 			$dados = $get->fetch_assoc();
 
 			if($total > 0 && $id_usuario != $id_amigo && $dados['adm_grupo'] == $id_amigo && $dados['id_grupo'] == $id_grupo){
-				echo "<br>"."<a href='?pagina=solicitacoes-grupo' class='btn-solicitation-n'>Voltar</a>";
-				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-solicitation-p'> Pedir para entrar</a>";
+				echo "<br>"."<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+				echo "<a href='?pagina=solicitar-entrada-grupo&id_grupo={$id_grupo}&id={$id_amigo}' class='btn-verde'> Pedir para entrar</a>";
 			}
 
 			if($total > 0 && $id_usuario == $id_amigo && $dados['id_grupo'] == $id_grupo){
@@ -793,7 +796,7 @@
 						<div class='col'>
 							<p>".$tipo_grupo."</p>
 							<p class='mb-2'>".mb_strimwidth($desc_grupo, 0, 50, "...")."</p>
-							<a href='?pagina=solicitacoes-grupo' class='btn-solicitation-n' style='padding: 5px 100px;'>Voltar</a>
+							<a href='javascript: history.go(-1)' class='btn-cinza btn-block'>Voltar</a>
 						</div>
 					</div>
 				</div>
@@ -830,7 +833,6 @@
 		}else{
 			redireciona($red);
 		}
-		
 	}
 
 	function verifica_membro_solicitacao($con, $id_adm, $id_usuario, $id_grupo){
@@ -843,18 +845,22 @@
 
 	function send_solicitacion_grupo($con, $id_grupo, $id_adm){
 		$zero = 0;
+		if (isset($_GET['grupo-membros'])){
+			$red = "pggrupo.php?grupo-membros&id_grupo={$id_grupo}&pag=1";
+		}else{
+			$red = "pggrupo.php?grupo-posts&id_grupo={$id_grupo}&pag=1";
+		}
 		if(verifica_membro_solicitacao($con, $id_adm, $_SESSION['userId'], $id_grupo) <= 0){
 			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
 			$sql->bind_param("sssss", $id_adm, $_SESSION['userId'], $id_grupo, $id_adm, $zero);
 			$sql->execute();
 
 			if($sql->affected_rows > 0){
-				redireciona("procurar.php");
+				redireciona($red);
 			}else{
 				return false;
 			}
 		}
-		
 	}
 
 	function deleta_solicitacao_grupo($con, $id_grupo, $id){
@@ -863,19 +869,24 @@
 		$sql->execute();
 
 		if($sql->affected_rows > 0){
-			redireciona("procurar.php");
+			redireciona("perfil.php");
 		}else{
 			return false;
 		}
 	}
 
 	function remover_usuario_grupo($con, $id_grupo, $id){
+		if (isset($_GET['grupo-membros'])){
+			$red = "pggrupo.php?grupo-membros&id_grupo={$id_grupo}&pag=1";
+		}else{
+			$red = "pggrupo.php?grupo-posts&id_grupo={$id_grupo}&pag=1";
+		}
 		$sql = $con->prepare("DELETE FROM membros_grupos WHERE id = ?");
 		$sql->bind_param("s", $id);
 		$sql->execute();
 
 		if($sql->affected_rows > 0){
-			redireciona("pggrupo.php?id_grupo={$id_grupo}");
+			redireciona($red);
 		}else{
 			return false;
 		}
@@ -908,10 +919,9 @@
 		return $sql->affected_rows;
 	}
 
-
-	function verifica_membro_solicitacao_publico($con, $id_adm, $id_usuario){
-		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND status = 1");
-		$sql->bind_param("ss", $id_adm, $id_usuario);
+	function verifica_membro_solicitacao_publico($con, $id_adm, $id_usuario, $id_grupo){
+		$sql = $con->prepare("SELECT * FROM membros_grupos WHERE id_adm = ? AND id_usuario = ? AND id_grupo = ? AND status = 1");
+		$sql->bind_param("sss", $id_adm, $id_usuario, $id_grupo);
 		$sql->execute();
 
 		return $sql->get_result()->num_rows;
@@ -919,7 +929,7 @@
 
 	function entrar_grupo_publico($con, $id_grupo, $id_adm){
 		$um = 1;
-		if(verifica_membro_solicitacao_publico($con, $id_adm, $_SESSION['userId']) <= 0){
+		if(verifica_membro_solicitacao_publico($con, $id_adm, $_SESSION['userId'], $id_grupo) <= 0){
 			$sql = $con->prepare("INSERT membros_grupos (id_adm, id_usuario, id_grupo, para, status) VALUES (?, ?, ?, ?, ?)");
 			$sql->bind_param("sssss", $id_adm, $_SESSION['userId'], $id_grupo, $_SESSION['userId'], $um);
 			$sql->execute();
@@ -943,15 +953,34 @@
 			$total = $get->num_rows;
 
 			if($total > 0){
-				while($dados = $get->fetch_array()){
-					if($dados['para'] == $dados['id_adm']){
-						get_perfil_grupo_procurar($con, $dados['id_grupo'], $dados['id_usuario']);
-					}
+				echo "
+				<div class='box-solicitation-pesquisa'>
+					<div class='card box-solicitation'>
+					<div class='div-lista-amizade'>
+					<div class='d-flex bd-highlight'>
+					  <div class='p-2 w-100 bd-highlight'>
+					  	<h5>Solicitações de Grupos</h5>
+					  </div>
+					  <div class='p-2 flex-shrink-1 bd-highlight'>
+					  	<a href='javascript: history.go(-1)' class='btn-voltar-lista'>Voltar</a>
+					  </div>
+					</div>
+					</div>
+					";
+					while($dados = $get->fetch_array()){
+						echo "<div class='card-body'>";
+						if($dados['para'] == $dados['id_adm']){
+							get_perfil_grupo_procurar($con, $dados['id_grupo'], $dados['id_usuario']);
+						}
 
-					if($dados['para'] == $dados['id_usuario']){
-						get_perfil_grupo_procurar($con, $dados['id_grupo'], $dados['id_adm']);
+						if($dados['para'] == $dados['id_usuario']){
+							get_perfil_grupo_procurar($con, $dados['id_grupo'], $dados['id_adm']);
+						}
+						echo "</div>";
 					}
-				}
+				echo "
+					</div>
+				</div>";
 			}
 		}else{
 			exit();
@@ -982,7 +1011,7 @@
 		}
 	}
 
-	function get_perfil($con, $perfil){
+	function get_perfil_usuario($con, $perfil){
 		$sql = $con->prepare("SELECT * FROM usuarios WHERE id = ?");
 		$sql->bind_param("s", $perfil);
 		$sql->execute();
@@ -1002,6 +1031,24 @@
 						</div>
 					</div>
 				</div>
+			</div>";
+		}
+	}
+	
+	function get_perfil($con, $perfil){
+		$sql = $con->prepare("SELECT * FROM usuarios WHERE id = ?");
+		$sql->bind_param("s", $perfil);
+		$sql->execute();
+		$get = $sql->get_result();
+		$total = $get->num_rows;
+
+		if($total > 0){
+			$dados = $get->fetch_assoc();
+			echo "
+			<div>
+				<b>{$dados['nome']}</b>";
+				verfica_solicitacoes($con, $_SESSION['userId'], $perfil);
+			echo "
 			</div>";
 		}
 	}
@@ -1042,22 +1089,30 @@
 			$dados = $get->fetch_assoc();
 
 			if($dados['status'] == 1){
-				echo"<a href='procurar.php' class='btn-solicitation-n'>Voltar</a>";
-				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-p'>Desfazer Amizade</a>";
+				echo "<div class='mt-2'>";
+				echo"<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-verde'>Desfazer Amizade</a>";
+				echo "</div>";
 			}
 
 			if($dados['id_para'] == $id_para && $dados['id_de'] == $id_de && $dados['status'] == 0){
-				echo"<a href='procurar.php' class='btn-solicitation-n'>Voltar</a>";
-				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-p'>Cancelar Solicitação</a>";
+				echo "<div class='mt-2'>";
+				echo"<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-verde'>Cancelar Solicitação</a>";
+				echo "</div>";
 			}
 
 			if($dados['id_de'] == $id_para && $dados['id_para'] == $id_de && $dados['status'] == 0){
-				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-n'>Recusar</a>";
-				echo "<a href='?pagina=aceitar-amizade&id={$dados['id_de']}' class='btn-solicitation-p'>Aceitar</a>";
+				echo "<div class='mt-2'>";
+				echo "<a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-cinza'>Recusar</a>";
+				echo "<a href='?pagina=aceitar-amizade&id={$dados['id_de']}' class='btn-verde'>Aceitar</a>";
+				echo "</div>";
 			}
 		}else if($total <= 0  && $id_para != $id_de){
-			echo"<a href='procurar.php' class='btn-solicitation-n'>Voltar</a>";
-			echo "<a href='?pagina=solicitar-amizade&id={$id_para}' class='btn-solicitation-p'>Adicionar Amigo</a>";
+			echo "<div class='mt-2'>";
+			echo"<a href='javascript: history.go(-1)' class='btn-cinza'>Voltar</a>";
+			echo "<a href='?pagina=solicitar-amizade&id={$id_para}' class='btn-verde'>Adicionar Amigo</a>";
+			echo "</div>";
 		}
 	}
 
@@ -1072,7 +1127,7 @@
 			$dados = $get->fetch_assoc();
 
 			if($dados['status'] == 1){
-				echo "<td><a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-solicitation-n'>Desfazer Amizade</a></td>";
+				echo "<td><a href='?pagina=desfazer-amizade&id={$dados['id']}' class='btn-cinza'>Desfazer Amizade</a></td>";
 			}
 		}
 	}
@@ -1083,7 +1138,7 @@
 		$sql->execute();
 
 		if($sql->affected_rows > 0){
-			redireciona("procurar.php");
+			redireciona("perfil.php");
 		}else{
 			return false;
 		}
@@ -1095,7 +1150,7 @@
 		$sql->execute();
 
 		if($sql->affected_rows > 0){
-			redireciona("?pagina=solicitacoes");
+			redireciona("?pagina=solicitacoes&pag=1");
 		}else{
 			return false;
 		}
@@ -1145,9 +1200,28 @@
 			$total = $get->num_rows;
 
 			if($total > 0){
+				echo "
+				<div class='box-solicitation-pesquisa'>
+					<div class='card box-solicitation'>
+					<div class='div-lista-amizade'>
+					<div class='d-flex bd-highlight'>
+					  <div class='p-2 w-100 bd-highlight'>
+					  	<h5>Solicitações de Amizade</h5>
+					  </div>
+					  <div class='p-2 flex-shrink-1 bd-highlight'>
+					  	<a href='javascript: history.go(-1)' class='btn-voltar-lista'>Voltar</a>
+					  </div>
+					</div>
+					</div>
+					";
 				while($dados = $get->fetch_array()){
+					echo "<div class='card-body'>";
 					get_perfil($con, $dados['id_de']);
+					echo "</div>";
 				}
+				echo "
+					</div>
+				</div>";
 			}
 		}else{
 			exit();

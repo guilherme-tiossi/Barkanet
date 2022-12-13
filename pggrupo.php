@@ -325,7 +325,7 @@ if(isset($_GET['id_grupo'])){
             $id = $row['id'];
             $id_grupo = $row['id_grupo'];
           endforeach;
-          echo "<a href='?pag={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}' class='mx-3 btn-solicitation-n'>Sair do Grupo</a>";
+          echo "<a href='?pag={$num_atual}&pagina=recusar-solicitacao-grupo&id_grupo={$id_grupo}&id={$id}' class='mx-3 btn-cinza'>Sair do Grupo</a>";
 
 
           $stmt2 = $pdo->prepare("SELECT * from membros_grupos where id_grupo = {$_GET['id_grupo']}");

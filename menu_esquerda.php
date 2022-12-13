@@ -112,7 +112,14 @@ $stmt ->execute();
          ?>
          <a class="listapags" href="perfil.php"><i class="fa-solid fa-user"></i>Perfil</a>
          <a class="listapags" href="posts.php"><i class="fa-solid fa-image"></i>Posts</a>
-         <a class="listapags" href="procurar.php"><i class="fa-solid fa-envelope"></i></i>Notificações <?php if($not > 0){ echo $not; }?></a>
+
+         <div class="dropdown">
+          <a class="listapags"><i class="fa-solid fa-envelope"></i>Notificações <?php if($not > 0){ echo $not; }?></a>
+          <div class="dropdown-content">
+            <a class="menu-item" href="?pag=1&pagina=solicitacoes">Solicitações de amizade<?php echo return_total_solicitation($con);?></a>
+            <a class="menu-item" href="?pag=1&pagina=solicitacoes-grupo">Solicitações de grupos<?php echo return_total_solicitation_grupo($con);?></a>
+          </div>
+        </div>
          <a class="listapags" href="configuracoes.php"><i class="fa-solid fa-gear"></i>Configurações</a>
          <a class="listapags" href="logout.php" onclick="reset()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
       </div>

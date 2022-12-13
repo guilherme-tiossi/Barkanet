@@ -1,1 +1,1 @@
-<?php get_perfil($con, $_GET['id']);?>
+<?php get_perfil_usuario($con, $_GET['id']);?>

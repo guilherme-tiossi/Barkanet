@@ -1,24 +1,37 @@
-<?php
-include("lib/includes.php");
-include("conexao.php");
-$iduser = $_SESSION['userId'];
-        $stmt = $pdo->prepare("select * from tbgrupos where adm_grupo = $iduser");
-        $stmt->execute();
-        foreach ($stmt as $row):
-            $idgrupo = $row["id_grupo"];
-            $nomegrupo = $row["nome_grupo"];
-        echo "<b>" . $nomegrupo . "</b> <hr>";
-		$stmt2 = $pdo->prepare("select * from membros_grupos where (id_adm = $iduser and id_grupo = $idgrupo)");
-        $stmt2 ->execute();
-        foreach ($stmt2 as $row):
-          $id_usuario = $row['id_usuario'];
-            $stmt3 = $pdo->prepare("select id, profilepic, nome from usuarios where id = '$id_usuario'");
-            $stmt3 ->execute();
-            foreach ($stmt3 as $row):
-				$idnovoadm = $row['id'];
-				echo "<a href='exec_teste.php?novoadm=$idnovoadm&idgrupo=$idgrupo' class='link'>" . $row["nome"] . "</a> <br>";
-            endforeach;
-        endforeach;
-        echo "<br>";
-    endforeach;
-?>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+</head>
+<body>
+<div class="dropdown">
+  <span>Notificações</span>
+  <div class="dropdown-content">
+  <div>Notificações</div>
+  <div>Notificações</div>
+  </div>
+</div>
+
+</body>
+</html>
+
+

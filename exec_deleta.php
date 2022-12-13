@@ -3,17 +3,14 @@ session_start();
 include('conexao.php');
 
 $iduser = $_SESSION['userId'];
-            $stmt = $pdo->prepare("select * from tbgrupos where adm_grupo = $iduser");
-            $stmt->execute();
-            foreach ($stmt as $row):
-                $idgrupo = $row["id_grupo"];
-                $nomegrupo = $row["nome_grupo"];
-				echo $_POST['40'];
-				$stmt = $pdo->prepare("UPDATE tbgrupos SET adm_grupo='" . $_POST[$idgrupo] . "' WHERE id_grupo='$idgrupo'");
-				$stmt ->execute();
-				$stmt = $pdo->prepare("UPDATE membros_grupos SET id_adm='" . $_POST[$idgrupo] . "' WHERE id_grupo='$idgrupo'");
-				$stmt ->execute();
-        endforeach;
+    foreach ($_POST as $key => $value) {
+        $stmt = $pdo->prepare("UPDATE tbgrupos SET adm_grupo='$value' WHERE id_grupo='$key'");
+        $stmt ->execute();
+        $stmt = $pdo->prepare("UPDATE membros_grupos SET id_adm='$value' WHERE id_grupo='$key'");
+        $stmt ->execute();
+        
+        echo "A administração do grupo " . $key . " passou de " . $iduser . " para" . $value;
+    }
 
 
 $email = $_POST['email'];

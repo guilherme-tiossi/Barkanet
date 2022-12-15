@@ -13,8 +13,8 @@ session_start(); ?>
       <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
       <script type="text/javascript" src="js/jquery.mask.min.js"></script>
       <script type="text/javascript" src="js/script.js"></script>
-      
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	  <script src="https://kit.fontawesome.com/0bba2bf162.js" crossorigin="anonymous"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
       <script type="text/javascript">
          $(document).ready(function() {
              $("#data").mask("00/00/0000")
@@ -130,6 +130,7 @@ include "conexao.php";
 		}
 		return "O código está incorreto";
 	}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -137,14 +138,25 @@ include "conexao.php";
 	<meta charset="utf-8">
 	<title>Esqueci minha senha</title>
 </head>
-<body>
+
+<body id="intro" class="h-100 w-100">
+			<div class="container h-100 w-100">
+	    	<div class="row h-100 w-100 align-items-center justify-content-md-center">
+			<div class="col"></div>
+			<div class="col-md-auto">
+		    <div class="card text-bg-light mb-3" style="width: 29rem;height: 22rem;">
+			<div id="cdheader" class="card-header d-inline-flex justify-content-between">
 		<?php 
 			switch ($mode) {
 				case 'enter_email':
 					?>
+			    <div> <h5>BARKANET</h5> </div>
+			    <div> <h5><i class="fa-solid fa-globe" style="color: #0049e6;"></i></h5> </div>
+			</div>
+			<div id="cdbody" class="card-body box-center">
 						<form method="post" action="forgot.php?mode=enter_email"> 
-							<h1>Esqueci minha senha</h1>
-							<h3>Digite o seu e-mail abaixo:</h3>
+						<div class="mt-2 text-center"> <h5>Esqueci minha senha</h5> </div>
+						<br>
 							<span>
 							<?php 
 								foreach ($error as $err) {
@@ -152,19 +164,26 @@ include "conexao.php";
 								}
 							?>
 							</span>
-							<input class="textbox" type="email" name="email" placeholder="Email"><br>
+							<div class="form-group">
+							<label>Digite seu e-mail abaixo:</label>
+							<input type="email" name="email" class="form-control" style="width: 19rem">
+							</div>
 							<br>
-							<input type="submit" value="Prosseguir">
-							<br><br>
-							<div><a href="login.php">Login</a></div>
+							<div class="mt-2 text-center">
+							<input class="btn btn-outline-secondary" style="--bs-btn-padding-y: 0.5rem; --bs-btn-padding-x: 2.4rem; --bs-btn-font-size: 1.4rem;" type="submit" value="Prosseguir">
+							</div>
+							<div class="mt-2 text-center"><a href="login.php">Login</a></div>
 						</form>
-					<?php				
+				<?php				
 					break;
 				case 'enter_code':
 					?>
+					    <div> <h5>BARKANET</h5> </div>
+			    <div> <h5><i class="fa-solid fa-globe" style="color: #0049e6;"></i></h5> </div>
+			</div>
+			<div id="cdbody" class="card-body box-center">	
 						<form method="post" action="forgot.php?mode=enter_code"> 
-							<h1>Esqueci minha senha</h1>
-							<h3>Insira o código enviado para o seu email</h3>
+						<div class="mt-2 text-center"> <h5>Esqueci minha senha</h5> </div>
 							<span>
 							<?php 
 								foreach ($error as $err) {
@@ -172,48 +191,70 @@ include "conexao.php";
 								}
 							?>
 							</span>
-							<input class="textbox" type="text" name="code" placeholder="Insira o código"><br>
-							<br>
-							<input type="submit" value="Prosseguir">
-							<a href="forgot.php">
-								<input type="button" value="Voltar">
-							</a>
-							<br><br>
-							<div><a href="login.php">Login</a></div>
+							<div class="form-group">
+							<label>Insira o código enviado para o seu email</label>
+							<input type="text" name="code" class="form-control" style="width: 19rem">
+							</div>
+							<div class="mt-2 text-center">
+							<input class="btn btn-outline-secondary" style="--bs-btn-padding-y: 0.5rem; --bs-btn-padding-x: 2.4rem; --bs-btn-font-size: 1.4rem;" type="submit" value="Prosseguir">
+							</div>							
+							<div class="mt-2 text-center">
+							<a href="forgot.php"> Voltar </a>
+							</div>							
+							<div class="mt-2 text-center">
+							<a href="login.php">Login</a>
+							</div>
 						</form>
 					<?php
 					break;
+					
 				case 'enter_password':
 					?>
+			    <div> <h5>BARKANET</h5> </div>
+			    <div> <h5><i class="fa-solid fa-globe" style="color: #0049e6;"></i></h5> </div>
+				</div>
+				<div id="cdbody" class="card-body box-center">
                         <form name="frmUser" method="post" action="" onsubmit="return editarSenha()">
-                        <a href="update.php">Voltar</a>
-                        <br>
-                        <label for="senha">Senha:</label>
-                        <br>
-                        <input type="password" name="senha" id="senha">
+						<div class="mt-2 text-center"> <h5>Esqueci minha senha</h5> </div>
+						<span>
+							<?php 
+								foreach ($error as $err) {
+									echo $err . "<br>";
+								}
+							?>
+						</span>
+						<div class="form-group">
+						<label for="senha">Nova senha:</label>
+                        <input class="form-control" type="password" name="senha" id="senha">
                         <span id="alert-senha" class="to-hide" role="alert">A senha deve ter no mínimo 8 caracteres</span>
-                        <br>
                         <label for="c_senha">Confirmar senha:</label>
                         <br>
-                        <input type="password" name="c_senha" id="c_senha">
+                        <input class="form-control" type="password" name="c_senha" id="c_senha">
                         <span id="alert-c_senha1" class="to-hide" role="alert">Repita a senha</span>
                         <span id="alert-c_senha2" class="to-hide" role="alert">As senhas não são iguais</span>
-                        <br>
                         <input type="checkbox" name="mostrar" onclick="senhaCadastro()">
                         <label for="mostrar">Mostrar senha</label>
-                        <br>
-                        <input type="submit" value="Prosseguir" class="button">
-						<input type="button" value="Voltar">
-						</a>
-						<br><br>
-						<div><a href="login.php">Login</a></div>
+						<div class="mt-2 text-center">
+							<input class="btn btn-outline-secondary" style="--bs-btn-padding-y: 0.5rem; --bs-btn-padding-x: 2.4rem; --bs-btn-font-size: 1.4rem;" type="submit" value="Prosseguir">
+							</div>		
+						<div class="mt-2 text-center">
+							<a href="forgot.php"> Voltar </a>
+							</div>							
+							<div class="mt-2 text-center">
+							<a href="login.php">Login</a>
+							</div>
 						</form>
+							</div>
 					<?php
 					break;
 				default:
 					break;
-			}
-
-		?>
+			}?>
+		</div>
+		</div>
+		</div>
+		<div class="col"></div>
+	    </div>
+		</div>
 </body>
 </html>

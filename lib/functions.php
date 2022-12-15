@@ -88,9 +88,20 @@
 	                	<form method='post' action='exec_update.php' onsubmit='return editarDados()' autocomplete='off' enctype='multipart/form-data'>
 	                    <div class='d-flex flex-row bd-highlight mb-0'>
 	                        <div class='p-2 bd-highlight'>
-								<label for='pfp' class='icon-camera'>
+	                        <div style='position: absolute; display: inline-grid;'>
+								<label for='pfp' class='icon-camera1'>
 									<i class='fa-solid fa-camera'><input type='file' name='pfp' id='pfp' class ='pfp-input' accept='.png, .jpeg, .jpg'></i>
-								</label>
+								</label>";
+
+								if($pfp != "avatar.jpg"){
+									echo "
+									<a href='exec_remover.php' class='icon-camera2'>
+										<i class='fa-regular fa-trash-can'></i>
+									</a>";
+								}
+							
+							echo "
+							</div>
 								<img id='blah' class='float-left img-pfp' src='img/".$pfp."' width='150' height='150' title='foto_perfil'>
 	                            <p class='mb-0' style='font-size: 18px';>
 	                                <b>Nome:</b>
@@ -493,9 +504,20 @@
 						<form method="POST" action="exec_update_grupo.php" onsubmit="return editarGrupo()" autocomplete="off" enctype="multipart/form-data">
 							<div class="d-flex flex-row bd-highlight mb-0">
 								<div class="p-2 bd-highlight">
-								<label for="pfpgrupo" class="icon-camera">
+								<div style="position: absolute; display: inline-grid;">
+								<label for="pfpgrupo" class="icon-camera1">
 									<i class="fa-solid fa-camera"> <input type="file" name="pfpgrupo" id="pfpgrupo" class ="pfp-input" accept=".png, .jpeg, .jpg"></i>
-								</label>
+								</label>';
+
+								if($foto_grupo != "grupo.png"){
+									echo "
+									<a href='exec_remover.php?id_grupo=".$id_grupo."' class='icon-camera2'>
+										<i class='fa-regular fa-trash-can'></i>
+									</a>";
+								}
+
+								echo '
+								</div>
 								<img id="blah" class="float-left img-pfp" src="img/'.$foto_grupo.'" width="150" height="150" title="'.$foto_grupo.'">
 								<p class="mb-0" style="font-size: 18px";>
 									<b>Nome:</b><br>

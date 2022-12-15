@@ -41,16 +41,34 @@
   color: #000;
 }
 
-.icon-camera{
-  font-size: 14;
+.icon-camera1{
   cursor: pointer;
   color: #000;
-  position: absolute;
   padding: 1px 5px;
   background-color: rgb(238, 239, 243);
   border-right: 2px solid #b9babe;
   border-bottom: 2px solid #b9babe;
   border-top: 2px solid #b9babe;
+  border-left: 2px solid #b9babe;
+}
+
+.icon-camera2{
+  cursor: pointer;
+  color: #000;
+  padding: 1px 5px;
+  background-color: rgb(238, 239, 243);
+  border-right: 2px solid #b9babe;
+  border-bottom: 2px solid #b9babe;
+  border-left: 2px solid #b9babe;
+}
+
+.icon-camera2:hover{
+  cursor: pointer;
+  color: #000;
+  padding: 1px 5px;
+  background-color: rgb(238, 239, 243);
+  border-right: 2px solid #b9babe;
+  border-bottom: 2px solid #b9babe;
   border-left: 2px solid #b9babe;
 }
 
@@ -283,13 +301,13 @@
 }
 
 .to-hide{
-	display: none;
+  display: none;
 }
 
 .comentario{
-	font-size: 16px;
-	width: 30vh;
-	height: 6vh;
+  font-size: 16px;
+  width: 30vh;
+  height: 6vh;
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
@@ -310,26 +328,26 @@
 }
 
 .textoupdate_nome{
-	font-size:15px;
-	width: 25vh;
-	height: 4vh;
+  font-size:15px;
+  width: 25vh;
+  height: 4vh;
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
 }
 
 .textoupdate_2{
-	font-size:15px;
-	width: 25vh;
-	height: 4vh;
+  font-size:15px;
+  width: 25vh;
+  height: 4vh;
   border: none;
   background-color: transparent;
   border-bottom: 2px solid #b9babe;
 }
 
 .textoupdate_3{
-	font-size:15px;
-	width: 45vh;
+  font-size:15px;
+  width: 45vh;
   border: none;
   height: 15.2vh;
   background-color: transparent;
@@ -339,18 +357,18 @@
 }
 
 .bio-ext{
-	font-size:15px;
-	width: 45vh;
+  font-size:15px;
+  width: 45vh;
   height: 19vh;
   overflow-y: scroll;
 }
 
 .pfp-input{
-	display: none;
+  display: none;
 }
 
 .label-pfpalterar{
-	opacity: 0.3;
+  opacity: 0.3;
 }
 
 input[type=text]{
@@ -828,13 +846,14 @@ input[type=text]{
 .dropdown-content {
   justify-content: center;
   background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 1rem 2rem;
+  width: 125%;
+  box-shadow: 0 0 5px #000;
+  padding: 0.5rem 10px;
   border-radius: 5px;
   margin-left: 1rem;
   transition: 0.3s;
   display: none;
+  position: absolute;
 }
 
 .dropdown:hover .dropdown-content {

@@ -114,7 +114,9 @@ $stmt ->execute();
          <a class="listapags" href="posts.php"><i class="fa-solid fa-image"></i>Posts</a>
 
          <div class="dropdown">
-          <a class="listapags"><i class="fa-solid fa-envelope"></i>Notificações <?php if($not > 0){ echo $not; }?></a>
+          <a class="listapags"><i class="fa-solid fa-envelope"></i>Notificações 
+            <?php if($not > 0){ echo "<span class='box-num'>".$not."</span>"; }?>
+          </a>
           <div class="dropdown-content">
             <a class="menu-item" href="?pag=1&pagina=solicitacoes">Solicitações de amizade<?php echo return_total_solicitation($con);?></a>
             <a class="menu-item" href="?pag=1&pagina=solicitacoes-grupo">Solicitações de grupos<?php echo return_total_solicitation_grupo($con);?></a>

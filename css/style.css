@@ -6,6 +6,15 @@
     color: #f00;
 }
 
+.box-num{
+  background-color: #91ac39;
+  color: #fff;
+  border-radius: 5px;
+  padding: 1px 7px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
 .alerta{
   color: #0049e6;
   font-weight: 500;
@@ -841,6 +850,7 @@ input[type=text]{
   position: relative;
   display: inline-block;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .dropdown-content {
@@ -854,6 +864,7 @@ input[type=text]{
   transition: 0.3s;
   display: none;
   position: absolute;
+  cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {

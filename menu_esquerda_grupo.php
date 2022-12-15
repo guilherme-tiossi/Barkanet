@@ -114,7 +114,15 @@ $id_grupo = $_GET['id_grupo'];
          ?>
          <a class="listapags" href="perfil.php"><i class="fa-solid fa-user"></i>Perfil</a>
          <a class="listapags" href="posts.php"><i class="fa-solid fa-image"></i>Posts</a>
-         <a class="listapags" href="procurar.php"><i class="fa-solid fa-envelope"></i></i>Notificações <?php if($not > 0){ echo $not; }?></a>
+         <div class="dropdown">
+          <a class="listapags"><i class="fa-solid fa-envelope"></i>Notificações 
+            <?php if($not > 0){ echo "<span class='box-num'>".$not."</span>"; }?>
+          </a>
+          <div class="dropdown-content">
+            <a class="menu-item" href="?pag=1&id_grupo=<?php echo $id_grupo;?>&pagina=solicitacoes">Solicitações de amizade<?php echo return_total_solicitation($con);?></a>
+            <a class="menu-item" href="?pag=1&id_grupo=<?php echo $id_grupo;?>&pagina=solicitacoes-grupo">Solicitações de grupos<?php echo return_total_solicitation_grupo($con);?></a>
+          </div>
+        </div>
          <a class="listapags" href="configuracoes.php"><i class="fa-solid fa-gear"></i>Configurações</a>
          <a class="listapags" href="logout.php" onclick="reset()"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
       </div>

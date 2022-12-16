@@ -16,6 +16,7 @@
 	    exit();
 	}
 
+	
 	$_SESSION['userLogin'] = $email;
 	$_SESSION['userId'] = $id;
 	$_SESSION['incorreto'] = false;

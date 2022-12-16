@@ -81,6 +81,17 @@
   border-left: 2px solid #b9babe;
 }
 
+.icon-camera3{
+  text-decoration: none;
+  color: #fff;
+  background-color: #a2bf40;;
+  font-size: 1.4rem;
+  margin: 0.5rem 0.5rem 0.5rem 0.75rem;
+  border-radius: 5px;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
 .img-pfp{
   border: 2px solid #b9babe;
 }
@@ -469,10 +480,9 @@ input[type=text]{
   width: 95%;
 }
 
-
 .mainpost {
   height: 8rem;
-  margin: 0 10px 10px 10px;
+  margin: 0 10px 0 10px;
   width: 95%;
   padding-left: 1rem;
   font-weight: normal;
@@ -484,6 +494,7 @@ input[type=text]{
   border: 1px solid #737373;
   padding: 0.5rem 0.7rem;
   margin: 0.5rem;
+  margin-left: 0;
   cursor: pointer;
   font-weight: 700;
   color: #101010;
@@ -493,6 +504,28 @@ input[type=text]{
 }
 
 .btnposts:active{
+  transition: 0.3s;
+  top: 3px;
+  background-color: #91ac39;
+  position: relative;
+  box-shadow: none;
+}
+
+.btnarquivo {
+  border-radius: 2px;
+  border: 1px solid #737373;
+  padding: 0.5rem 0.7rem;
+  margin: 0.5rem;
+  margin-right: 0;
+  cursor: pointer;
+  font-weight: 700;
+  color: #101010;
+  background-color: #d2ea7b;
+  box-shadow: 0 3px 0 #91ac39;
+  transition: 0.3s;
+}
+
+.btnarquivo:active {
   transition: 0.3s;
   top: 3px;
   background-color: #91ac39;

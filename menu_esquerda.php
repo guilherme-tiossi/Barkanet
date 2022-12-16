@@ -88,14 +88,14 @@ $stmt ->execute();
                      <textarea class="form-control-plaintext border border-secondary mainpost" type="text" name="txPost" id="txPost" placeholder="Digite alguma coisa..." maxlength='500'></textarea>
                   </div>
                </div>
-               <div class="form-group row">
-                  <!--Input imagem-->
-                  <div class="d-flex justify-content-end">
-                     <input class="form-control-file imgpost" type="file" name="file" id="file" accept=".jpg, .jpeg, .png, .gif, .mp4">
-                  </div>
-               </div>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-start">
+                 <!--Input imagem-->
+                  <label for='file' class='btnarquivo'>
+                    <i class="fa-solid fa-photo-film">
+                        <input class="pfp-input" type="file" name="file" id="file" accept=".jpg, .jpeg, .png, .gif, .mp4">
+                    </i>
+                  </label>
               <!--Botão de posts-->
               <input type="hidden" name="idgrupo" value="0">
               <button class="text-uppercase btnposts" type="submit" name="submit">Postar</button>

@@ -39,12 +39,6 @@
     <div class="modal fade-modal-lg" id="ModalLongoExemplo" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                <div class="modal-content">
-                  <div class="modal-header">
-                     <h2 class="modal-title" id="TituloModalLongoExemplo"> Termos de Uso e Condições </h2>
-                     <button type="button" class="btn-solicitation-n" data-dismiss="modal" aria-label="Fechar">
-                     <span aria-hidden="true">X</span>
-                     </button>
-                  </div>
                   <div class="modal-body">
                      <h3> Bem-vindo ao Barkanet. </h3>
                      <p> A seguir estão os termos e condições que regulam o uso deste site. </p>
@@ -82,7 +76,7 @@
                      <p> 6.1Os termos descritos neste documento são somente para conveniência da rede social enquanto existência, e não terão quaisquer efeitos legais e/ou de contrato. </p>
                   </div>
                   <div class="modal-footer">
-                     <button type="button" class="btn-solicitation-p" data-dismiss="modal">Fechar</button>
+                     <button type="button" class="btn-verde" data-dismiss="modal">Fechar</button>
                   </div>
                </div>
             </div>

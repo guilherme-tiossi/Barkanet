@@ -18,6 +18,7 @@
 
 	$_SESSION['userLogin'] = $email;
 	$_SESSION['userId'] = $id;
+	$_SESSION['incorreto'] = false;
 	include_once("dbconnect.php");
 	include_once("functions.php");
 ?>

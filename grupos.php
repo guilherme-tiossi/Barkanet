@@ -26,7 +26,7 @@
   <!--Centro-->
   <div class="col-6">
   	<div class="card-fundo-ext">
-	<section>
+	<div class="box-center">
 		<div class="card m-3" style="width: 25rem;">
 			<div class="card-body">
 				<h3>Criar grupo</h3>
@@ -50,12 +50,12 @@
 						<span id="alert-tipo" class="to-hide">Selecione um tipo de grupo...</span>
 					</div>
 					<div class="form-group mt-3">
-						<input type="submit" name="submit" value="Criar">
+						<input type="submit" name="submit" class="btn-verde" value="Criar">
 					</div>
 				</form>
 			</div>
 		</div>
-	</section>
+	</div>
 	</div>
   </div>
 

@@ -303,12 +303,12 @@ var senha = document.getElementById("senha").value;
 var c_senha = document.getElementById("c_senha").value;
 
 if (senha == "") {
-    document.getElementById('alert-senha').className = "text-danger";
+    document.getElementById('alert-senha').className = "alerta";
     validar = false;
 }
 
 if (senha.length < 8) {
-    document.getElementById('alert-senha').className = "text-danger";
+    document.getElementById('alert-senha').className = "alerta";
     validar = false;
 }
 
@@ -318,12 +318,12 @@ if (senha != "" & senha.length >= 8) {
 
 if (senha != c_senha) {
     document.getElementById('alert-c_senha1').className = "to-hide";
-    document.getElementById('alert-c_senha2').className = "text-danger";
+    document.getElementById('alert-c_senha2').className = "alerta";
     validar = false;
 }
 
 if (c_senha == "") {
-    document.getElementById('alert-c_senha1').className = "text-danger";
+    document.getElementById('alert-c_senha1').className = "alerta";
     document.getElementById('alert-c_senha2').className = "to-hide";
     validar = false;
 }
@@ -578,12 +578,12 @@ var descGrupo = document.getElementById("txDescricaoGrupo").value;
 var tipo = document.getElementById("optTipoGrupo").value;
 
 if (nomeGrupo == "") {
-    document.getElementById('alert-nome1').className = "text-danger";
+    document.getElementById('alert-nome1').className = "alerta";
     validar = false;
 }
 
 if (nomeGrupo.length > 50) {
-    document.getElementById('alert-nome2').className = "text-danger";
+    document.getElementById('alert-nome2').className = "alerta";
     validar = false;
 }
 
@@ -596,7 +596,7 @@ if (nomeGrupo.length <= 50) {
 }
 
 if (descGrupo == "") {
-    document.getElementById('alert-desc1').className = "text-danger";
+    document.getElementById('alert-desc1').className = "alerta";
     validar = false;
 }
 
@@ -605,7 +605,7 @@ if (descGrupo != "") {
 }
 
 if (descGrupo.length > 500) {
-    document.getElementById('alert-desc2').className = "text-danger";
+    document.getElementById('alert-desc2').className = "alerta";
     validar = false;
 }
 
@@ -614,7 +614,7 @@ if (descGrupo.length <= 500) {
 }
 
 if(tipo == ""){
-    document.getElementById('alert-tipo').className = "text-danger";
+    document.getElementById('alert-tipo').className = "alerta";
     validar = false;
 }
 

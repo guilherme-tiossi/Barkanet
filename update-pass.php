@@ -32,24 +32,37 @@
   <div class="col-6">
         <div class="card-fundo-ext">
                 <div class="box-center">
-                        <div class="card m-3" style="width: 25rem;">
+                        <div class="card m-3" style="width: 25rem;" id="box-autenticacao">
                                 <div class="card-body">
                                         <h3>Alterar senha</h3>
-                                        <form name="frmUser" method="post" action="exec_senha.php" onsubmit="return editarSenha()">
+                                        <form name="frmUser" method="post" action="#" onsubmit="return autenticacaoSenha()">
+                                        <?php 
+                                                $iduser = $_SESSION['userId'];
+                                                $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE id = $iduser");
+                                                $stmt->execute();
+                                                
+                                                foreach ($stmt as $row):
+                                                  $senha = $row['senha'];
+                                                endforeach;
+
+                                                if(isset($_POST['senha_autenticacao'])){
+                                                    if($senha == $_POST['senha_autenticacao']){
+                                                      echo " <script> document.location.href = 'update-pass-confirm.php' </script>";
+                                                    }else{
+                                                        $_SESSION['incorreto'] = true;
+                                                    }
+                                                }
+                                        ?>
                                                 <div class="form-group mt-3">
-                                                        <input type="password" class="form-control" placeholder="Senha:" name="senha" id="senha">
-                                                        <span id="alert-senha" class="to-hide">A senha deve ter no mínimo 8 caracteres</span>
+                                                        <?php
+                                                        if($_SESSION['incorreto'] == true){
+                                                            echo '<span id="alerta-senha_autenticacao" class="alerta">Senha incorreta</span>';
+                                                        }?>
+                                                        <input type="password" class="form-control" placeholder="Senha:" name="senha_autenticacao" id="senha_autenticacao">
                                                 </div>
                                                 <div class="form-group mt-3">
-                                                        <input type="password" class="form-control" placeholder="Confirmar senha:" name="c_senha" id="c_senha">
-                                                        <span id="alert-c_senha1" class="to-hide">Repita a senha<br></span>
-                                                        <span id="alert-c_senha2" class="to-hide">As senhas não são iguais<br></span>
-                                                        <input type="checkbox" name="mostrar" onclick="senhaCadastro()">
-                                                        <label for="mostrar">Mostrar senha</label>
-                                                </div>
-                                                <div class="form-group mt-3">
-                                                        <a href="configuracoes.php" class="btn-solicitation-n">Voltar</a>
-                                                        <input type="submit" name="submit" value="Salvar" class="btn-solicitation-p">
+                                                        <a href="configuracoes.php" class="btn-cinza">Voltar</a>
+                                                        <input type="submit" name="submit" value="Salvar" class="btn-verde">
                                                 </div>
                                         </form>
                                 </div>

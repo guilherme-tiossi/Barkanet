@@ -19,7 +19,6 @@ $id_grupo = $_GET['id_grupo'];
       <a class ="btn botaopesquisa" type="button" id="btnpesquisa"> <i class="fa-solid fa-magnifying-glass fa-lg"></i></a>   
    </form>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function(){
         $("#live_search").keyup(function(){

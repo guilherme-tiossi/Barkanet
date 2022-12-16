@@ -13,7 +13,7 @@ endforeach;
   <div class="card-time m-2 p-2 mx-auto">
     <h3>TEMPO: <b id="cronometro"></b></h3>
   </div>
-  
+
   <div>
     <div class="btn-group" role="group">
       <a id="btncriargrupo" class="btn btn-secondary text-uppercase" onclick="grupos()">Todos</a>

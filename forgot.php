@@ -1,6 +1,3 @@
-<?php 
-session_start(); ?>
-
 <!DOCTYPE html>
 <html lang="utf-8">
    <head>
@@ -140,7 +137,7 @@ include "conexao.php";
 </head>
 
 <body id="intro" class="h-100 w-100">
-			<div class="container h-100 w-100">
+			<div style= "margin-top:23vh;" class="container h-100 w-100">
 	    	<div class="row h-100 w-100 align-items-center justify-content-md-center">
 			<div class="col"></div>
 			<div class="col-md-auto">
